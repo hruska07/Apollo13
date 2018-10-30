@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.Web.Security;
 
 public partial class login : System.Web.UI.Page
 {
@@ -16,21 +17,22 @@ public partial class login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Knihovna\Projekty_rsp\Apollo13\project\RSP_project\RSP_project\App_Data\Apollo13.mdf;Integrated Security=True";
+        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=\\fs1\home\student\hruska07\Documents\5.semestr\RSP\Apollo13\project\RSP_project\RSP_project\App_Data\Apollo13.mdf;Integrated Security=True";
         conn.Open();
     }
 
     protected void Button_login_Click(object sender, EventArgs e)
     {
         String login = TextBox_login.Text;
-        String pass = TextBox_password.Text;
+        //String pass = TextBox_password.Text;
+        String hashresult = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA1");
 
-        cmd.CommandText = "SELECT * FROM Users WHERE login = '" + login + "' AND password = '" + pass + "'";
+        cmd.CommandText = "SELECT * FROM Users WHERE login = '" + login + "' AND password = '" + hashresult + "'";
         cmd.Connection = conn;
         sda.SelectCommand = cmd;
         sda.Fill(ds, "Users");
         if (ds.Tables[0].Rows.Count > 0) {
-            if (pass == ds.Tables[0].Rows[0]["password"].ToString()) {
+            if (hashresult == ds.Tables[0].Rows[0]["password"].ToString()) {
                 Session["role"] = ds.Tables[0].Rows[0]["typ_user"].ToString();
                 Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["role"];
             }

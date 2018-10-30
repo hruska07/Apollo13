@@ -9,6 +9,12 @@
      <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <!--<link rel="stylesheet" href="styles.css" type="text/css"/>-->
+    <style type="text/css">
+        .auto-style1 {
+            width: 50%;
+            height: 29px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -23,8 +29,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 50%; text-align: right; padding-right: 10px;">Heslo</td>
-                        <td style="width: 50%; text-align: left; padding-left: 10px;">
+                        <td style="text-align: right; padding-right: 10px;" class="auto-style1">Heslo</td>
+                        <td style="text-align: left; padding-left: 10px;" class="auto-style1">
                             <asp:TextBox ID="TextBox_password" runat="server" TextMode="Password"></asp:TextBox>
                         </td>
                     </tr>
