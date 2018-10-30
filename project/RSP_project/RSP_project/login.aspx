@@ -25,7 +25,7 @@
                     <tr>
                         <td style="width: 50%; text-align: right; padding-right: 10px;">Heslo</td>
                         <td style="width: 50%; text-align: left; padding-left: 10px;">
-                            <asp:TextBox ID="TextBox_password" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TextBox_password" runat="server" TextMode="Password"></asp:TextBox>
                         </td>
                     </tr>
                     <tr class="text-center">

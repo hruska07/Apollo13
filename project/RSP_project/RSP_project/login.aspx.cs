@@ -16,7 +16,7 @@ public partial class login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Jáša\Git\projekty\Apollo13\project\RSP_project\RSP_project\App_Data\Apollo13.mdf;Integrated Security=True";
+        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Knihovna\Projekty_rsp\Apollo13\project\RSP_project\RSP_project\App_Data\Apollo13.mdf;Integrated Security=True";
         conn.Open();
     }
 
