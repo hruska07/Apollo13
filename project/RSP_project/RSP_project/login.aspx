@@ -8,7 +8,7 @@
     <title>Přihlášení</title>
      <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
-    <!--<link rel="stylesheet" href="styles.css" type="text/css"/>-->
+    <link rel="stylesheet" href="styles.css" type="text/css"/>
     <style type="text/css">
         .auto-style1 {
             width: 50%;
@@ -23,7 +23,7 @@
             <h2 class="text-center"><asp:Label ID="Label_nadpis" runat="server" Text="Přihlášení"></asp:Label></h2>
                 <table style="width:100%;">
                     <tr>
-                        <td style="width: 50%; text-align: right; padding-right: 10px;">Login</td>
+                        <td class="login-cell-left">Login</td>
                         <td style="width: 50%; text-align: left; padding-left: 10px;">
                             <asp:TextBox ID="TextBox_login" runat="server"></asp:TextBox>
                         </td>
