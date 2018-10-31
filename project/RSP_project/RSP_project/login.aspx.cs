@@ -23,16 +23,17 @@ public partial class login : System.Web.UI.Page
 
     protected void Button_login_Click(object sender, EventArgs e)
     {
-        String login = TextBox_login.Text;
-        //String pass = TextBox_password.Text;
-        String hashresult = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA1");
+        string login = TextBox_login.Text;
+#pragma warning disable CS0618 // Typ nebo člen je zastaralý.
+        string password = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA256");
+#pragma warning restore CS0618 // Typ nebo člen je zastaralý.
 
-        cmd.CommandText = "SELECT * FROM Users WHERE login = '" + login + "' AND password = '" + hashresult + "'";
+        cmd.CommandText = "SELECT * FROM Users WHERE login = '" + login + "' AND password = '" + password + "'";
         cmd.Connection = conn;
         sda.SelectCommand = cmd;
         sda.Fill(ds, "Users");
         if (ds.Tables[0].Rows.Count > 0) {
-            if (hashresult == ds.Tables[0].Rows[0]["password"].ToString()) {
+            if (password == ds.Tables[0].Rows[0]["password"].ToString()) {
                 Session["role"] = ds.Tables[0].Rows[0]["typ_user"].ToString();
                 Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["role"];
             }

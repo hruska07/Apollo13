@@ -23,9 +23,9 @@ public partial class registrace : System.Web.UI.Page
         string prijmeni= TextBox_prijmeni.Text;
         string email= TextBox_email.Text;
 #pragma warning disable CS0618 // Typ nebo člen je zastaralý.
-        string pass1 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password1.Text, "SHA1");
-        string pass2 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password2.Text, "SHA1");
-#pragma warning restore CS0618 // Typ nebo člen je zastaralý.
+        string pass1 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password1.Text, "SHA256");
+        string pass2 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password2.Text, "SHA256");
+#pragma warning restore CS0618 // Typ nebo člen je zastaralý
 
         //vytvoreni connectu
         SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True");
