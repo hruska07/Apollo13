@@ -1,6 +1,11 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="registrace.aspx.cs" Inherits="registrace" %>
 
 <!DOCTYPE html>
+<script runat="server">
+
+
+</script>
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -28,14 +33,32 @@
                             <asp:TextBox ID="TextBox_login" runat="server"></asp:TextBox>
                         </td>
                     </tr>
+                                        <tr>
+                        <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte email</td>
+                        <td style="width: 50%; text-align: left; padding-left: 10px;">
+                            <asp:TextBox ID="TextBox_email" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte jméno</td>
+                        <td style="width: 50%; text-align: left; padding-left: 10px;">
+                            <asp:TextBox ID="TextBox_jmeno" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte příjmení</td>
+                        <td style="width: 50%; text-align: left; padding-left: 10px;">
+                            <asp:TextBox ID="TextBox_prijmeni" runat="server"></asp:TextBox>
+                        </td>
+                    </tr>
                     <tr>
-                        <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zadejte Heslo</td>
+                        <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zadejte heslo</td>
                         <td style="text-align: left; padding-left: 10px;" class="auto-style1">
                             <asp:TextBox ID="TextBox_password1" runat="server" TextMode="Password"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zadejte Heslo znovu</td>
+                        <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zadejte heslo znovu</td>
                         <td style="text-align: left; padding-left: 10px;" class="auto-style1">
                             <asp:TextBox ID="TextBox_password2" runat="server" TextMode="Password"></asp:TextBox>
                         </td>

@@ -8,40 +8,48 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Web.Security;
 
-public partial class login : System.Web.UI.Page
+public partial class registrace : System.Web.UI.Page
 {
-    SqlCommand cmd = new SqlCommand();
-    SqlConnection conn = new SqlConnection();
-    SqlDataAdapter sda = new SqlDataAdapter();
-    DataSet ds = new DataSet();
-
-    protected void Page_Load(object sender, EventArgs e)
+     protected void Page_Load(object sender, EventArgs e)
     {
-        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=\\fs1\home\student\hruska07\Documents\5.semestr\RSP\Apollo13\project\RSP_project\RSP_project\App_Data\Apollo13.mdf;Integrated Security=True";
-        conn.Open();
+
     }
 
     protected void Button_login_Click(object sender, EventArgs e)
-    {
-        String login = TextBox_login.Text;
-        //String pass = TextBox_password.Text;
-        String hashresult = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA1");
+    {           
+        //nacteni dat do promennych
+        string login = TextBox_login.Text;
+        string jmeno= TextBox_jmeno.Text;
+        string prijmeni= TextBox_prijmeni.Text;
+        string email= TextBox_email.Text;
+#pragma warning disable CS0618 // Typ nebo člen je zastaralý.
+        string pass1 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password1.Text, "SHA1");
+        string pass2 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password2.Text, "SHA1");
+#pragma warning restore CS0618 // Typ nebo člen je zastaralý.
 
-        cmd.CommandText = "SELECT * FROM Users WHERE login = '" + login + "' AND password = '" + hashresult + "'";
-        cmd.Connection = conn;
-        sda.SelectCommand = cmd;
-        sda.Fill(ds, "Users");
-        if (ds.Tables[0].Rows.Count > 0) {
-            if (hashresult == ds.Tables[0].Rows[0]["password"].ToString()) {
-                Session["role"] = ds.Tables[0].Rows[0]["typ_user"].ToString();
-                Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["role"];
-            }
-            else {
-                Label_output.Text = "Špatné heslo!";
-            }
+        //vytvoreni connectu
+        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True");
+        SqlCommand insert = new SqlCommand("insert into users(jmeno, prijmeni,login, password,email) values(@jmeno, @prijmeni,@login, @password,@email)", conn);
+        insert.Parameters.AddWithValue("@jmeno", jmeno);
+        insert.Parameters.AddWithValue("@prijmeni", prijmeni);
+        insert.Parameters.AddWithValue("@login", login);
+        insert.Parameters.AddWithValue("@password", pass1);
+        insert.Parameters.AddWithValue("@email", email);
+        try
+        {
+            conn.Open();
+            insert.ExecuteNonQuery();
+            Label_output.Text = "Record Inserted Succesfully into the Database";
+            Label_output.ForeColor = System.Drawing.Color.CornflowerBlue;
         }
-        else {
-            Label_output.Text = "Uživatel nenalezen!";
+        catch (Exception ex)
+        {
+            Label_output.Text = "Error: " + ex.Message;
         }
+        finally
+        {
+            conn.Close();
+        }
+
     }
 }
