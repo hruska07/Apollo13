@@ -24,13 +24,13 @@
                 <table style="width:100%;">
                     <tr>
                         <td class="login-cell-left">Login</td>
-                        <td style="width: 50%; text-align: left; padding-left: 10px;">
+                        <td class="login-cell-right">
                             <asp:TextBox ID="TextBox_login" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; padding-right: 10px;" class="auto-style1">Heslo</td>
-                        <td style="text-align: left; padding-left: 10px;" class="auto-style1">
+                        <td class="login-cell-left">Heslo</td>
+                        <td class="login-cell-right">
                             <asp:TextBox ID="TextBox_password" runat="server" TextMode="Password"></asp:TextBox>
                         </td>
                     </tr>

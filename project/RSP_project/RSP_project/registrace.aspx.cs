@@ -29,7 +29,7 @@ public partial class registrace : System.Web.UI.Page
 
         //vytvoreni connectu
         SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True");
-        SqlCommand insert = new SqlCommand("insert into users(jmeno, prijmeni,login, password,email) values(@jmeno, @prijmeni,@login, @password,@email)", conn);
+        SqlCommand insert = new SqlCommand("insert into User (jmeno, prijmeni,login, password,email) values(@jmeno, @prijmeni,@login, @password,@email)", conn);
         insert.Parameters.AddWithValue("@jmeno", jmeno);
         insert.Parameters.AddWithValue("@prijmeni", prijmeni);
         insert.Parameters.AddWithValue("@login", login);

@@ -28,10 +28,10 @@ public partial class login : System.Web.UI.Page
         string password = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA256");
 #pragma warning restore CS0618 // Typ nebo člen je zastaralý.
 
-        cmd.CommandText = "SELECT * FROM Users WHERE login = '" + login + "' AND password = '" + password + "'";
+        cmd.CommandText = "SELECT * FROM user WHERE login = '" + login + "' AND password = '" + password + "'";
         cmd.Connection = conn;
         sda.SelectCommand = cmd;
-        sda.Fill(ds, "Users");
+        sda.Fill(ds, "user");
         if (ds.Tables[0].Rows.Count > 0) {
             if (password == ds.Tables[0].Rows[0]["password"].ToString()) {
                 Session["role"] = ds.Tables[0].Rows[0]["typ_user"].ToString();
