@@ -34,7 +34,6 @@ public partial class registrace : System.Web.UI.Page
                 role = "4";
             if (rbl_role.SelectedIndex == 1)
                 role = "5";
-
             //vytvoreni pripojeni do db
             SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True");
             conn.Open();

@@ -3,10 +3,7 @@
 <!DOCTYPE html>
 <script runat="server">
 
-
 </script>
-
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -86,9 +83,9 @@
                             <asp:Button CssClass="btn btn-success" ID="Button_register" runat="server" Text="Vytvořit" OnClick="Button_register_Click" />
                             <br />
                             <br />
-                            <asp:Label ID="Label_output" runat="server" Text="Label"></asp:Label>
+                            <asp:Label ID="Label_output" runat="server"></asp:Label>
                             <br />
-                            <asp:Label ID="Label_output2" runat="server" Text="Label"></asp:Label>
+                            <asp:Label ID="Label_output2" runat="server"></asp:Label>
                         </td>
                     </tr>
                 </table>
