@@ -31,45 +31,64 @@
                         <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte Login</td>
                         <td style="width: 50%; text-align: left; padding-left: 10px;">
                             <asp:TextBox ID="TextBox_login" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="validator_login" runat="server" ErrorMessage="Login musí být zadané" ControlToValidate="TextBox_login" Display="Dynamic"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                                         <tr>
                         <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte email</td>
                         <td style="width: 50%; text-align: left; padding-left: 10px;">
                             <asp:TextBox ID="TextBox_email" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="validator_email" runat="server" ErrorMessage="Email musí být zadané" ControlToValidate="TextBox_email" Display="Dynamic"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                                         <tr>
                         <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte jméno</td>
                         <td style="width: 50%; text-align: left; padding-left: 10px;">
                             <asp:TextBox ID="TextBox_jmeno" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="validator_jmeno" runat="server" ErrorMessage="Jméno musí být zadané" ControlToValidate="TextBox_jmeno" Display="Dynamic"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                                         <tr>
                         <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte příjmení</td>
                         <td style="width: 50%; text-align: left; padding-left: 10px;">
                             <asp:TextBox ID="TextBox_prijmeni" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="validator_prijmeni" runat="server" ErrorMessage="Příjmení musí být zadané" ControlToValidate="TextBox_prijmeni" Display="Dynamic"></asp:RequiredFieldValidator>
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zadejte heslo</td>
                         <td style="text-align: left; padding-left: 10px;" class="auto-style1">
                             <asp:TextBox ID="TextBox_password1" runat="server" TextMode="Password"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="validator_heslo" runat="server" ErrorMessage="Musíte zadat heslo" ControlToValidate="TextBox_password1" Display="Dynamic"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator_stejnaPW" runat="server" ControlToCompare="TextBox_password2" ControlToValidate="TextBox_password1" Display="Dynamic" ErrorMessage="Zadaná hesla nejsou stejná"></asp:CompareValidator>
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zadejte heslo znovu</td>
                         <td style="text-align: left; padding-left: 10px;" class="auto-style1">
                             <asp:TextBox ID="TextBox_password2" runat="server" TextMode="Password"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="validator_heslo0" runat="server" ErrorMessage="Musíte zadat heslo" ControlToValidate="TextBox_password2" Display="Dynamic"></asp:RequiredFieldValidator>
+                        &nbsp;</td>
+                    </tr>
+                      <tr>
+                        <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zvolte roli</td>
+                        <td style="text-align: left; padding-left: 10px;" class="auto-style1">
+                            <asp:RadioButtonList ID="rbl_role" runat="server" CellPadding="0" CellSpacing="1">
+                                <asp:ListItem>Autor</asp:ListItem>
+                                <asp:ListItem>Čtenář</asp:ListItem>
+                                <asp:ListItem>Ostatní</asp:ListItem>
+                            </asp:RadioButtonList>
                         </td>
                     </tr>
                     <tr class="text-center">
                         <td colspan="2">
                             <br />
-                            <asp:Button CssClass="btn btn-success" ID="Button_login" runat="server" Text="Vytvořit" OnClick="Button_login_Click" />
+                            <asp:Button CssClass="btn btn-success" ID="Button_register" runat="server" Text="Vytvořit" OnClick="Button_register_Click" />
                             <br />
                             <br />
                             <asp:Label ID="Label_output" runat="server" Text="Label"></asp:Label>
+                            <br />
+                            <asp:Label ID="Label_output2" runat="server" Text="Label"></asp:Label>
                         </td>
                     </tr>
                 </table>
