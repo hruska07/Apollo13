@@ -12,7 +12,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-         // if ((Session["role"]==null) &&(Session["role"].ToString()!="3"))
+        // if ((Session["role"]==null) &&(Session["role"].ToString()!="3"))
           //    Response.Redirect("login.aspx");
       
     }
@@ -40,7 +40,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             conn.Open();
             insert.ExecuteNonQuery();
             update.ExecuteNonQuery();
-          Label1_vybrany_clanek.Text = "Record Inserted Succesfully into the Database";
+            Label1_vybrany_clanek.Text = "Record Inserted Succesfully into the Database";
             Label1_vybrany_clanek.ForeColor = System.Drawing.Color.CornflowerBlue;
         }
         catch (Exception ex)
@@ -49,9 +49,10 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         }
         finally
         {
-            conn.Close();
+           conn.Close();
         }
-        Response.Redirect("redatktor_prideleni_oponenta.aspx");
+       Response.Redirect("redaktor_prideleni_oponenta.aspx");
+      
 
     }
 }
