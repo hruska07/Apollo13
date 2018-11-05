@@ -22,7 +22,7 @@
     <form id="form1" runat="server">
         <div>
             <br />
-            <h2 class="text-center"><asp:Label ID="Label_nadpis" runat="server" Text="Registrace"></asp:Label></h2>
+            <h2 class="text-center" ><asp:Label ID="Label_nadpis" runat="server" Text="Registrace"></asp:Label></h2>
                 <table style="width:100%;">
                     <tr>
                         <td style="width: 50%; text-align: right; padding-right: 10px;">Zadejte Login</td>
@@ -80,7 +80,7 @@
                     <tr class="text-center">
                         <td colspan="2">
                             <br />
-                            <asp:Button CssClass="btn btn-success" ID="Button_register" runat="server" Text="Vytvořit" OnClick="Button_register_Click" />
+                            <asp:Button CssClass="btn btn-success" ID="Button_register" runat="server" Text="Vytvořit" OnClick="Button_register_Click" BackColor="#E8212E" />
                             <br />
                             <br />
                             <asp:Label ID="Label_output" runat="server"></asp:Label>
