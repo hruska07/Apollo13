@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-using System.Data;
 using System.Web.Security;
 
 public partial class registrace : System.Web.UI.Page
@@ -25,10 +19,10 @@ public partial class registrace : System.Web.UI.Page
             string jmeno = TextBox_jmeno.Text;
             string prijmeni = TextBox_prijmeni.Text;
             string email = TextBox_email.Text;
-#pragma warning disable CS0618 // Typ nebo člen je zastaralý.
+            #pragma warning disable CS0618 // Typ nebo člen je zastaralý.
             string pass1 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password1.Text, "SHA256");
             string pass2 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password2.Text, "SHA256");
-#pragma warning restore CS0618 // Typ nebo člen je zastaralý
+            #pragma warning restore CS0618 // Ukonceni
             string role = "7";
             if (rbl_role.SelectedIndex == 0)
                 role = "4";
@@ -42,6 +36,7 @@ public partial class registrace : System.Web.UI.Page
             SqlCommand check_Email = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([email] = @email)", conn);
             check_Login.Parameters.AddWithValue("@login", login);
             check_Email.Parameters.AddWithValue("@email", email);
+            //zaznamenani jestli probehl select
             int LoginExist = (int)check_Login.ExecuteScalar();
             int EmailExist = (int)check_Email.ExecuteScalar();
             if (LoginExist > 0 || EmailExist > 0)
@@ -54,7 +49,7 @@ public partial class registrace : System.Web.UI.Page
             }
             else
             {
-                //vytvoreni connectu
+                //vlozeni dat do insertu
                 SqlCommand insert = new SqlCommand("insert into [User] (jmeno, prijmeni,login, password,role,email) values(@jmeno, @prijmeni,@login, @password,@role,@email)", conn);
                 insert.Parameters.AddWithValue("@jmeno", jmeno);
                 insert.Parameters.AddWithValue("@prijmeni", prijmeni);
@@ -62,17 +57,18 @@ public partial class registrace : System.Web.UI.Page
                 insert.Parameters.AddWithValue("@password", pass1);
                 insert.Parameters.AddWithValue("@role", role);
                 insert.Parameters.AddWithValue("@email", email);
-                try
+                try//zkouseni vlozeni do db
                 {
                     insert.ExecuteNonQuery();
                     Label_output.Text = "Účet úspěšně vytvořen s rolí: " + rbl_role.SelectedItem.Value;
                     Label_output.ForeColor = System.Drawing.Color.CornflowerBlue;
                 }
-                catch (Exception ex)
+                catch (Exception ex)//kdyz neprobehne vyhodi se error
                 {
                     Label_output.Text = "Error: " + ex.Message;
                 }
             }
+            //uzavreni connection
             conn.Close();
         }
     }
