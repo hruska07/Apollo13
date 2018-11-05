@@ -9,12 +9,6 @@
      <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
     <link rel="stylesheet" href="styles.css" type="text/css"/>
-    <style type="text/css">
-        .auto-style1 {
-            width: 50%;
-            height: 29px;
-        }
-    </style>
 </head>
 <body>
     <form id="form1" runat="server">

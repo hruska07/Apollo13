@@ -14,11 +14,11 @@ public partial class login : System.Web.UI.Page
     SqlConnection conn = new SqlConnection();
     SqlDataAdapter sda = new SqlDataAdapter();
     DataSet ds = new DataSet();
+    Database DB = new Database();
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True";
-        conn.Open();
+        conn = DB.getConnection();
     }
 
     protected void Button_login_Click(object sender, EventArgs e)
@@ -28,14 +28,22 @@ public partial class login : System.Web.UI.Page
         string password = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA256");
 #pragma warning restore CS0618 // Typ nebo člen je zastaralý.
 
-        cmd.CommandText = "SELECT * FROM [User] WHERE login = '" + login + "' AND password = '" + password + "'";
+        cmd.CommandText = "SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE login = @login AND password = @password";
+        cmd.Parameters.AddWithValue("@login", login);
+        cmd.Parameters.AddWithValue("@password", password);
         cmd.Connection = conn;
         sda.SelectCommand = cmd;
         sda.Fill(ds, "user");
         if (ds.Tables[0].Rows.Count > 0) {
             if (password == ds.Tables[0].Rows[0]["password"].ToString()) {
-                Session["role"] = ds.Tables[0].Rows[0]["role"].ToString();
-                Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["role"];
+
+                //-- UKLADANI DO SESSION
+                Session["id_user"] = ds.Tables[0].Rows[0]["id_user"].ToString();
+                Session["nazev_role"] = ds.Tables[0].Rows[0]["nazev"].ToString();
+                Session["id_role"] = ds.Tables[0].Rows[0]["role"].ToString();
+                //-- UKLADANI DO SESSION
+
+                Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["nazev_role"];
             }
             else {
                 Label_output.Text = "Špatné heslo!";

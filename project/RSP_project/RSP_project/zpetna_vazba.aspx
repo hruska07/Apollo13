@@ -16,7 +16,7 @@
     <form id="form1" runat="server">
         <div class="auto-style1">
             <div class="auto-style1">
-                Vaše všechny odeslané aktuální články: [pro uživatele id:1 (pro test)]<br />
+                Vaše všechny odeslané aktuální články: [pro uživatele id:3 (pro test)]<br />
                 <br />
                 <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="id_clanek" DataSourceID="zdroj3_zpetna_vazba" ForeColor="#333333" GridLines="None" HorizontalAlign="Center">
                     <AlternatingRowStyle BackColor="White" />
@@ -39,7 +39,7 @@
                     <SortedDescendingCellStyle BackColor="#E9EBEF" />
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
-                <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM Clanek WHERE autor=1"></asp:SqlDataSource>
+                <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM Clanek WHERE autor=3"></asp:SqlDataSource>
                 <br />
                 <br />
                 Články ke kterým je dostupný <strong>posudek</strong>:<br />
@@ -66,7 +66,7 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
-            <asp:SqlDataSource ID="zdroj1_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM Posudek JOIN Clanek ON clanek=id_clanek WHERE autor=1"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="zdroj1_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM Posudek JOIN Clanek ON clanek=id_clanek WHERE autor=3"></asp:SqlDataSource>
             <div class="auto-style1">
             <br />
                 <br />

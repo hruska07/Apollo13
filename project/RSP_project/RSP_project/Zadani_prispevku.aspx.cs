@@ -14,16 +14,17 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     SqlConnection conn = new SqlConnection();
     SqlDataAdapter sda = new SqlDataAdapter();
     DataSet ds = new DataSet();
-    int cislo_autora = 1;
+    Database DB = new Database();
+    int cislo_autora = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-        // if ((Session["role"]==null) &&(Session["role"].ToString()!="3"))
-        //      Response.Redirect("login.aspx");
-        // else
-        //      cislo_autora = Convert.ToInt32(Session["role"]);
+         if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "autor"))
+              Response.Redirect("login.aspx");
+         else
+              cislo_autora = Convert.ToInt32(Session["id_user"]);
 
-        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True";
-        conn.Open();
+        conn = DB.getConnection();
+
         
     }
 
@@ -43,7 +44,6 @@ public partial class Zadani_prispevku : System.Web.UI.Page
         insert.Parameters.AddWithValue("@Nadpis", Nadpis);
         insert.Parameters.AddWithValue("@Obsah", Obsah);
         insert.Parameters.AddWithValue("@datum_clanku", date1);
-        //Nutno dodělat ze Session
         insert.Parameters.AddWithValue("@autor", cislo_autora);
         insert.Parameters.AddWithValue("@ma_oponenta", false);
 
@@ -65,7 +65,6 @@ public partial class Zadani_prispevku : System.Web.UI.Page
             //Response.Redirect("Default.aspx");
         }
 
-        conn.Close();
 }
 
     protected void TextBox1_TextChanged(object sender, EventArgs e)

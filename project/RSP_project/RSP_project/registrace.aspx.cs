@@ -6,9 +6,14 @@ using System.Web.Security;
 
 public partial class registrace : System.Web.UI.Page
 {
+    Database DB = new Database();
+    SqlConnection conn = null;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         rbl_role.SelectedIndex = 2;
+
+        conn = DB.getConnection();
     }
 
     public static string HashString(string inputString, string hashName)
@@ -39,14 +44,10 @@ public partial class registrace : System.Web.UI.Page
             string pass1 = HashString(TextBox_password1.Text, "SHA256");
             string pass2 = HashString(TextBox_password2.Text, "SHA256");
             */
-            string role = "7";
-            if (rbl_role.SelectedIndex == 0)
-                role = "4";
-            if (rbl_role.SelectedIndex == 1)
-                role = "5";
-            //vytvoreni pripojeni do db
-            SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True");
-            conn.Open();
+            string role = rbl_role.SelectedItem.Value;
+            SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", conn);
+            get_ID_role.Parameters.AddWithValue("@nazev", role);
+            role = get_ID_role.ExecuteScalar().ToString();
             //KONTROLA TOHO ZDA LOGIN NEBO EMAIL NENI V UZ VYTVOREN
             SqlCommand check_Login = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([login] = @login)", conn);
             SqlCommand check_Email = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([email] = @email)", conn);
@@ -76,7 +77,7 @@ public partial class registrace : System.Web.UI.Page
                 try//zkouseni vlozeni do db
                 {
                     insert.ExecuteNonQuery();
-                    Label_output.Text = "Účet úspěšně vytvořen s rolí: " + rbl_role.SelectedItem.Value;
+                    Label_output.Text = "Účet úspěšně vytvořen s rolí: " + rbl_role.SelectedItem.Text;
                     Label_output.ForeColor = System.Drawing.Color.CornflowerBlue;
                 }
                 catch (Exception ex)//kdyz neprobehne vyhodi se error
@@ -84,8 +85,6 @@ public partial class registrace : System.Web.UI.Page
                     Label_output.Text = "Error: " + ex.Message;
                 }
             }
-            //uzavreni connection
-            conn.Close();
         }
     }
 }

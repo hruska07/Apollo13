@@ -10,11 +10,15 @@ using System.Web.Security;
 
 public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 {
+    Database DB = new Database();
+    SqlConnection conn = null;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        // if ((Session["role"]==null) &&(Session["role"].ToString()!="3"))
-          //    Response.Redirect("login.aspx");
-      
+        if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
+            Response.Redirect("login.aspx");
+
+        conn = DB.getConnection();
     }
 
 
@@ -25,7 +29,6 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        SqlConnection conn = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True");
         SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent) values(@clanek, @oponent)", conn);
         insert.Parameters.AddWithValue("@clanek",GridView1.SelectedValue);
         insert.Parameters.AddWithValue("@oponent", DropDownList1.SelectedValue);
@@ -37,7 +40,6 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 
         try
         {
-            conn.Open();
             insert.ExecuteNonQuery();
             update.ExecuteNonQuery();
             Label1_vybrany_clanek.Text = "Record Inserted Succesfully into the Database";
@@ -47,11 +49,8 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         {
           Label1_vybrany_clanek.Text = "Error: " + ex.Message;
         }
-        finally
-        {
-           conn.Close();
-        }
-       Response.Redirect("redaktor_prideleni_oponenta.aspx");
+
+        Response.Redirect("redaktor_prideleni_oponenta.aspx");
       
 
     }

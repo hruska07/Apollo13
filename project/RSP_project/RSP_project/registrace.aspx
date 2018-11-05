@@ -71,9 +71,9 @@
                         <td style="text-align: right; padding-right: 10px;" class="auto-style1">Zvolte roli</td>
                         <td style="text-align: left; padding-left: 10px;" class="auto-style1">
                             <asp:RadioButtonList ID="rbl_role" runat="server" CellPadding="0" CellSpacing="1">
-                                <asp:ListItem>Autor</asp:ListItem>
-                                <asp:ListItem>Čtenář</asp:ListItem>
-                                <asp:ListItem>Ostatní</asp:ListItem>
+                                <asp:ListItem Value="autor">Autor</asp:ListItem>
+                                <asp:ListItem Value="ctenar">Čtenář</asp:ListItem>
+                                <asp:ListItem Selected="True" Value="ostatni">Ostatní</asp:ListItem>
                             </asp:RadioButtonList>
                         </td>
                     </tr>
