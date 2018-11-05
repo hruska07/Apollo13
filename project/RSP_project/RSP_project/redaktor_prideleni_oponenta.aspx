@@ -25,7 +25,7 @@
     <table style="width:100%;" border="1">
         <tr>
  <td style="text-align: right; padding-right: 10px;" >
-                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="seznam_volnych_clanku" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" CellPadding="4" ForeColor="#333333" GridLines="None" Font-Size="Medium">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged1">
                     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                     <Columns>
                         <asp:CommandField ShowSelectButton="True" />
@@ -33,7 +33,7 @@
                         <asp:BoundField DataField="nadpis_clanku" HeaderText="nadpis_clanku" SortExpression="nadpis_clanku" />
                         <asp:BoundField DataField="obsah_clanku" HeaderText="obsah_clanku" SortExpression="obsah_clanku" />
                         <asp:BoundField DataField="datum_clanku" HeaderText="datum_clanku" SortExpression="datum_clanku" />
-                        <asp:BoundField DataField="id_user" HeaderText="id_user" SortExpression="id_user" />
+                        <asp:BoundField DataField="autor" HeaderText="autor" SortExpression="autor" />
                     </Columns>
                     <EditRowStyle BackColor="#999999" />
                     <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -46,11 +46,10 @@
                     <SortedDescendingCellStyle BackColor="#FFFDF8" />
                     <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
                 </asp:GridView>
-                <asp:SqlDataSource ID="seznam_volnych_clanku" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [obsah_clanku], [datum_clanku], [id_user] FROM [Clanek] WHERE ([ma_oponenta] = @ma_oponenta)">
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [obsah_clanku], [datum_clanku], [autor] FROM [Clanek] WHERE ([ma_oponenta] = @ma_oponenta)">
                     <SelectParameters>
-                        <asp:Parameter DefaultValue="False" Name="ma_oponenta" Type="Boolean" />
+                        <asp:Parameter DefaultValue="false" Name="ma_oponenta" Type="Boolean" />
                     </SelectParameters>
-    
                 </asp:SqlDataSource>
             </td>
            <td style="text-align: left; padding-left: 10px;" class="auto-style1">

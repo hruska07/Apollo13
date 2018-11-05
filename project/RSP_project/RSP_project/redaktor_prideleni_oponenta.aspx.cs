@@ -20,7 +20,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Label1_vybrany_clanek.Text=(GridView1.SelectedValue.ToString());
+       
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -54,5 +54,10 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
        Response.Redirect("redaktor_prideleni_oponenta.aspx");
       
 
+    }
+
+    protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
+    {
+        Label1_vybrany_clanek.Text = (GridView1.SelectedValue.ToString());
     }
 }
