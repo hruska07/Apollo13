@@ -10,20 +10,11 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
-       
-        #nazev
-        {
-            width:80%;
-        }
-        #prispevek
-        {
-            margin: 20px 20px;
-            padding: 20px 20px 20px 20px;
-            height:400px;
-            width:90%;
-            resize:none;
-        }
-        #tlacitko
+       body
+       {
+           margin: 20px 20px 20px 20px;
+       }
+        #Button1
         {
             border-style: none;
             border-color: inherit;
@@ -38,7 +29,7 @@
             margin: 4px 2px 4px 7px;
             cursor: pointer;
         }
-        #tlacitko:hover
+        #Button1:hover
         {
             background-color:aquamarine;
             border: none;
@@ -60,15 +51,23 @@
             </div>
 
 
-     <form id="formular">
-         <input id="nazev" type="text" name="nadpis_clanku" placeholder="Zde napište název příspěvku">
+     &nbsp;<asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Large" Text="Zde vložte název článku"></asp:Label>
+            <br />
          <br />
+         &nbsp;<asp:TextBox ID="nadpis_clanku" runat="server" Height="32px" OnTextChanged="TextBox1_TextChanged" Width="680px"></asp:TextBox>
+            <br />
+            <br />
+            <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Large" Text="Zde vložte obsah článku"></asp:Label>
+            <br />
          <br />
-         <textarea id="prispevek" name="obsah_clanku" form="formular" placeholder="Napiště obsah příspěvku do tohoto pole"></textarea>
+            <asp:TextBox ID="obsah_clanku" runat="server" Height="251px" TextMode="MultiLine" Width="951px" OnTextChanged="TextBox2_TextChanged"></asp:TextBox>
+            <br />
+            <br />
          <br />
-         <br />
-         &nbsp;<input id="tlacitko" type="submit" name="Submit" style="float:right"></form>
-    </div>
-    </form>
+         &nbsp;</div><asp:Button ID="Button1" runat="server" Height="47px" OnClick="Button1_Click" Text="Odeslat článek" Width="177px" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Label ID="Label3" runat="server" Text="Label" Visible="False"></asp:Label>
+            </form><p>
+                &nbsp;</p>
 </body>
 </html>
