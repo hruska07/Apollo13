@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Security;
 
 public partial class registrace : System.Web.UI.Page
@@ -7,6 +9,16 @@ public partial class registrace : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         rbl_role.SelectedIndex = 2;
+    }
+
+    public static string HashString(string inputString, string hashName)
+    {
+        var algorithm = HashAlgorithm.Create(hashName);
+        if (algorithm == null)
+            throw new ArgumentException("Unrecognized hash name", hashName);
+
+        byte[] hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        return Convert.ToBase64String(hash);
     }
 
     protected void Button_register_Click(object sender, EventArgs e)
@@ -23,6 +35,10 @@ public partial class registrace : System.Web.UI.Page
             string pass1 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password1.Text, "SHA256");
             string pass2 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password2.Text, "SHA256");
             #pragma warning restore CS0618 // Ukonceni
+            /*  
+            string pass1 = HashString(TextBox_password1.Text, "SHA256");
+            string pass2 = HashString(TextBox_password2.Text, "SHA256");
+            */
             string role = "7";
             if (rbl_role.SelectedIndex == 0)
                 role = "4";
