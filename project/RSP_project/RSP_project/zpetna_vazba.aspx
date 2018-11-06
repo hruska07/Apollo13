@@ -26,7 +26,7 @@
                         <asp:BoundField DataField="obsah_clanku" HeaderText="obsah_clanku" SortExpression="obsah_clanku" />
                         <asp:BoundField DataField="datum_clanku" HeaderText="datum_clanku" SortExpression="datum_clanku" />
                         <asp:BoundField DataField="autor" HeaderText="autor" SortExpression="autor" />
-                        <asp:CheckBoxField DataField="ma_oponenta" HeaderText="ma_oponenta" SortExpression="ma_oponenta" />
+                       
                     </Columns>
                     <EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -53,7 +53,7 @@
                     <asp:BoundField DataField="obsah_clanku" HeaderText="obsah_clanku" SortExpression="obsah_clanku" />
                     <asp:BoundField DataField="datum_clanku" HeaderText="datum_clanku" SortExpression="datum_clanku" />
                     <asp:BoundField DataField="autor" HeaderText="autor" SortExpression="autor" />
-                    <asp:CheckBoxField DataField="ma_oponenta" HeaderText="ma_oponenta" SortExpression="ma_oponenta" />
+
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
