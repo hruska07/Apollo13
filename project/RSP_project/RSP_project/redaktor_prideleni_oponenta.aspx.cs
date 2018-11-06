@@ -33,8 +33,11 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         insert.Parameters.AddWithValue("@clanek",GridView1.SelectedValue);
         insert.Parameters.AddWithValue("@oponent", DropDownList1.SelectedValue);
 
-       
-        SqlCommand update = new SqlCommand("update Clanek set ma_oponenta='true' Where id_clanek=@clanek", conn);
+        SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", conn);
+        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ma_oponenta");
+        int id_stav = (int)get_ID_stav.ExecuteScalar();
+        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
+        update.Parameters.AddWithValue("@id_stav", id_stav);
         update.Parameters.AddWithValue("@clanek", GridView1.SelectedValue);
      
 

@@ -11,8 +11,6 @@ public partial class registrace : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        rbl_role.SelectedIndex = 2;
-
         conn = DB.getConnection();
     }
 
@@ -44,7 +42,7 @@ public partial class registrace : System.Web.UI.Page
             string pass1 = HashString(TextBox_password1.Text, "SHA256");
             string pass2 = HashString(TextBox_password2.Text, "SHA256");
             */
-            string role = rbl_role.SelectedItem.Value;
+            string role = rbl_role.SelectedValue;
             SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", conn);
             get_ID_role.Parameters.AddWithValue("@nazev", role);
             role = get_ID_role.ExecuteScalar().ToString();
