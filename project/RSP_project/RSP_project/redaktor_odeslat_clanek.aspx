@@ -3,7 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <h2 class="text-center">&nbsp;</h2>
     <h2 class="text-center">Články k posouzení<br /></h2>
     <table style="width:100%;" border="1">
         <tr>

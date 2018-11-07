@@ -43,7 +43,8 @@ public partial class login : System.Web.UI.Page
                 Session["id_role"] = ds.Tables[0].Rows[0]["role"].ToString();
                 //-- UKLADANI DO SESSION
 
-                Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["nazev_role"];
+                //Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["nazev_role"];
+                Response.Redirect("Default.aspx");
             }
             else {
                 Label_output.Text = "Špatné heslo!";

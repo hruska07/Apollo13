@@ -1,5 +1,7 @@
 ﻿body {
-
+    background-image: url("graphics/Pozadi.png");
+    color: #ffffff;
+    font-family: "Lato", sans-serif;
 }
 
 .login-cell-left {
@@ -12,4 +14,101 @@
     width: 50%;
     text-align: left;
     padding-left: 10px;
+}
+
+.menu {
+    
+}
+
+.main-content {
+    
+}
+
+
+.search-login {
+    display: block;
+    width: 550px;
+    position: fixed;
+    right: 100px;
+    top: 30px;
+    padding: 17px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+}
+
+.search-login a {
+    color: #b6b6b6;
+    text-decoration: none;
+}
+
+.search-login a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.search-login em {
+    color: #e8212e;
+}
+
+.search-login ul {
+    float: right;
+    font-size: 18px;
+    margin-bottom: 0px;
+    line-height: 34px;
+    color: #ffffff;
+}
+
+.search-login li {
+    float: left;
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow-x: hidden;
+    padding-top: 16px;
+    text-align: center;
+}
+
+.sidebar a.highlight {
+    padding: 30px 0px 30px 0px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+    display: block;
+}
+
+.sidebar a.highlight:hover {
+    background-color: #000000;
+    text-decoration: none;
+}
+
+.sidebar img {
+    width: 75%;
+    padding-top: 50px;
+    padding-bottom: 70px;
+}
+
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    padding: 90px 50px 50px 80px;
+    color: #ffffff;
+}
+
+@media screen and (max-height: 450px) {
+    .sidebar {
+        padding-top: 15px;
+    }
+
+    .sidebar a {
+        font-size: 18px;
+    }
 }

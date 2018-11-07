@@ -38,8 +38,8 @@ public partial class redaktor_odeslat_clanek : System.Web.UI.Page
         get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ceka_na_posudek");
         int id_stav = (int)get_ID_stav.ExecuteScalar();
         SqlCommand update2 = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
-        update.Parameters.AddWithValue("@id_stav", id_stav);
-        update.Parameters.AddWithValue("@clanek", GridView1.SelectedValue);
+        update2.Parameters.AddWithValue("@id_stav", id_stav);
+        update2.Parameters.AddWithValue("@clanek", GridView1.SelectedValue);
 
 
         try
@@ -54,6 +54,6 @@ public partial class redaktor_odeslat_clanek : System.Web.UI.Page
             Label_message.Text = "Error: " + ex.Message;
         }
 
-        //Response.Redirect("redaktor_odeslat_clanek.aspx");
+        Response.Redirect("redaktor_odeslat_clanek.aspx");
     }
 }
