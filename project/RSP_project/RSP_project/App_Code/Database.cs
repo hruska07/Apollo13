@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Configuration;
 
 /// <summary>
 /// Třída pro napojení na DB
@@ -11,7 +12,7 @@ public class Database
 {
     private static SqlConnection conn = null;
 
-    private const string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Apollo13.mdf;Integrated Security=True";
+    private string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString_seznam_volnych_clanku"].ConnectionString;
 
     /// <summary>
     /// Otevře (pokud není) a vrátí připojení k DB

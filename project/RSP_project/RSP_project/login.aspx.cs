@@ -33,7 +33,7 @@ public partial class login : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@password", password);
         cmd.Connection = conn;
         sda.SelectCommand = cmd;
-        sda.Fill(ds, "user");
+        sda.Fill(ds, "User");
         if (ds.Tables[0].Rows.Count > 0) {
             if (password == ds.Tables[0].Rows[0]["password"].ToString()) {
 
