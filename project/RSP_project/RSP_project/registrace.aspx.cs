@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
 using System.Web.Security;
 
 public partial class registrace : System.Web.UI.Page
@@ -14,16 +12,6 @@ public partial class registrace : System.Web.UI.Page
         conn = DB.getConnection();
     }
 
-    public static string HashString(string inputString, string hashName)
-    {
-        var algorithm = HashAlgorithm.Create(hashName);
-        if (algorithm == null)
-            throw new ArgumentException("Unrecognized hash name", hashName);
-
-        byte[] hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
-        return Convert.ToBase64String(hash);
-    }
-
     protected void Button_register_Click(object sender, EventArgs e)
     {
         if (validator_email.IsValid == true && validator_heslo.IsValid == true && validator_jmeno.IsValid == true
@@ -34,14 +22,11 @@ public partial class registrace : System.Web.UI.Page
             string jmeno = TextBox_jmeno.Text;
             string prijmeni = TextBox_prijmeni.Text;
             string email = TextBox_email.Text;
-            #pragma warning disable CS0618 // Typ nebo člen je zastaralý.
-            string pass1 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password1.Text, "SHA256");
-            string pass2 = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password2.Text, "SHA256");
-            #pragma warning restore CS0618 // Ukonceni
-            /*  
-            string pass1 = HashString(TextBox_password1.Text, "SHA256");
-            string pass2 = HashString(TextBox_password2.Text, "SHA256");
-            */
+            string pass1, pass2;
+            HashPw hp = new HashPw();
+            pass1 = hp.HashString(TextBox_password1.Text);
+            pass2 = hp.HashString(TextBox_password2.Text);
+
             string role = rbl_role.SelectedValue;
             SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", conn);
             get_ID_role.Parameters.AddWithValue("@nazev", role);
@@ -56,7 +41,7 @@ public partial class registrace : System.Web.UI.Page
             int EmailExist = (int)check_Email.ExecuteScalar();
             if (LoginExist > 0 || EmailExist > 0)
             {
-                Label_output.Text=Label_output2.Text = "";
+                Label_output.Text = Label_output2.Text = "";
                 if (LoginExist > 0)
                     Label_output.Text += "Vybraný login je již zabrán ";
                 if (EmailExist > 0)
@@ -64,17 +49,9 @@ public partial class registrace : System.Web.UI.Page
             }
             else
             {
-                //vlozeni dat do insertu
-                SqlCommand insert = new SqlCommand("insert into [User] (jmeno, prijmeni,login, password,role,email) values(@jmeno, @prijmeni,@login, @password,@role,@email)", conn);
-                insert.Parameters.AddWithValue("@jmeno", jmeno);
-                insert.Parameters.AddWithValue("@prijmeni", prijmeni);
-                insert.Parameters.AddWithValue("@login", login);
-                insert.Parameters.AddWithValue("@password", pass1);
-                insert.Parameters.AddWithValue("@role", role);
-                insert.Parameters.AddWithValue("@email", email);
                 try//zkouseni vlozeni do db
                 {
-                    insert.ExecuteNonQuery();
+                    DB.InsertUser(jmeno, prijmeni, login, pass1, role, email);
                     Label_output.Text = "Účet úspěšně vytvořen s rolí: " + rbl_role.SelectedItem.Text;
                     Label_output.ForeColor = System.Drawing.Color.CornflowerBlue;
                 }

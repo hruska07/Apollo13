@@ -24,10 +24,15 @@ public partial class login : System.Web.UI.Page
     protected void Button_login_Click(object sender, EventArgs e)
     {
         string login = TextBox_login.Text;
+
+        /*
 #pragma warning disable CS0618 // Typ nebo člen je zastaralý.
         string password = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA256");
 #pragma warning restore CS0618 // Typ nebo člen je zastaralý.
 
+*/
+        HashPw hp = new HashPw();
+        string password = hp.HashString(TextBox_password.Text);
         cmd.CommandText = "SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE login = @login AND password = @password";
         cmd.Parameters.AddWithValue("@login", login);
         cmd.Parameters.AddWithValue("@password", password);

@@ -26,6 +26,19 @@ public class Database
         return conn;
     }
 
+    public void InsertUser(string jmeno, string prijmeni, string login, string pass1, string role, string email)
+    {
+        SqlCommand insert = new SqlCommand("insert into [User] (jmeno, prijmeni,login, password,role,email) values(@jmeno, @prijmeni,@login, @password,@role,@email)", conn);
+        insert.Parameters.AddWithValue("@jmeno", jmeno);
+        insert.Parameters.AddWithValue("@prijmeni", prijmeni);
+        insert.Parameters.AddWithValue("@login", login);
+        insert.Parameters.AddWithValue("@password", pass1);
+        insert.Parameters.AddWithValue("@role", role);
+        insert.Parameters.AddWithValue("@email", email);
+        insert.ExecuteNonQuery();
+
+    }
+
     ~Database() {
         if (conn != null)
             conn.Close();
