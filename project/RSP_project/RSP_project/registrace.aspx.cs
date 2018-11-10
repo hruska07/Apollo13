@@ -37,9 +37,15 @@ public partial class registrace : System.Web.UI.Page
                 //jestli existuje vypíše se co je zabráné
                 Label_output.Text = Label_output2.Text = "";
                 if (LoginExist > 0)
+                {
                     Label_output.Text += "Vybraný login je již zabrán ";
+                    Label_output.Visible = true;
+                }
                 if (EmailExist > 0)
+                {
+                    Label_output2.Visible = true;
                     Label_output2.Text += "Email je již zaregistrován";
+                }
             }
             else
             {
@@ -47,11 +53,13 @@ public partial class registrace : System.Web.UI.Page
                 {
                     DB.InsertUser(jmeno, prijmeni, login, pass1, role, email);
                     Label_output.Text = "Účet úspěšně vytvořen s rolí: " + rbl_role.SelectedItem.Text;
+                    Label_output.Visible = true;
                     Label_output.ForeColor = System.Drawing.Color.CornflowerBlue;
                 }
                 catch (Exception ex)//kdyz neprobehne vyhodi se error
                 {
                     Label_output.Text = "Error: " + ex.Message;
+                    Label_output.Visible = true;
                 }
             }
         }

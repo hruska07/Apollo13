@@ -26,11 +26,11 @@ public partial class login : System.Web.UI.Page
         string login = TextBox_login.Text;
 
         /*
-#pragma warning disable CS0618 // Typ nebo člen je zastaralý.
+        #pragma warning disable CS0618 // Typ nebo člen je zastaralý.
         string password = FormsAuthentication.HashPasswordForStoringInConfigFile(TextBox_password.Text, "SHA256");
-#pragma warning restore CS0618 // Typ nebo člen je zastaralý.
+        #pragma warning restore CS0618 // Typ nebo člen je zastaralý.
+        */
 
-*/
         HashPw hp = new HashPw();
         string password = hp.HashString(TextBox_password.Text);
         cmd.CommandText = "SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE login = @login AND password = @password";
@@ -52,10 +52,12 @@ public partial class login : System.Web.UI.Page
                 Response.Redirect("Default.aspx");
             }
             else {
+                Label_output.Visible = true;
                 Label_output.Text = "Špatné heslo!";
             }
         }
         else {
+            Label_output.Visible = true;
             Label_output.Text = "Uživatel nenalezen!";
         }
     }

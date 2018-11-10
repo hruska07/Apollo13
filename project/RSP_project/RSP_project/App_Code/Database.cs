@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 
 /// <summary>
 /// Třída pro napojení na DB
@@ -53,6 +54,17 @@ public class Database
         SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", conn);
         get_ID_role.Parameters.AddWithValue("@nazev", role);
         return get_ID_role.ExecuteScalar().ToString();
+    }
+
+    public DataRow getUserById(int id_user)
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE id_user = @id_user", conn);
+        select.Parameters.AddWithValue("@id_user", id_user);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds, "User");
+        return ds.Tables[0].Rows[0];
     }
 
     ~Database() {

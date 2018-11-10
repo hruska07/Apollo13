@@ -22,12 +22,12 @@
 <body>
     <form id="form1" runat="server">
         <div class="sidebar">
-            <a href="#home"><i class="fa fa-fw fa-home"></i>
+            <a href="Default.aspx">
                 <img src="graphics/logoPolytechnikos.png"/>
             </a>
-            <a class="highlight" href="#home">Články</a>
-            <a class="highlight" href="#services">Časopis</a>
-            <a class="highlight" href="#clients">O nás</a>
+            <a class="highlight active" href="Default.aspx">Články</a>
+            <a class="highlight" href="Default.aspx">Časopis</a>
+            <a class="highlight" href="Default.aspx">O nás</a>
             <!--<a class="highlight" href="#contact"><i class="fa fa-fw fa-envelope"></i>Contact</a>-->
         </div>
 
@@ -35,14 +35,6 @@
             <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
             </asp:ContentPlaceHolder>
-
-
-            <!--
-            <h2>Sidebar with Icons</h2>
-            <p>This side navigation is of full height (100%) and always shown.</p>
-            <p>Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae vol upt ati bus.</p>
-            <p>Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae vol upt&nbsp; ati bus.</p>
-                -->
         </div>   
         
         <div class="search-login">
@@ -54,8 +46,14 @@
                     </button>
                 </div>
                 <ul>
-                    <li><a href="registrace.aspx"><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;Registrace</a></li>
-                    <li><a href="login.aspx"><em class="glyphicon glyphicon-log-in"></em>&nbsp;&nbsp;Login</a></li>
+                    <asp:Panel ID="Panel_not_logged" runat="server">
+                        <li><a href="registrace.aspx"><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;Registrace</a></li>
+                        <li><a href="login.aspx"><em class="glyphicon glyphicon-log-in"></em>&nbsp;&nbsp;Přihlásit se</a></li>
+                    </asp:Panel>
+                    <asp:Panel ID="Panel_logged" runat="server">
+                        <li><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;<asp:Label ID="Label_logged_user" runat="server" Text=""></asp:Label></li>
+                        <li><a href="logout.aspx"><em class="glyphicon glyphicon-log-out"></em>&nbsp;&nbsp;Odhlásit se</a></li>
+                    </asp:Panel>
                 </ul>
             </div>
         </div>
