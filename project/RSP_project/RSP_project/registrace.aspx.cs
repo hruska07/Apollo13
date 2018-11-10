@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Web.Security;
 
 public partial class registrace : System.Web.UI.Page
 {
-    Database DB = new Database();
-    SqlConnection conn = null;
+    private Database DB = new Database();
+    private SqlConnection conn = null;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -14,6 +13,7 @@ public partial class registrace : System.Web.UI.Page
 
     protected void Button_register_Click(object sender, EventArgs e)
     {
+        //kontrola zda je vše vyplněné
         if (validator_email.IsValid == true && validator_heslo.IsValid == true && validator_jmeno.IsValid == true
             && validator_login.IsValid == true && validator_prijmeni.IsValid == true && CompareValidator_stejnaPW.IsValid == true)
         {
@@ -23,24 +23,18 @@ public partial class registrace : System.Web.UI.Page
             string prijmeni = TextBox_prijmeni.Text;
             string email = TextBox_email.Text;
             string pass1, pass2;
+            //hashovani hesla
             HashPw hp = new HashPw();
             pass1 = hp.HashString(TextBox_password1.Text);
             pass2 = hp.HashString(TextBox_password2.Text);
-
-            string role = rbl_role.SelectedValue;
-            SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", conn);
-            get_ID_role.Parameters.AddWithValue("@nazev", role);
-            role = get_ID_role.ExecuteScalar().ToString();
-            //KONTROLA TOHO ZDA LOGIN NEBO EMAIL NENI V UZ VYTVOREN
-            SqlCommand check_Login = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([login] = @login)", conn);
-            SqlCommand check_Email = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([email] = @email)", conn);
-            check_Login.Parameters.AddWithValue("@login", login);
-            check_Email.Parameters.AddWithValue("@email", email);
-            //zaznamenani jestli probehl select
-            int LoginExist = (int)check_Login.ExecuteScalar();
-            int EmailExist = (int)check_Email.ExecuteScalar();
+            //prirazeni id role podle nazvu
+            string role = DB.GetRole(rbl_role.SelectedValue);
+            //kontrola existence emailu nebo loginu v db
+            int LoginExist, EmailExist;
+            DB.checkExistReg(login, email, out LoginExist, out EmailExist);
             if (LoginExist > 0 || EmailExist > 0)
             {
+                //jestli existuje vypíše se co je zabráné
                 Label_output.Text = Label_output2.Text = "";
                 if (LoginExist > 0)
                     Label_output.Text += "Vybraný login je již zabrán ";

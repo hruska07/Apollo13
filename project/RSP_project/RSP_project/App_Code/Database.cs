@@ -38,6 +38,22 @@ public class Database
         insert.ExecuteNonQuery();
 
     }
+    public void checkExistReg(string login,string email,out int LoginExist,out int EmailExist)
+    {
+        SqlCommand check_Login = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([login] = @login)", conn);
+        SqlCommand check_Email = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([email] = @email)", conn);
+        check_Login.Parameters.AddWithValue("@login", login);
+        check_Email.Parameters.AddWithValue("@email", email);
+        //zaznamenani jestli probehl select
+        LoginExist = (int)check_Login.ExecuteScalar();
+        EmailExist = (int)check_Email.ExecuteScalar();
+    }
+    public string GetRole(string role)
+    {
+        SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", conn);
+        get_ID_role.Parameters.AddWithValue("@nazev", role);
+        return get_ID_role.ExecuteScalar().ToString();
+    }
 
     ~Database() {
         if (conn != null)
