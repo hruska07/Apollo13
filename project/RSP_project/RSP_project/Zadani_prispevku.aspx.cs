@@ -40,12 +40,12 @@ public partial class Zadani_prispevku : System.Web.UI.Page
         DateTime date1 = DateTime.Now;
 
         //příkaz do databáze
-        SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku,obsah_clanku, datum_clanku,autor,ma_oponenta) values(@Nadpis,@Obsah, @datum_clanku,@autor,@ma_oponenta)", conn);
+        SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku,obsah_clanku, datum_clanku,autor,stav) values(@Nadpis,@Obsah, @datum_clanku,@autor,@stav)", conn);
         insert.Parameters.AddWithValue("@Nadpis", Nadpis);
         insert.Parameters.AddWithValue("@Obsah", Obsah);
         insert.Parameters.AddWithValue("@datum_clanku", date1);
         insert.Parameters.AddWithValue("@autor", cislo_autora);
-        insert.Parameters.AddWithValue("@ma_oponenta", false);
+        insert.Parameters.AddWithValue("@stav", 1);
 
         try
         {
