@@ -25,9 +25,28 @@
             <a href="Default.aspx">
                 <img src="graphics/logoPolytechnikos.png"/>
             </a>
-            <a class="highlight active" href="Default.aspx">Články</a>
+            <a class="highlight" href="Default.aspx">Články</a>
             <a class="highlight" href="Default.aspx">Časopis</a>
             <a class="highlight" href="Default.aspx">O nás</a>
+            <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
+                <div class="dropdown">
+                    <a class="dropbtn" href="#">
+                            <asp:Label ID="Label_role_menu" runat="server" Text="Label"></asp:Label>
+                    </a>
+                    <div class="dropdown-content">
+                        <asp:Panel ID="Panel_autor" runat="server" Visible="False">
+                            <a href="Zadani_prispevku.aspx">Přidat článek</a>
+                        </asp:Panel>
+                        <asp:Panel ID="Panel_redaktor" runat="server" Visible="False">
+                            <a href="redaktor_prideleni_oponenta.aspx">Přidělit oponenta</a>
+                            <a href="redaktor_odeslat_clanek.aspx">Odeslat oponentovi</a>
+                        </asp:Panel>
+                        <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
+                            <a href="Agenda_Redakor.aspx">Agenda redaktora</a>
+                        </asp:Panel>
+                    </div>
+                </div>
+            </asp:Panel>
             <!--<a class="highlight" href="#contact"><i class="fa fa-fw fa-envelope"></i>Contact</a>-->
         </div>
 
@@ -45,6 +64,8 @@
                         <i class="glyphicon glyphicon-search"></i>
                     </button>
                 </div>
+            </div>
+            <div class="login-reg-btn">
                 <ul>
                     <asp:Panel ID="Panel_not_logged" runat="server">
                         <li><a href="registrace.aspx"><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;Registrace</a></li>

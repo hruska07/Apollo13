@@ -3,11 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <h2 class="text-center"><asp:Label ID="Label_nadpis" runat="server" Text="Agenda Redaktora"></asp:Label></h2>
+    <h3 class="text-center"><asp:Label ID="Label_nadpis" runat="server" Text="Agenda Redaktora"></asp:Label></h3>
     <table style="width:100%;" border="0">
         <tr>
  <td style="text-align: center; padding-right: 10px;" >
-     <asp:GridView ID="GridView1" runat="server" DataSourceID="SqlDataSource_AgendaRedaktor" AutoGenerateColumns="False" AllowSorting="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
+     <asp:GridView cssClass="table table-bordered" ID="GridView1" runat="server" DataSourceID="SqlDataSource_AgendaRedaktor" AutoGenerateColumns="False" AllowSorting="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
          <Columns>
              <asp:BoundField DataField="jmeno" HeaderText="jmeno" SortExpression="jmeno" />
              <asp:BoundField DataField="prijmeni" HeaderText="prijmeni" SortExpression="prijmeni" />

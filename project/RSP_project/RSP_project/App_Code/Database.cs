@@ -51,7 +51,7 @@ public class Database
     }
     public string GetRole(string role)
     {
-        SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", conn);
+        SqlCommand get_ID_role = new SqlCommand("SELECT id_role FROM [Role] WHERE ([nazev] = @nazev)", getConnection());
         get_ID_role.Parameters.AddWithValue("@nazev", role);
         return get_ID_role.ExecuteScalar().ToString();
     }
@@ -63,7 +63,7 @@ public class Database
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
         sda.SelectCommand = select;
-        sda.Fill(ds, "User");
+        sda.Fill(ds);
         return ds.Tables[0].Rows[0];
     }
 

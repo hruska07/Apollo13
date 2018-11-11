@@ -4,18 +4,6 @@
     font-family: "Lato", sans-serif;
 }
 
-.login-cell-left {
-    width: 50%;
-    text-align: right;
-    padding-right: 10px;
-}
-
-.login-cell-right {
-    width: 50%;
-    text-align: left;
-    padding-left: 10px;
-}
-
 .menu {
     
 }
@@ -24,10 +12,20 @@
     
 }
 
+.input-group {
+    float: left;
+    display: block;
+    max-width: 40%;
+}
+
+.login-reg-btn {
+    float: right;
+    width: auto;
+}
 
 .search-login {
     display: block;
-    width: 585px;
+    max-width: 650px;
     position: fixed;
     right: 100px;
     top: 30px;
@@ -65,7 +63,7 @@
 
 .search-login li {
     float: left;
-    display: block;
+    display: inline-block;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -78,7 +76,7 @@
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.7);
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
     padding-top: 16px;
     text-align: center;
 }
@@ -104,6 +102,63 @@
     width: 75%;
     padding-top: 50px;
     padding-bottom: 70px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 200px;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 200px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    padding: 25px 0px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+    display: block;
+}
+
+.dropdown .dropbtn {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 45px 0px;
+    margin: 0 auto;
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+    display: block;
+    background-color: inherit;
+}
+
+.dropdown-content a:hover {
+    background-color: #000000;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.dropdown-content a:hover #submenu {
+    background-color: #000000;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #000000;
+}
+
+a#submenu:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown {
+    position: relative;
 }
 
 .main {
@@ -150,4 +205,6 @@ fieldset {
     border: 1px solid white !important;
 }
 
-
+.my-form-label {
+    font-size: 20px;
+}
