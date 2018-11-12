@@ -23,15 +23,18 @@
         <br />
         <fieldset>
             <legend>&nbsp;Testovací účty:&nbsp;</legend>
-            <p>Heslo ke všem účtům: 123456</p>
             <br />
             <div class="row">
                 <div class="col-sm-6">
+                    <p>Heslo:</p>
+                    <br />
                     <p>Autor - login:</p>
                     <p>Redaktor - login:</p>
                     <p>Šéfredaktor - login:</p>
                 </div>
                 <div class="col-sm-6">
+                    <p><b>123456</b></p>
+                    <br />
                     <p><b>autor</b></p>
                     <p><b>redaktor</b></p>
                     <p><b>sefredaktor</b></p>
