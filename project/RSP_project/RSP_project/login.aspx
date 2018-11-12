@@ -19,6 +19,25 @@
         </div>
         <asp:Label ID="Label_output" runat="server" Text="Label" Visible="False"></asp:Label>
         </fieldset>
+
+        <br />
+        <fieldset>
+            <legend>&nbsp;Testovací účty:&nbsp;</legend>
+            <p>Heslo ke všem účtům: 123456</p>
+            <br />
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>Autor - login:</p>
+                    <p>Redaktor - login:</p>
+                    <p>Šéfredaktor - login:</p>
+                </div>
+                <div class="col-sm-6">
+                    <p><b>autor</b></p>
+                    <p><b>redaktor</b></p>
+                    <p><b>sefredaktor</b></p>
+                </div>
+            </div>
+        </fieldset>
     </div>
 
 </asp:Content>

@@ -18,9 +18,9 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     int cislo_autora = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-         if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "autor"))
-              Response.Redirect("login.aspx");
-         else
+         //if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "autor"))
+              //Response.Redirect("login.aspx");
+         //else
               cislo_autora = Convert.ToInt32(Session["id_user"]);
 
         conn = DB.getConnection();
@@ -64,16 +64,5 @@ public partial class Zadani_prispevku : System.Web.UI.Page
             Label3.Text = "Error: " + ex.Message;
             //Response.Redirect("Default.aspx");
         }
-
-}
-
-    protected void TextBox1_TextChanged(object sender, EventArgs e)
-    {
-
-    }
-
-    protected void TextBox2_TextChanged(object sender, EventArgs e)
-    {
-
     }
 }
