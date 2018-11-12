@@ -21,12 +21,6 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         conn = DB.getConnection();
     }
 
-
-    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
-    {
-       
-    }
-
     protected void Button1_Click(object sender, EventArgs e)
     {
         SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent) values(@clanek, @oponent)", conn);
@@ -61,5 +55,6 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
     protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
     {
         Label1_vybrany_clanek.Text = (GridView1.SelectedValue.ToString());
+        Button1.Enabled = true;
     }
 }

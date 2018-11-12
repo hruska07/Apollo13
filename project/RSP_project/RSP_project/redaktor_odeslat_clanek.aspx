@@ -5,7 +5,9 @@
         $(function () {
             $('.datetimepicker').datetimepicker({
                 inline: true,
-                sideBySide: true
+                sideBySide: true,
+                locale: 'cs',
+                format: "DD.MM.YYYY HH:mm",
             });
         });
     </script>
@@ -13,7 +15,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <h3 class="text-center">Články k posouzení</h3>
     <div class="row" style="min-height: 320px;">
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <p>Vyberte přidělený článek:</p>
             <asp:GridView CssClass="table table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="seznam_pridelenych_clanku" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowSorting="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
                 <Columns>
@@ -41,20 +43,10 @@
             </asp:SqlDataSource>
         </div>
 
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             <p>Vyberte, do kdy má oponent vydat posudek:</p>
-            <!--<asp:Calendar ID="Calendar1" runat="server" OnSelectionChanged="Calendar1_SelectionChanged" BackColor="White" BorderColor="#999999" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="200px">
-                <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
-                <NextPrevStyle VerticalAlign="Bottom" />
-                <OtherMonthDayStyle ForeColor="#808080" />
-                <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
-                <SelectorStyle BackColor="#CCCCCC" />
-                <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
-                <TodayDayStyle BackColor="#CCCCCC" ForeColor="Black" />
-                <WeekendDayStyle BackColor="#FFFFCC" />
-            </asp:Calendar>-->
             <div style="background-color: #ffffff; color: #000000;">
-                <input type='text' class="form-control datetimepicker" />
+                <asp:TextBox CssClass="form-control datetimepicker" ID="textbox_datum" runat="server"></asp:TextBox>
             </div>
         </div>
 
@@ -63,9 +55,10 @@
     <div class="row">
         <div class="col-sm-12 text-center">
             <asp:Button CssClass="btn btn-success btn-lg" ID="Button_odeslat" runat="server" Enabled="False" Text="Odeslat k posouzení" OnClick="Button_odeslat_Click" />
+            <asp:Label ID="Label_message" runat="server" Visible="False"></asp:Label>
         </div>
     </div>
 
-    <asp:Label ID="Label_message" runat="server" Text="Label"></asp:Label>
+    
 </asp:Content>
 

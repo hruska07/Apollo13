@@ -49,6 +49,7 @@
                 
                 <asp:label id="Label_output2" runat="server" Visible="False"></asp:label>
             </div>
+        </fieldset>
     </div>
 </asp:Content>
 

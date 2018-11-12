@@ -16,22 +16,15 @@ public partial class redaktor_odeslat_clanek : System.Web.UI.Page
         conn = DB.getConnection();
     }
 
-    protected void Calendar1_SelectionChanged(object sender, EventArgs e)
-    {
-        if (GridView1.SelectedIndex != -1)
-            Button_odeslat.Enabled = true;
-    }
-
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (Calendar1.SelectedDate != null)
             Button_odeslat.Enabled = true;
     }
 
     protected void Button_odeslat_Click(object sender, EventArgs e)
     {
         SqlCommand update = new SqlCommand("update [Propoj_clanek_oponent] SET [datum_vyrizeni] = @datum WHERE [clanek] = @id_clanek", conn);
-        update.Parameters.AddWithValue("@datum", Calendar1.SelectedDate);
+        update.Parameters.AddWithValue("@datum", textbox_datum.Text);
         update.Parameters.AddWithValue("@id_clanek", GridView1.SelectedValue);
 
         SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", conn);
@@ -46,11 +39,13 @@ public partial class redaktor_odeslat_clanek : System.Web.UI.Page
         {
             update.ExecuteNonQuery();
             update2.ExecuteNonQuery();
+            Label_message.Visible = true;
             Label_message.Text = "Record Inserted Succesfully into the Database";
             Label_message.ForeColor = System.Drawing.Color.CornflowerBlue;
         }
         catch (Exception ex)
         {
+            Label_message.Visible = true;
             Label_message.Text = "Error: " + ex.Message;
         }
 

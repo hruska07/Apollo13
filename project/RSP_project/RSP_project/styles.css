@@ -1,15 +1,7 @@
 ﻿body {
-    background-image: url("graphics/Pozadi.png");
+    background-image: url('graphics/Pozadi.png');
     color: #ffffff;
     font-family: "Lato", sans-serif;
-}
-
-.menu {
-    
-}
-
-.main-content {
-    
 }
 
 .input-group {
@@ -56,14 +48,14 @@
 .search-login ul {
     float: right;
     font-size: 18px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     line-height: 34px;
     color: #ffffff;
+    list-style: none;
 }
 
 .search-login li {
     float: left;
-    display: inline-block;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -82,7 +74,7 @@
 }
 
 .sidebar a.highlight {
-    padding: 45px 0px;
+    padding: 45px 0;
     text-decoration: none;
     font-size: 18px;
     color: #ffffff;
@@ -115,7 +107,7 @@
 }
 
 .dropdown-content a {
-    padding: 25px 0px;
+    padding: 25px 0;
     text-decoration: none;
     font-size: 18px;
     color: #ffffff;
@@ -126,7 +118,7 @@
     width: 100%;
     border: none;
     outline: none;
-    padding: 45px 0px;
+    padding: 45px 0;
     margin: 0 auto;
     text-decoration: none;
     font-size: 18px;
@@ -149,7 +141,7 @@
     background-color: #000000;
 }
 
-a#submenu:hover .dropdown-content {
+#submenu:hover .dropdown-content {
     display: block;
 }
 
@@ -184,7 +176,7 @@ a#submenu:hover .dropdown-content {
 }
 
 .my-form {
-    width: 20%;
+    width: 300px;
     margin: 0 auto;
 }
 
