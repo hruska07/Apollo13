@@ -10,13 +10,13 @@
         <div class="form-group">
             <label for="nadpis_clanku" class="control-label col-sm-1" ID="Label1">Název článku</label>
             <div class="col-sm-11">
-                <asp:TextBox cssClass="form-control" ID="nadpis_clanku" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
+                <asp:TextBox cssClass="form-control" ID="nadpis_clanku" runat="server"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
             <label for="obsah_clanku" class="control-label col-sm-1" ID="Label2">Obsah článku</label>
             <div class="col-sm-11">
-                <asp:TextBox cssClass="form-control col-sm-10" ID="obsah_clanku" runat="server" TextMode="MultiLine" OnTextChanged="TextBox2_TextChanged" Rows="10"></asp:TextBox>
+                <asp:TextBox cssClass="form-control col-sm-10" ID="obsah_clanku" runat="server" TextMode="MultiLine" Rows="10"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
