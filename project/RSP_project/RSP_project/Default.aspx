@@ -5,7 +5,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <h3><center>Vítejte na načich stránkách</h3>
+    <div class="obsah">
+    <h3>Vítejte na načich stránkách</h3>
     <p> LOGOS POLYTECHNIKOS je vysokoškolský odborný recenzovaný časopis, který slouží pro 
         publikační aktivity akademických pracovníků Vysoké školy polytechnické Jihlava i jiných
         vysokých škol, univerzit a výzkumných organizací. Je veden na seznamu recenzovaných odborných
@@ -26,7 +27,7 @@
     <p>V časopisu je možné publikovat odborné články, statě, přehledové studie, recenze a 
     další typy odborných příspěvků v českém, slovenském a anglickém jazyce. 
     Do recenzního řízení jsou přijímány příspěvky tematicky odpovídající zaměření časopisu a 
-    formálně upravené dle redakční šablony.</p></center>
+    formálně upravené dle redakční šablony.</p></div>
 
 </asp:Content>
 
