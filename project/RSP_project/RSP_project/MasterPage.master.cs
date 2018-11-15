@@ -32,17 +32,17 @@ public partial class MasterPage : System.Web.UI.MasterPage
             switch (user["nazev"].ToString())
             {
                 case "autor":
-                    Label_role_menu.Text = "Autor";
+                    Label_role_menu.Text = "AUTOR";
                     Panel_autor.Visible = true;
                     break;
 
                 case "redaktor":
-                    Label_role_menu.Text = "Redaktor";
+                    Label_role_menu.Text = "REDAKTOR";
                     Panel_redaktor.Visible = true;
                     break;
 
                 case "sefredaktor":
-                    Label_role_menu.Text = "Šéfredaktor";
+                    Label_role_menu.Text = "ŠÉFREDAKTOR";
                     Panel_sefredaktor.Visible = true;
                     break;
             }

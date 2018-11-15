@@ -27,41 +27,40 @@
 <body>
     <form id="form1" runat="server">
         <div class="sidebar">
-            <a href="Default.aspx">
-                <img src="graphics/logoPolytechnikos.png"/>
+            <a href="/default.aspx">
+                <img src="/graphics/logoPolytechnikos.png"/>
             </a>
-            <a class="highlight" href="Default.aspx">HOME</a>
-            <a class="highlight" href="publikace.aspx">Publikace</a>
-            <a class="highlight" href="o_nas.aspx">O nás</a>
             <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
                 <div class="dropdown">
-                    <a class="dropbtn" href="#">
+                    <a class="dropbtn<% if((Request.RawUrl.ToString().Contains("/autor") || Request.RawUrl.ToString().Contains("/redaktor") || Request.RawUrl.ToString().Contains("/sefredaktor"))) { %> active<% } %>" href="#">
                             <asp:Label ID="Label_role_menu" runat="server" Text="Label"></asp:Label>
                     </a>
                     <div class="dropdown-content">
                         <asp:Panel ID="Panel_autor" runat="server" Visible="False">
-                            <a href="Zadani_prispevku.aspx">Přidat článek</a>
-                            <a href="zpetna_vazba.aspx">Moje články</a>
+                            <a href="/autor/pridat-clanek.aspx">Přidat článek</a>
+                            <a href="/autor/moje-clanky.aspx">Moje články</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_redaktor" runat="server" Visible="False">
-                            <a href="redaktor_prideleni_oponenta.aspx">Přidělit oponenta</a>
-                            <a href="redaktor_odeslat_clanek.aspx">Odeslat oponentovi</a>
+                            <a href="/redaktor/redaktor_prideleni_oponenta.aspx">Přidělit oponenta</a>
+                            <a href="/redaktor/redaktor_odeslat_clanek.aspx">Odeslat oponentovi</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
-                            <a href="Agenda_Redakor.aspx">Agenda redaktora</a>
+                            <a href="/sefredaktor/Agenda_Redakor.aspx">Agenda redaktora</a>
                         </asp:Panel>
                     </div>
                 </div>
             </asp:Panel>
-            <!--<a class="highlight" href="#contact"><i class="fa fa-fw fa-envelope"></i>Contact</a>-->
+            <a class="highlight<% if(Request.RawUrl.ToString() == "/default.aspx") { %> active<% } %>" href="/default.aspx">HOME</a>
+            <a class="highlight<% if(Request.RawUrl.ToString() == "/publikace.aspx") { %> active<% } %>" href="/publikace.aspx">Publikace</a>
+            <a class="highlight<% if(Request.RawUrl.ToString() == "/o-nas.aspx") { %> active<% } %>" href="/o-nas.aspx">O nás</a>
         </div>
 
         <div class="main">
             <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
             </asp:ContentPlaceHolder>
-        </div>   
-        
+        </div>
+
         <div class="search-login">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Hledej článek...">
@@ -74,17 +73,17 @@
             <div class="login-reg-btn">
                 <ul>
                     <asp:Panel ID="Panel_not_logged" runat="server">
-                        <li><a href="registrace.aspx"><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;Registrace</a></li>
-                        <li><a href="login.aspx"><em class="glyphicon glyphicon-log-in"></em>&nbsp;&nbsp;Přihlásit se</a></li>
+                        <li><a href="/registrace.aspx"><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;Registrace</a></li>
+                        <li><a href="/login.aspx"><em class="glyphicon glyphicon-log-in"></em>&nbsp;&nbsp;Přihlásit se</a></li>
                     </asp:Panel>
                     <asp:Panel ID="Panel_logged" runat="server">
                         <li><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;<asp:Label ID="Label_logged_user" runat="server" Text=""></asp:Label></li>
-                        <li><a href="logout.aspx"><em class="glyphicon glyphicon-log-out"></em>&nbsp;&nbsp;Odhlásit se</a></li>
+                        <li><a href="/logout.aspx"><em class="glyphicon glyphicon-log-out"></em>&nbsp;&nbsp;Odhlásit se</a></li>
                     </asp:Panel>
                 </ul>
             </div>
         </div>
-
+        
     </form>
 </body>
 </html>

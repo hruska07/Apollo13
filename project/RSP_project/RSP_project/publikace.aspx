@@ -1,21 +1,14 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="publikace.aspx.cs" Inherits="_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <style type="text/css">
-        .obsah {
-            display: inline-block;
-             padding: 0 15px 15px 15px;
-            background-color: rgba(0, 0, 0, 0.25);
-        }
-    </style>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <h3>Jak publikovat</h3>
     <div class="obsah">
-        
-        <h3>Jak publikovat</h3>
         <p>
-            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se <a href="login.aspx"class="label label-success">Přihlásit</a>, nebo <a href="registrace.aspx" class="label label-danger">Registrovat</a>.
+            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se <a href="/registrace.aspx" class="label label-danger">Zaregistrovat</a>, nebo <a href="/login.aspx" class="label label-success">Přihlásit</a> jako <b>autor</b>.
 
         </p>
         <p>
@@ -37,10 +30,8 @@
             </ul>
         </p>
         <p>
-            Pokud rozsah doručených příspěvků překročí kapacitu příslušného vydání, bude přijímání příspěvků ukončeno před uvedeným termínem.
-
-Adresa pro odesílání příspěvků:<a href="mailto: logos@vspj.cz"> logos@vspj.cz</a>
-
+            Pokud rozsah doručených příspěvků překročí kapacitu příslušného vydání, bude přijímání příspěvků ukončeno před uvedeným termínem.<br />
+            Adresa pro odesílání příspěvků:<a href="mailto: logos@vspj.cz"> logos@vspj.cz</a><br />
             Adresa nakladatele: Vysoká škola polytechnická Jihlava, redakce LOGOS POLYTECHNIKOS, Tolstého 16, 586 01 Jihlava.
         </p>
 
