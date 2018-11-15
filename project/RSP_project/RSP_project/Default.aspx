@@ -4,7 +4,7 @@
     <style type="text/css">
         .obsah {
             display: inline-block;
-            padding: 12px 15px;
+            
             background-color: rgba(0, 0, 0, 0.25);
         }
     </style>
