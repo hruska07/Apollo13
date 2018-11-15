@@ -29,9 +29,9 @@
      <asp:GridView cssClass="table table-bordered" ID="GridView1" runat="server" DataSourceID="SqlDataSource_AgendaRedaktor" AutoGenerateColumns="False" AllowSorting="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
          <Columns>
              <asp:BoundField DataField="nadpis_clanku" HeaderText="Přidělený článek" SortExpression="nadpis_clanku" />
+             <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav přiděleného článku" SortExpression="nazev_stav_cit" />
              <asp:BoundField DataField="jmeno" HeaderText="Jméno oponenta" SortExpression="jmeno" />
              <asp:BoundField DataField="prijmeni" HeaderText="Přijmení oponenta" SortExpression="prijmeni" />
-             <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav přiděleného článku" SortExpression="nazev_stav_cit" />
          </Columns>
          <FooterStyle BackColor="White" ForeColor="#000066" />
          <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
