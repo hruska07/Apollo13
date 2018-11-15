@@ -15,7 +15,7 @@
         
         <h3>Jak publikovat</h3>
         <p>
-            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se<a href="login.aspx"class="label label-info"> Přihlásit</a>, nebo <a href="registrace.aspx" class="label label-info"> Registrovat</a>.
+            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se <a href="login.aspx"class="label label-success">Přihlásit</a>, nebo <a href="registrace.aspx" class="label label-danger">Registrovat</a>.
 
         </p>
         <p>
