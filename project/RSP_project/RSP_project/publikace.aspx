@@ -12,7 +12,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="obsah">
+        
         <h3>Jak publikovat</h3>
+        <p>
+            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se<a href="login.aspx"> Přihlásit</a>, nebo <a href="registrace.aspx"> Registrovat</a>.
+
+        </p>
         <p>
             Jazyky, ve kterých lze publikovat:
             <ul>

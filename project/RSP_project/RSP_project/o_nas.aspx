@@ -13,11 +13,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="obsah">
         <h3>Kontaktujte nás</h3>
-       <h2>Šéfredaktor</h2> 
+       <h4>Šéfredaktor</h4> 
         <ul>
 <li> Ing. Zdeněk Horák, Ph.D. (Vysoká škola polytechnická Jihlava)</li>
 </ul>
-        <h2>Redakční rada</h2>
+        <h4>Redakční rada</h4>
         <ul>
            
  <li>doc. PhDr. Ladislav Benyovszky, CSc. (Univerzita Karlova v Praze)</li>
