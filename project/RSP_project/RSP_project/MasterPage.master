@@ -30,9 +30,9 @@
             <a href="Default.aspx">
                 <img src="graphics/logoPolytechnikos.png"/>
             </a>
-            <a class="highlight" href="Default.aspx">Články</a>
-            <a class="highlight" href="Default.aspx">Časopis</a>
-            <a class="highlight" href="Default.aspx">O nás</a>
+            <a class="highlight" href="Default.aspx">HOME</a>
+            <a class="highlight" href="publikace.aspx">Publikace</a>
+            <a class="highlight" href="o_nas.aspx">O nás</a>
             <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
                 <div class="dropdown">
                     <a class="dropbtn" href="#">
