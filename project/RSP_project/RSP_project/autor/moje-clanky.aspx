@@ -11,26 +11,31 @@
         <div class="text-center row">
             <div class="col-sm-12">
                 <p>Vaše všechny odeslané aktuální články:</p>
-                <asp:GridView CssClass="table table-bordered" ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="zdroj3_zpetna_vazba" ForeColor="#333333" GridLines="None" HorizontalAlign="Center">
+                <asp:GridView CssClass="table table-bordered" ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="zdroj3_zpetna_vazba" ForeColor="#333333" GridLines="None" HorizontalAlign="Center" DataKeyNames="id_clanek">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
+
                             <ItemTemplate>
                                 <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select"/>
                             </ItemTemplate>
+
                             <HeaderStyle CssClass="text-center" />
+
                         </asp:TemplateField>
 
+                        <asp:BoundField DataField="id_clanek" HeaderText="id_clanek" SortExpression="id_clanek" InsertVisible="False" ReadOnly="True" Visible="False" >
+                        </asp:BoundField>
                         <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku" >
                         <HeaderStyle CssClass="text-center" />
                         </asp:BoundField>
                         <asp:BoundField DataField="obsah_clanku" HeaderText="Obsah článku" SortExpression="obsah_clanku" >
                         <HeaderStyle CssClass="text-center" />
                         </asp:BoundField>
-                        <asp:BoundField DataField="datum_clanku" HeaderText="Datum přidání" SortExpression="datum_clanku" >
+                        <asp:BoundField DataField="datum_clanku" HeaderText="Datum článku" SortExpression="datum_clanku" >
                         <HeaderStyle CssClass="text-center" />
                         </asp:BoundField>
-                        <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav článku" SortExpression="nazev_stav_cit" >
+                        <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav" SortExpression="nazev_stav_cit" >
                         <HeaderStyle CssClass="text-center" />
                         </asp:BoundField>
                     </Columns>
@@ -45,7 +50,7 @@
                     <SortedDescendingCellStyle BackColor="#E9EBEF" />
                     <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
-                <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [nadpis_clanku], [obsah_clanku], [datum_clanku], [nazev_stav_cit] FROM [Clanek] JOIN [Stav] ON [Clanek].[stav] = [Stav].[id_stav] WHERE ([autor] = @autor) ORDER BY [datum_clanku]">
+                <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [obsah_clanku], [datum_clanku], [nazev_stav_cit] FROM [Clanek] JOIN [Stav] ON [Clanek].[stav] = [Stav].[id_stav] WHERE ([autor] = @autor) ORDER BY [datum_clanku]">
                     <SelectParameters>
                         <asp:SessionParameter Name="autor" SessionField="id_user" Type="Int32" />
                     </SelectParameters>
@@ -55,28 +60,6 @@
 
         <div class="text-center row">
             <div class="col-sm-12">
-                <p>Články ke kterým je dostupný <strong>posudek</strong>:</p>
-                <asp:GridView CssClass="table table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" AutoGenerateSelectButton="True" DataKeyNames="id_clanek" DataSourceID="zdroj1_zpetna_vazba" CellPadding="4" ForeColor="#333333" GridLines="None" HorizontalAlign="Center">
-                    <AlternatingRowStyle BackColor="White" />
-                    <Columns>
-                        <asp:BoundField DataField="id_clanek" HeaderText="id_clanek" InsertVisible="False" ReadOnly="True" SortExpression="id_clanek" />
-                        <asp:BoundField DataField="nadpis_clanku" HeaderText="nadpis_clanku" SortExpression="nadpis_clanku" />
-                        <asp:BoundField DataField="obsah_clanku" HeaderText="obsah_clanku" SortExpression="obsah_clanku" />
-                        <asp:BoundField DataField="datum_clanku" HeaderText="datum_clanku" SortExpression="datum_clanku" />
-                        <asp:BoundField DataField="autor" HeaderText="autor" SortExpression="autor" />
-
-                    </Columns>
-                    <EditRowStyle BackColor="#2461BF" />
-                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#EFF3FB" />
-                    <SelectedRowStyle BackColor="#FF9B82" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                </asp:GridView>
                 <asp:SqlDataSource ID="zdroj1_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM Posudek JOIN Clanek ON clanek=id_clanek WHERE autor=3"></asp:SqlDataSource>
             </div>
         </div>
@@ -85,27 +68,31 @@
         <div class="text-center row">
             <div class="col-sm-12">
                 <p>Info o konkrétním posudku (zobrazí se po vybrání výše):</p>
-                <asp:GridView CssClass="table table-bordered" ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="id_posudek" DataSourceID="zdroj2_zpetna_vazba" HorizontalAlign="Center" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px">
+                <asp:GridView CssClass="table table-bordered" ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="3" DataKeyNames="id_posudek" DataSourceID="zdroj2_zpetna_vazba" HorizontalAlign="Center" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
                     <Columns>
-                        <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" ReadOnly="True" SortExpression="id_posudek" />
-                        <asp:BoundField DataField="obsah_posudku" HeaderText="obsah_posudku" SortExpression="obsah_posudku" />
-                        <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" />
-                        <asp:BoundField DataField="datum_posudku" HeaderText="datum_posudku" SortExpression="datum_posudku" />
-                        <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" />
+                        <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" ReadOnly="True" SortExpression="id_posudek" InsertVisible="False" Visible="False" />
+                        <asp:BoundField DataField="obsah_posudku" HeaderText="Obsah posudku" SortExpression="obsah_posudku" >
+                        <HeaderStyle CssClass="text-center" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" Visible="False" />
+                        <asp:BoundField DataField="datum_posudku" HeaderText="Datum posudku" SortExpression="datum_posudku" >
+                        <HeaderStyle CssClass="text-center" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" Visible="False" />
                     </Columns>
-                    <FooterStyle BackColor="#FFFFCC" ForeColor="#330099" />
-                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="#FFFFCC" />
-                    <PagerStyle BackColor="#FFFFCC" ForeColor="#330099" HorizontalAlign="Center" />
-                    <RowStyle BackColor="White" ForeColor="#330099" />
-                    <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="#663399" />
-                    <SortedAscendingCellStyle BackColor="#FEFCEB" />
-                    <SortedAscendingHeaderStyle BackColor="#AF0101" />
-                    <SortedDescendingCellStyle BackColor="#F6F0C0" />
-                    <SortedDescendingHeaderStyle BackColor="#7E0000" />
+                    <FooterStyle BackColor="White" ForeColor="#000066" />
+                    <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                    <RowStyle ForeColor="#000066" />
+                    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+                    <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                    <SortedAscendingHeaderStyle BackColor="#007DBB" />
+                    <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                    <SortedDescendingHeaderStyle BackColor="#00547E" />
                 </asp:GridView>
                 <asp:SqlDataSource ID="zdroj2_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] WHERE ([clanek] = @clanek)">
                     <SelectParameters>
-                        <asp:ControlParameter ControlID="GridView1" Name="clanek" PropertyName="SelectedValue" Type="Int32" />
+                        <asp:ControlParameter ControlID="GridView3" Name="clanek" PropertyName="SelectedValue" Type="Int32" />
                     </SelectParameters>
                 </asp:SqlDataSource>
             </div>
