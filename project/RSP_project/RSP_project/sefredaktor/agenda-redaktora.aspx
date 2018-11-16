@@ -9,7 +9,12 @@
  <td style="text-align: center; padding-right: 10px;" >
      <asp:GridView cssClass="table table-bordered" ID="GridView2" runat="server" DataSourceID="SqlDataSource_vyber" AutoGenerateColumns="False" AllowSorting="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_user">
          <Columns>
-             <asp:CommandField ShowSelectButton="True" />
+                                     <asp:TemplateField HeaderText="Operace">
+                            <ItemTemplate>
+                                <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select"/>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
              <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" Visible="False" />
              <asp:BoundField DataField="jmeno" HeaderText="Jméno redaktora" SortExpression="jmeno" />
              <asp:BoundField DataField="prijmeni" HeaderText="Příjmení redaktora" SortExpression="prijmeni" />
