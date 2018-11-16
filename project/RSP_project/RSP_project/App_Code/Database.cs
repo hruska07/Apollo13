@@ -65,11 +65,5 @@ public class Database
         sda.SelectCommand = select;
         sda.Fill(ds);
         return ds.Tables[0].Rows[0];
-    }
-
-    ~Database() {
-        if (conn != null)
-            conn.Close();
-    }
-    
+    } 
 }

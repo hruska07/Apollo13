@@ -27,7 +27,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="sidebar">
-            <a href="/default.aspx">
+            <a href="https://logospolytechnikosapollo13.azurewebsites.net/">
                 <img src="/graphics/logoPolytechnikos.png"/>
             </a>
             <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
@@ -37,22 +37,22 @@
                     </a>
                     <div class="dropdown-content">
                         <asp:Panel ID="Panel_autor" runat="server" Visible="False">
-                            <a href="/autor/pridat-clanek.aspx">Přidat článek</a>
-                            <a href="/autor/moje-clanky.aspx">Moje články</a>
+                            <a href="/autor/pridat-clanek">Přidat článek</a>
+                            <a href="/autor/moje-clanky">Moje články</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_redaktor" runat="server" Visible="False">
-                            <a href="/redaktor/redaktor_prideleni_oponenta.aspx">Přidělit oponenta</a>
-                            <a href="/redaktor/redaktor_odeslat_clanek.aspx">Odeslat oponentovi</a>
+                            <a href="/redaktor/pridelit-oponenta">Přidělit oponenta</a>
+                            <a href="/redaktor/odeslat-oponentovi">Odeslat oponentovi</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
-                            <a href="/sefredaktor/Agenda_Redakor.aspx">Agenda redaktora</a>
+                            <a href="/sefredaktor/agenda-redaktora">Agenda redaktora</a>
                         </asp:Panel>
                     </div>
                 </div>
             </asp:Panel>
-            <a class="highlight<% if(Request.RawUrl.ToString() == "/default.aspx") { %> active<% } %>" href="/default.aspx">HOME</a>
-            <a class="highlight<% if(Request.RawUrl.ToString() == "/publikace.aspx") { %> active<% } %>" href="/publikace.aspx">Publikace</a>
-            <a class="highlight<% if(Request.RawUrl.ToString() == "/o-nas.aspx") { %> active<% } %>" href="/o-nas.aspx">O nás</a>
+            <a class="highlight<% if(Request.RawUrl.ToString() == "/default") { %> active<% } %>" href="/default">HOME</a>
+            <a class="highlight<% if(Request.RawUrl.ToString() == "/publikace") { %> active<% } %>" href="/publikace">Publikace</a>
+            <a class="highlight<% if(Request.RawUrl.ToString() == "/o-nas") { %> active<% } %>" href="/o-nas">O nás</a>
         </div>
 
         <div class="main">
@@ -73,12 +73,12 @@
             <div class="login-reg-btn">
                 <ul>
                     <asp:Panel ID="Panel_not_logged" runat="server">
-                        <li><a href="/registrace.aspx"><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;Registrace</a></li>
-                        <li><a href="/login.aspx"><em class="glyphicon glyphicon-log-in"></em>&nbsp;&nbsp;Přihlásit se</a></li>
+                        <li><a href="/registrace"><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;Registrace</a></li>
+                        <li><a href="/login"><em class="glyphicon glyphicon-log-in"></em>&nbsp;&nbsp;Přihlásit se</a></li>
                     </asp:Panel>
                     <asp:Panel ID="Panel_logged" runat="server">
                         <li><em class="glyphicon glyphicon-user"></em>&nbsp;&nbsp;<asp:Label ID="Label_logged_user" runat="server" Text=""></asp:Label></li>
-                        <li><a href="/logout.aspx"><em class="glyphicon glyphicon-log-out"></em>&nbsp;&nbsp;Odhlásit se</a></li>
+                        <li><a href="/logout"><em class="glyphicon glyphicon-log-out"></em>&nbsp;&nbsp;Odhlásit se</a></li>
                     </asp:Panel>
                 </ul>
             </div>

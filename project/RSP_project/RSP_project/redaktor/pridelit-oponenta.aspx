@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="redaktor_prideleni_oponenta.aspx.cs" Inherits="redaktor_prideleni_oponenta" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="pridelit-oponenta.aspx.cs" Inherits="redaktor_prideleni_oponenta" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <title>Přidělit oponenta</title>

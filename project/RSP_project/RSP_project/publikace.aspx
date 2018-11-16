@@ -8,7 +8,7 @@
     <h3>Jak publikovat</h3>
     <div class="obsah">
         <p>
-            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se <a href="/registrace.aspx" class="label label-danger">Zaregistrovat</a>, nebo <a href="/login.aspx" class="label label-success">Přihlásit</a> jako <b>autor</b>.
+            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se <a href="/registrace" class="label label-danger">Zaregistrovat</a>, nebo <a href="/login" class="label label-success">Přihlásit</a> jako <em>autor</em>.
 
         </p>
         <p>
@@ -31,7 +31,7 @@
         </p>
         <p>
             Pokud rozsah doručených příspěvků překročí kapacitu příslušného vydání, bude přijímání příspěvků ukončeno před uvedeným termínem.<br />
-            Adresa pro odesílání příspěvků:<a href="mailto: logos@vspj.cz"> logos@vspj.cz</a><br />
+            <br />
             Adresa nakladatele: Vysoká škola polytechnická Jihlava, redakce LOGOS POLYTECHNIKOS, Tolstého 16, 586 01 Jihlava.
         </p>
 

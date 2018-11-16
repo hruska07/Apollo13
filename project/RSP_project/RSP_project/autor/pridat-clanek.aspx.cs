@@ -18,9 +18,9 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     int cislo_autora = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-         //if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "autor"))
-              //Response.Redirect("login.aspx");
-         //else
+         if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "autor"))
+              Response.Redirect("/login");
+         else
               cislo_autora = Convert.ToInt32(Session["id_user"]);
 
         conn = DB.getConnection();
@@ -55,14 +55,14 @@ public partial class Zadani_prispevku : System.Web.UI.Page
             Label3.Visible = true;
             Label3.ForeColor = System.Drawing.Color.Green;
             Label3.Text = "Příspěvek byl úspěšně přidán";
-            //Response.Redirect("Default.aspx");
+            //Response.Redirect("/default");
         }
         catch (Exception ex)
         {
             Label3.Visible = true;
             Label3.ForeColor = System.Drawing.Color.Red;
             Label3.Text = "Error: " + ex.Message;
-            //Response.Redirect("Default.aspx");
+            //Response.Redirect("/default");
         }
     }
 }

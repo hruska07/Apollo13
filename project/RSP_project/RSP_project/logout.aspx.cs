@@ -12,6 +12,6 @@ public partial class logout : System.Web.UI.Page
         Session["id_user"] = null;
         Session["nazev_role"] = null;
         Session["id_role"] = null;
-        Response.Redirect("default.aspx");
+        Response.Redirect("/default");
     }
 }

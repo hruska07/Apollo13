@@ -15,8 +15,8 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
-            //Response.Redirect("login.aspx");
+        if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
+            Response.Redirect("/login");
 
         conn = DB.getConnection();
     }
@@ -47,7 +47,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
           Label1_vybrany_clanek.Text = "Error: " + ex.Message;
         }
 
-        Response.Redirect("redaktor_prideleni_oponenta.aspx");
+        Response.Redirect("/redaktor/pridelit-oponenta");
       
 
     }

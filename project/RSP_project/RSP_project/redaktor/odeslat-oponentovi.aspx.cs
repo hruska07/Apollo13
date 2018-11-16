@@ -13,8 +13,8 @@ public partial class redaktor_odeslat_clanek : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
-        //Response.Redirect("login.aspx");
+        if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
+            Response.Redirect("/login");
 
         conn = DB.getConnection();
     }
@@ -52,6 +52,6 @@ public partial class redaktor_odeslat_clanek : System.Web.UI.Page
             Label_message.Text = "Error: " + ex.Message;
         }
 
-        Response.Redirect("redaktor_odeslat_clanek.aspx");
+        Response.Redirect("/redaktor/odeslat-oponentovi");
     }
 }
