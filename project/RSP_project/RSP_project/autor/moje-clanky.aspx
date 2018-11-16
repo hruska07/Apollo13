@@ -14,11 +14,25 @@
                 <asp:GridView CssClass="table table-bordered" ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="zdroj3_zpetna_vazba" ForeColor="#333333" GridLines="None" HorizontalAlign="Center">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku" />
-                        <asp:BoundField DataField="obsah_clanku" HeaderText="Obsah článku" SortExpression="obsah_clanku" />
-                        <asp:BoundField DataField="datum_clanku" HeaderText="Datum přidání" SortExpression="datum_clanku" />
-                        <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav článku" SortExpression="nazev_stav_cit" />
+                        <asp:TemplateField HeaderText="Operace">
+                            <ItemTemplate>
+                                <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select"/>
+                            </ItemTemplate>
+                            <HeaderStyle CssClass="text-center" />
+                        </asp:TemplateField>
 
+                        <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku" >
+                        <HeaderStyle CssClass="text-center" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="obsah_clanku" HeaderText="Obsah článku" SortExpression="obsah_clanku" >
+                        <HeaderStyle CssClass="text-center" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="datum_clanku" HeaderText="Datum přidání" SortExpression="datum_clanku" >
+                        <HeaderStyle CssClass="text-center" />
+                        </asp:BoundField>
+                        <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav článku" SortExpression="nazev_stav_cit" >
+                        <HeaderStyle CssClass="text-center" />
+                        </asp:BoundField>
                     </Columns>
                     <EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
