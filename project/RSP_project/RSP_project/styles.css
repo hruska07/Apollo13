@@ -26,17 +26,15 @@
     color: #ffffff;
 }
 
-.search-login a {
+
+
+.search-login a, .search-login a:link, .search-login a:visited {
     color: #b6b6b6;
     text-decoration: none;
 }
 
-.search-login a:hover {
-    color: #ffffff;
-    text-decoration: none;
-}
 
-.search-login a:active {
+.search-login a:hover, .search-login a:active {
     color: #ffffff;
     text-decoration: none;
 }
