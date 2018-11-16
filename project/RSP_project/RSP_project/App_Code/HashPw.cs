@@ -4,13 +4,15 @@ using System.Text;
 
 public class HashPw
 {
-       public string HashString(string inputString, string hashName= "SHA256")
+    public string HashString(string clean, string Hfunkce = "SHA256")
     {
-        var algorithm = HashAlgorithm.Create(hashName);
-        if (algorithm == null)
-            throw new ArgumentException("Unrecognized hash name", hashName);
+        var hashovani = HashAlgorithm.Create(Hfunkce);
+        if (hashovani == null)
+            throw new ArgumentException("Unrecognized hash name", Hfunkce);
 
-        byte[] hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        byte[] hash = hashovani.ComputeHash(Encoding.UTF8.GetBytes(clean));
         return Convert.ToBase64String(hash);
     }
 }
+
+
