@@ -14,20 +14,28 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <div _designerregion="0">
-    <div _designerregion="0" style="text-align: center">
-        <div class="text-center">
-            <strong><br class="auto-style2" />
-            </strong><span class="auto-style1"><strong><span class="auto-style2">Zvolte autora:</span><br class="auto-style2" />
-        <br class="auto-style2" />
-            </strong></span>
-        </div>
-        <asp:GridView ID="GridView11" runat="server" AutoGenerateColumns="False" AutoGenerateSelectButton="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="3" DataKeyNames="id_user" DataSourceID="zdroj_odeslani_stavu_grid1" HorizontalAlign="Center" Width="500px">
+   <div class="obsah">
+        <asp:GridView CssClass="table table-bordered" ID="GridView11" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_user" DataSourceID="zdroj_odeslani_stavu_grid1" HorizontalAlign="Center" Width="500px">
             <Columns>
-                <asp:BoundField DataField="jmeno" HeaderText="jmeno" SortExpression="jmeno" />
-                <asp:BoundField DataField="login" HeaderText="login" SortExpression="login" />
-                <asp:BoundField DataField="prijmeni" HeaderText="prijmeni" SortExpression="prijmeni" />
-                <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" />
+                <asp:TemplateField HeaderText="Operace">
+                      <ItemTemplate>
+                                <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select"/>
+                            </ItemTemplate>
+
+                            <HeaderStyle CssClass="text-center" />
+
+                </asp:TemplateField>
+                <asp:BoundField DataField="jmeno" HeaderText="Jméno" SortExpression="jmeno" >
+                <HeaderStyle CssClass="text-center" />
+                </asp:BoundField>
+                <asp:BoundField DataField="login" HeaderText="Login" SortExpression="login" >
+                <HeaderStyle CssClass="text-center" />
+                </asp:BoundField>
+                <asp:BoundField DataField="prijmeni" HeaderText="Příjmení" SortExpression="prijmeni" >
+                <HeaderStyle CssClass="text-center" />
+                </asp:BoundField>
+                <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" Visible="False" />
+       
             </Columns>
             <FooterStyle BackColor="White" ForeColor="#000066" />
             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -49,29 +57,36 @@
             <br class="auto-style2" />
             </strong><span class="auto-style1"><strong><span class="auto-style2">Vyberte článek vybranného autora:</span><br class="auto-style2" />
             <br class="auto-style2" />
+            <asp:GridView CssClass="table table-bordered" ID="GridView12" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="zdroj_rps" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
+                <Columns>
+                    <asp:TemplateField HeaderText="Operace">
+
+                        <ItemTemplate>
+                                <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select"/>
+                            </ItemTemplate>
+                        <HeaderStyle CssClass="text-center" />
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="id_clanek" HeaderText="id_clanek" InsertVisible="False" ReadOnly="True" SortExpression="id_clanek" Visible="False" />
+                    <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku">
+                    <HeaderStyle CssClass="text-center" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="obsah_clanku" HeaderText="Obsah článku" SortExpression="obsah_clanku" />
+                    <asp:BoundField DataField="datum_clanku" HeaderText="Datum článku" SortExpression="datum_clanku" />
+                    <asp:BoundField DataField="autor" HeaderText="Autor" SortExpression="autor" />
+                    <asp:BoundField DataField="nazev_stav" HeaderText="Stav" SortExpression="nazev_stav" />
+                </Columns>
+                <FooterStyle BackColor="White" ForeColor="#000066" />
+                <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                <RowStyle ForeColor="#000066" />
+                <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                <SortedAscendingHeaderStyle BackColor="#007DBB" />
+                <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                <SortedDescendingHeaderStyle BackColor="#00547E" />
+            </asp:GridView>
             </strong></span>
         </div>
-        <asp:GridView ID="GridView12" runat="server" AutoGenerateColumns="False" AutoGenerateSelectButton="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_clanek" DataSourceID="zdroj_rps" HorizontalAlign="Center">
-            <AlternatingRowStyle BorderColor="Black" BorderStyle="Ridge" />
-            <Columns>
-                <asp:BoundField DataField="id_clanek" HeaderText="id_clanek" InsertVisible="False" ReadOnly="True" SortExpression="id_clanek" />
-                <asp:BoundField DataField="nadpis_clanku" HeaderText="nadpis_clanku" SortExpression="nadpis_clanku" />
-                <asp:BoundField DataField="obsah_clanku" HeaderText="obsah_clanku" SortExpression="obsah_clanku" />
-                <asp:BoundField DataField="datum_clanku" HeaderText="datum_clanku" SortExpression="datum_clanku" />
-                <asp:BoundField DataField="autor" HeaderText="autor" SortExpression="autor" />
-                <asp:BoundField DataField="nazev_stav" HeaderText="nazev_stav" SortExpression="nazev_stav" />
-            </Columns>
-            <EditRowStyle HorizontalAlign="Justify" />
-            <FooterStyle BackColor="White" ForeColor="#000066" />
-            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-            <RowStyle BorderStyle="Solid" ForeColor="#000066" />
-            <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#F1F1F1" />
-            <SortedAscendingHeaderStyle BackColor="#007DBB" />
-            <SortedDescendingCellStyle BackColor="#CAC9C9" />
-            <SortedDescendingHeaderStyle BackColor="#00547E" />
-        </asp:GridView>
         <asp:SqlDataSource ID="zdroj_rps" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT Clanek.id_clanek, Clanek.nadpis_clanku, Clanek.obsah_clanku,Clanek.datum_clanku,Clanek.autor,Stav.nazev_stav  FROM [Clanek] JOIN [Stav] ON Clanek.stav=Stav.id_stav WHERE ([autor] = @autor)">
             <SelectParameters>
                 <asp:ControlParameter ControlID="GridView11" Name="autor" PropertyName="SelectedValue" />
@@ -142,21 +157,7 @@
                 <asp:Parameter Name="original_stav" Type="Int32" />
             </UpdateParameters>
         </asp:SqlDataSource>
-        <br />
-        <br />
-        <br />
-        <br />
         </span>
-        </span>
-        <span class="auto-style1"><br class="auto-style2" />
-        </span>
-        </strong>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
     </div>
     </div>
 </asp:Content>
