@@ -43,6 +43,7 @@
                         <asp:Panel ID="Panel_redaktor" runat="server" Visible="False">
                             <a href="/redaktor/pridelit-oponenta">Přidělit oponenta</a>
                             <a href="/redaktor/odeslat-oponentovi">Odeslat oponentovi</a>
+                            <a href="/redaktor/stav-clanku">Stav článků</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
                             <a href="/sefredaktor/agenda-redaktora">Agenda redaktora</a>

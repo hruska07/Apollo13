@@ -1,21 +1,23 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="odeslani_stavu.aspx.cs" Inherits="odeslani_stavu" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="stav-clanku.aspx.cs" Inherits="odeslani_stavu" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
         .auto-style1 {
             color: #FFFFFF;
         }
+
         .auto-style2 {
             text-decoration: underline;
         }
+
         .auto-style4 {
             color: #FFFF00;
         }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-   <div class="obsah">
-        <asp:GridView CssClass="table table-bordered" ID="GridView11" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_user" DataSourceID="zdroj_odeslani_stavu_grid1" HorizontalAlign="Center" Width="500px">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="obsah">
+        <asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px">
             <Columns>
                 <asp:TemplateField HeaderText="Operace">
                       <ItemTemplate>
@@ -46,18 +48,18 @@
             <SortedAscendingHeaderStyle BackColor="#007DBB" />
             <SortedDescendingCellStyle BackColor="#CAC9C9" />
             <SortedDescendingHeaderStyle BackColor="#00547E" />
-        </asp:GridView>
-        <asp:SqlDataSource ID="zdroj_odeslani_stavu_grid1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [jmeno], [login], [prijmeni], [id_user] FROM [User] WHERE ([role] = @role)">
+        </asp:gridview>
+        <asp:sqldatasource id="zdroj_odeslani_stavu_grid1" runat="server" connectionstring="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" selectcommand="SELECT [jmeno], [login], [prijmeni], [id_user] FROM [User] WHERE ([role] = @role)">
             <SelectParameters>
                 <asp:Parameter DefaultValue="2" Name="role" Type="Int32" />
             </SelectParameters>
-        </asp:SqlDataSource>
+        </asp:sqldatasource>
         <div class="text-center">
             <strong>
-            <br class="auto-style2" />
+                <br class="auto-style2" />
             </strong><span class="auto-style1"><strong><span class="auto-style2">Vyberte článek vybranného autora:</span><br class="auto-style2" />
-            <br class="auto-style2" />
-            <asp:GridView CssClass="table table-bordered" ID="GridView12" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="zdroj_rps" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
+                <br class="auto-style2" />
+                <asp:gridview cssclass="table table-bordered" id="GridView12" runat="server" autogeneratecolumns="False" datakeynames="id_clanek" datasourceid="zdroj_rps" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3">
                 <Columns>
                     <asp:TemplateField HeaderText="Operace">
 
@@ -84,28 +86,29 @@
                 <SortedAscendingHeaderStyle BackColor="#007DBB" />
                 <SortedDescendingCellStyle BackColor="#CAC9C9" />
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
-            </asp:GridView>
+            </asp:gridview>
             </strong></span>
         </div>
-        <asp:SqlDataSource ID="zdroj_rps" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT Clanek.id_clanek, Clanek.nadpis_clanku, Clanek.obsah_clanku,Clanek.datum_clanku,Clanek.autor,Stav.nazev_stav  FROM [Clanek] JOIN [Stav] ON Clanek.stav=Stav.id_stav WHERE ([autor] = @autor)">
+        <asp:sqldatasource id="zdroj_rps" runat="server" connectionstring="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" selectcommand="SELECT Clanek.id_clanek, Clanek.nadpis_clanku, Clanek.obsah_clanku,Clanek.datum_clanku,Clanek.autor,Stav.nazev_stav  FROM [Clanek] JOIN [Stav] ON Clanek.stav=Stav.id_stav WHERE ([autor] = @autor)">
             <SelectParameters>
                 <asp:ControlParameter ControlID="GridView11" Name="autor" PropertyName="SelectedValue" />
             </SelectParameters>
-        </asp:SqlDataSource>
+        </asp:sqldatasource>
         <span class="auto-style1"><strong><span class="auto-style2">
-        <br />
-        <br />
-        Změnit stav zvoleného článku na :<br />
+            <br />
+            <br />
+            Změnit stav zvoleného článku na :<br />
         </span>
-        <span class="auto-style4"><em>1 nema_oponenta<br />
-&nbsp;2 ma_oponenta<br />
-        3 ceka_na_posudek<br />
-        4 schvalen
+            <span class="auto-style4"><em>1 nema_oponenta<br />
+                &nbsp;2 ma_oponenta<br />
+                3 ceka_na_posudek<br />
+                4 schvalen
         <br />
-        5 zamitnut<br />
-&nbsp;6 zverejnen</em></span><br class="auto-style4" />
-        <span class="auto-style1"><br />
-        <asp:FormView ID="FormView1" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1a" DefaultMode="Edit" GridLines="Both" HorizontalAlign="Center" OnItemUpdated="zmena" OnPageIndexChanging="FormView1_PageIndexChanging1">
+                5 zamitnut<br />
+                &nbsp;6 zverejnen</em></span><br class="auto-style4" />
+            <span class="auto-style1">
+                <br />
+                <asp:formview id="FormView1" runat="server" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_clanek" datasourceid="SqlDataSource1a" defaultmode="Edit" gridlines="Both" horizontalalign="Center" onitemupdated="zmena" onpageindexchanging="FormView1_PageIndexChanging1">
             <EditItemTemplate>
                 id_clanek:
                 <asp:Label ID="id_clanekLabel1" runat="server" Text='<%# Eval("id_clanek") %>' />
@@ -139,8 +142,8 @@
             </ItemTemplate>
             <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
             <RowStyle ForeColor="#000066" />
-        </asp:FormView>
-        <asp:SqlDataSource ID="SqlDataSource1a" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" DeleteCommand="DELETE FROM [Clanek] WHERE [id_clanek] = @original_id_clanek AND [stav] = @original_stav" InsertCommand="INSERT INTO [Clanek] ([stav]) VALUES (@stav)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [id_clanek], [stav] FROM [Clanek] WHERE ([id_clanek] = @id_clanek)" UpdateCommand="UPDATE [Clanek] SET [stav] = @stav WHERE [id_clanek] = @original_id_clanek AND [stav] = @original_stav">
+        </asp:formview>
+                <asp:sqldatasource id="SqlDataSource1a" runat="server" conflictdetection="CompareAllValues" connectionstring="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" deletecommand="DELETE FROM [Clanek] WHERE [id_clanek] = @original_id_clanek AND [stav] = @original_stav" insertcommand="INSERT INTO [Clanek] ([stav]) VALUES (@stav)" oldvaluesparameterformatstring="original_{0}" selectcommand="SELECT [id_clanek], [stav] FROM [Clanek] WHERE ([id_clanek] = @id_clanek)" updatecommand="UPDATE [Clanek] SET [stav] = @stav WHERE [id_clanek] = @original_id_clanek AND [stav] = @original_stav">
             <DeleteParameters>
                 <asp:Parameter Name="original_id_clanek" Type="Int32" />
                 <asp:Parameter Name="original_stav" Type="Int32" />
@@ -156,8 +159,8 @@
                 <asp:Parameter Name="original_id_clanek" Type="Int32" />
                 <asp:Parameter Name="original_stav" Type="Int32" />
             </UpdateParameters>
-        </asp:SqlDataSource>
-        </span>
+        </asp:sqldatasource>
+            </span>
     </div>
     </div>
 </asp:Content>
