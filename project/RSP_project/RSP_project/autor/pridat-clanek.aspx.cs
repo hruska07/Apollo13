@@ -19,10 +19,10 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     int cislo_autora = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
-         if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "autor"))
-              Response.Redirect("/login");
-         else
-              cislo_autora = Convert.ToInt32(Session["id_user"]);
+        if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "autor"))
+            Response.Redirect("/login");
+        else
+            cislo_autora = Convert.ToInt32(Session["id_user"]);
 
         conn = DB.getConnection();
 
@@ -49,7 +49,7 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
         return id;
     }
-   
+
     protected void Button1_Click(object sender, EventArgs e)
     {
         int soubor = 0;
@@ -70,7 +70,7 @@ public partial class Zadani_prispevku : System.Web.UI.Page
         }
         else
         {
-            soubor = 0; 
+            soubor = 0;
         }
 
         SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku,obsah_clanku, datum_clanku,autor,stav,tema,soubor,abstrakt) values(@Nadpis,@Obsah, @datum_clanku,@autor,@stav,@tema,@soubor,@abstrakt)", conn);
