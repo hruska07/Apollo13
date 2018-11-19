@@ -15,9 +15,25 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="obsah_clanku" class="control-label col-sm-1" id="Label3">Aspekt</label>
+                <div class="col-sm-11">
+                    <asp:TextBox CssClass="form-control col-sm-10" ID="obsah_aspektu" runat="server" TextMode="MultiLine" Rows="10"></asp:TextBox>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="obsah_clanku" class="control-label col-sm-1" id="Label2">Obsah článku</label>
                 <div class="col-sm-11">
                     <asp:TextBox CssClass="form-control col-sm-10" ID="obsah_clanku" runat="server" TextMode="MultiLine" Rows="10"></asp:TextBox>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="obsah_clanku" class="control-label col-sm-1" id="Label4">Vyberte kategorii</label>
+                <div class="col-sm-11">
+                    
+                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" Font-Names="Arial" ForeColor="Black" Width="390px">
+                    </asp:DropDownList>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:LogosPolytechnikosApollo13_dbConnectionString %>" SelectCommand="SELECT * FROM [Tema]"></asp:SqlDataSource>
+                    
                 </div>
             </div>
             <div class="form-group">

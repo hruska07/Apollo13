@@ -25,9 +25,9 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
         conn = DB.getConnection();
 
-        
     }
 
+   
     protected void Button1_Click(object sender, EventArgs e)
     {
         //textové pole nadpis
