@@ -1,6 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="odeslat-oponentovi.aspx.cs" Inherits="redaktor_odeslat_clanek" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+      <style type="text/css">
+        .auto-style1 {
+            color: #FFFFFF;
+        }
+
+        .auto-style2 {
+            text-decoration: underline;
+        }
+
+        .auto-style4 {
+            color: #FFFF00;
+        }
+    </style>
     <script type="text/javascript">
         $(function () {
             $('.datetimepicker').datetimepicker({
@@ -16,15 +29,24 @@
     <h3 class="text-center">Články k posouzení</h3>
     <div class="row" style="min-height: 320px;">
         <div class="col-sm-8">
-            <p>Vyberte přidělený článek:</p>
+              <span class="auto-style1"><strong><span class="auto-style2">
+          <p>Vyberte přidělený článek:</p>
+        </span></strong></span>
+          
             <asp:GridView CssClass="table table-bordered" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="seznam_pridelenych_clanku" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowSorting="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
                 <Columns>
-                    <asp:CommandField ShowSelectButton="True" />
-                    <asp:BoundField DataField="id_clanek" HeaderText="id_clanek" InsertVisible="False" ReadOnly="True" SortExpression="id_clanek" />
-                    <asp:BoundField DataField="nadpis_clanku" HeaderText="nadpis_clanku" SortExpression="nadpis_clanku" />
-                    <asp:BoundField DataField="obsah_clanku" HeaderText="obsah_clanku" SortExpression="obsah_clanku" />
-                    <asp:BoundField DataField="datum_clanku" HeaderText="datum_clanku" SortExpression="datum_clanku" />
-                    <asp:BoundField DataField="autor" HeaderText="autor" SortExpression="autor" />
+                    <asp:TemplateField HeaderText="Operace">
+                      <ItemTemplate>
+                                <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button1" runat="server" CommandName="Select"/>
+                            </ItemTemplate>
+
+                            <HeaderStyle CssClass="text-center" />
+                     </asp:TemplateField>
+                    <asp:BoundField DataField="id_clanek" HeaderText="ID článku" InsertVisible="False" ReadOnly="True" SortExpression="id_clanek" />
+                    <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis" SortExpression="nadpis_clanku" />
+                    <asp:BoundField DataField="obsah_clanku" HeaderText="Obsah" SortExpression="obsah_clanku" />
+                    <asp:BoundField DataField="datum_clanku" HeaderText="Datum vložení" SortExpression="datum_clanku" />
+                    <asp:BoundField DataField="autor" HeaderText="ID Autora" SortExpression="autor" />
                 </Columns>
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -44,7 +66,10 @@
         </div>
 
         <div class="col-sm-4">
-            <p>Vyberte, do kdy má oponent vydat posudek:</p>
+            <span class="auto-style1"><strong><span class="auto-style2">
+        <p>Vyberte, do kdy má oponent vydat posudek:</p>
+        </span></strong></span>
+           
             <div style="background-color: #ffffff; color: #000000;">
                 <asp:TextBox CssClass="form-control datetimepicker" ID="textbox_datum" runat="server"></asp:TextBox>
             </div>
