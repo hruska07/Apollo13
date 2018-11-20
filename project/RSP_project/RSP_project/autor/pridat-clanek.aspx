@@ -15,11 +15,11 @@
                 </div>
             </div>
             <div class="form-group">
-<<<<<<< HEAD
+
                 <label for="obsah_clanku" class="control-label col-sm-1" id="Label3">Abstrakt</label>
-=======
-                <label for="obsah_clanku" class="control-label col-sm-1" id="Label3">Aspekt</label>
->>>>>>> 43b716f3ed5c5cc119333701249932128835de1e
+
+
+
                 <div class="col-sm-11">
                     <asp:TextBox CssClass="form-control col-sm-10" ID="obsah_aspektu" runat="server" TextMode="MultiLine" Rows="10"></asp:TextBox>
                 </div>
@@ -31,11 +31,9 @@
                 </div>
             </div>
             <div class="form-group">
-<<<<<<< HEAD
+
                 <label for="kategorie" class="control-label col-sm-1" id="Label4">Vyberte kategorii</label>
-=======
-                <label for="obsah_clanku" class="control-label col-sm-1" id="Label4">Vyberte kategorii</label>
->>>>>>> 43b716f3ed5c5cc119333701249932128835de1e
+
                 <div class="col-sm-11">
                     
                     <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" Font-Names="Arial" ForeColor="Black" Width="390px">
@@ -45,7 +43,7 @@
                 </div>
             </div>
             <div class="form-group">
-<<<<<<< HEAD
+
                 <label for="soubory" class="control-label col-sm-1" id="Label5">Přídavné soubory</label>
                 <div class="col-sm-11">
                     
@@ -60,8 +58,6 @@
                 </div>
             </div>
             <div class="form-group">
-=======
->>>>>>> 43b716f3ed5c5cc119333701249932128835de1e
                 <div class="col-sm-offset-1 col-sm-11">
                     <asp:Button CssClass="btn btn-success" ID="Button1" runat="server" OnClick="Button1_Click" Text="Odeslat článek" />
                 </div>
