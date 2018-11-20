@@ -14,9 +14,9 @@
         <p>
             Důležité odkazy:
             <ul>
-                <li><a href="http://www.vspj.cz/soubory/download/id/4203" style="color:red">Pokyny pro přispěvatele</a></li>
-                 <li><a href="https://www.vspj.cz/soubory/download/id/4186" style="color:red">Šablona</a></li>
-                 <li><a href="http://www.vspj.cz/soubory/download/id/6907" style="color:red">Recenzní řízení</a></li>
+                <li><a target="_blank" href="http://www.vspj.cz/soubory/download/id/4203" >Pokyny pro přispěvatele</a></li>
+                 <li><a target="_blank" href="https://www.vspj.cz/soubory/download/id/4186" >Šablona</a></li>
+                 <li><a target="_blank" href="http://www.vspj.cz/soubory/download/id/6907" >Recenzní řízení</a></li>
             </ul>
         </p>
         <p>
