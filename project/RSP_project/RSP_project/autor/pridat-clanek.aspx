@@ -33,9 +33,9 @@
 
                 <div class="col-sm-10">
                     
-                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource1" Font-Names="Arial" ForeColor="Black" Width="390px">
+                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" Font-Names="Arial" ForeColor="Black" Width="390px" DataTextField="Tema" DataValueField="Tema">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:LogosPolytechnikosApollo13_dbConnectionString %>" SelectCommand="SELECT nazev FROM [Tema]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Tema] FROM [Tema]"></asp:SqlDataSource>
                     
                 </div>
             </div>
