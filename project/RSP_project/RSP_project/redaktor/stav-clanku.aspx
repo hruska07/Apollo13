@@ -13,10 +13,18 @@
         .auto-style4 {
             color: #FFFF00;
         }
+        .auto-style5 {
+            /*display: inline-block;*/
+        padding: 15px;
+            background-color: rgba(0, 0, 0, 0.25);
+            text-align: center;
+            font-size: 16px;
+            line-height: 170%;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="obsah">
+    <div class="auto-style5">
         <asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px">
             <Columns>
                 <asp:TemplateField HeaderText="Operace">
@@ -94,6 +102,7 @@
                 <asp:ControlParameter ControlID="GridView11" Name="autor" PropertyName="SelectedValue" />
             </SelectParameters>
         </asp:sqldatasource>
+        <div class="text-center">
         <span class="auto-style1"><strong><span class="auto-style2">
             <br />
             <br />
@@ -108,6 +117,7 @@
                 &nbsp;6 zverejnen</em></span><br class="auto-style4" />
             <span class="auto-style1">
                 <br />
+                </div>
                 <asp:formview id="FormView1" runat="server" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_clanek" datasourceid="SqlDataSource1a" defaultmode="Edit" gridlines="Both" horizontalalign="Center" onitemupdated="zmena" onpageindexchanging="FormView1_PageIndexChanging1">
             <EditItemTemplate>
                 id_clanek:
@@ -163,5 +173,6 @@
             </span>
     </div>
     </div>
+    </strong></span>
 </asp:Content>
 
