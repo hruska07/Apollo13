@@ -173,11 +173,12 @@
             </asp:SqlDataSource>
                 <br />
             <br />
-            <span class="auto-style2">Upravte zde</span>:<asp:GridView ID="GridView14" cssclass="table table-bordered" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_posudek" DataSourceID="zdroj_finnal" HorizontalAlign="Center">
+            <span class="auto-style2">Upravte zde</span>:<asp:GridView ID="GridView14" cssclass="table table-bordered" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_posudek" DataSourceID="zdroj_finnal" HorizontalAlign="Center" OnSelectedIndexChanged="GridView14_SelectedIndexChanged">
                 <Columns>
+                    <asp:CommandField ShowEditButton="True" />
                     <asp:TemplateField HeaderText="Operace">
                             <ItemTemplate>
-                                <asp:Button CssClass="btn btn-danger" Text="Upravit" ID="update_button" runat="server" CommandName="Edit"/>
+                                <asp:Button CssClass="btn btn-danger" Text="Upravit" ID="edit_button" runat="server" CommandName="Edit"/>
                             </ItemTemplate>
 
 

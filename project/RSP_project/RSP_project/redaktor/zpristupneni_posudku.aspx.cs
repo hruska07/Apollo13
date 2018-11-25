@@ -11,4 +11,9 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
     {
 
     }
+
+    protected void GridView14_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }
