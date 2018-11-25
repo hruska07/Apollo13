@@ -82,7 +82,7 @@
                     </asp:BoundField>
                     <asp:BoundField DataField="obsah_clanku" HeaderText="Obsah článku" SortExpression="obsah_clanku" />
                     <asp:BoundField DataField="datum_clanku" HeaderText="Datum článku" SortExpression="datum_clanku" />
-                    <asp:BoundField DataField="autor" HeaderText="Autor" SortExpression="autor" />
+                    <asp:BoundField DataField="autor" HeaderText="Autor" SortExpression="autor" Visible="False" />
                     <asp:BoundField DataField="nazev_stav" HeaderText="Stav" SortExpression="nazev_stav" />
                 </Columns>
                 <FooterStyle BackColor="White" ForeColor="#000066" />
