@@ -8,7 +8,7 @@
     <h3>Jak publikovat</h3>
     <div class="obsah">
         <p>
-            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se <a href="/registrace" class="label label-danger">Zaregistrovat</a>, nebo <a href="/login" class="label label-success">Přihlásit</a> jako <em>autor</em>.
+            Pokud chcete přispět do časopisu LOGOS POLYTECHNIKOS, neváhejte se <a href="/registrace" class="badge badge-danger">Zaregistrovat</a>, nebo <a href="/login" class="badge badge-success">Přihlásit</a> jako <em>autor</em>.
 
         </p>
         <p>
