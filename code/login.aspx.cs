@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
+using System.Web.Security;
 
 public partial class login : System.Web.UI.Page
 {
@@ -13,32 +14,42 @@ public partial class login : System.Web.UI.Page
     SqlConnection conn = new SqlConnection();
     SqlDataAdapter sda = new SqlDataAdapter();
     DataSet ds = new DataSet();
+    Database DB = new Database();
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=E:\Jáša\Git\projekty\Apollo13\project\RSP_project\RSP_project\App_Data\Apollo13.mdf;Integrated Security=True";
-        conn.Open();
+        conn = DB.getConnection();
     }
 
     protected void Button_login_Click(object sender, EventArgs e)
     {
-        String login = TextBox_login.Text;
-        String pass = TextBox_password.Text;
-
-        cmd.CommandText = "SELECT * FROM Users WHERE login = '" + login + "' AND password = '" + pass + "'";
+        string login = TextBox_login.Text;
+        HashPw hp = new HashPw();
+        string password = hp.HashString(TextBox_password.Text);
+        cmd.CommandText = "SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE login = @login AND password = @password";
+        cmd.Parameters.AddWithValue("@login", login);
+        cmd.Parameters.AddWithValue("@password", password);
         cmd.Connection = conn;
         sda.SelectCommand = cmd;
-        sda.Fill(ds, "Users");
+        sda.Fill(ds, "User");
         if (ds.Tables[0].Rows.Count > 0) {
-            if (pass == ds.Tables[0].Rows[0]["password"].ToString()) {
-                Session["role"] = ds.Tables[0].Rows[0]["typ_user"].ToString();
-                Label_output.Text = "Úspěšně přihlášen!\nRole: " + Session["role"];
+            if (password == ds.Tables[0].Rows[0]["password"].ToString()) {
+
+                //-- UKLADANI DO SESSION
+                Session["id_user"] = ds.Tables[0].Rows[0]["id_user"].ToString();
+                Session["nazev_role"] = ds.Tables[0].Rows[0]["nazev"].ToString();
+                Session["id_role"] = ds.Tables[0].Rows[0]["role"].ToString();
+                //-- UKLADANI DO SESSION
+
+                Response.Redirect("/default");
             }
             else {
+                Label_output.Visible = true;
                 Label_output.Text = "Špatné heslo!";
             }
         }
         else {
+            Label_output.Visible = true;
             Label_output.Text = "Uživatel nenalezen!";
         }
     }
