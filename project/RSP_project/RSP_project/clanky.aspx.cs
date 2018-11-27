@@ -60,7 +60,7 @@ public partial class _Default : System.Web.UI.Page
             Button1.Enabled = false;
         }
 
-        if (Button1.Enabled == true)
+        if (Button1.Enabled == true && id!= 0)
         {
             DataTable dt = new DataTable();
 
