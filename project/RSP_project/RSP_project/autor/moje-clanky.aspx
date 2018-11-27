@@ -60,7 +60,6 @@
 
         <div class="text-center row">
             <div class="col-sm-12">
-                <asp:SqlDataSource ID="zdroj1_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM Posudek JOIN Clanek ON clanek=id_clanek WHERE autor=3"></asp:SqlDataSource>
             </div>
         </div>
 
@@ -71,14 +70,14 @@
                 <asp:GridView CssClass="table table-bordered" ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="3" DataKeyNames="id_posudek" DataSourceID="zdroj2_zpetna_vazba" HorizontalAlign="Center" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px">
                     <Columns>
                         <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" ReadOnly="True" SortExpression="id_posudek" InsertVisible="False" Visible="False" />
-                        <asp:BoundField DataField="obsah_posudku" HeaderText="Obsah posudku" SortExpression="obsah_posudku" >
-                        <HeaderStyle CssClass="text-center" />
+                        <asp:BoundField DataField="obsah_posudku" HeaderText="obsah_posudku" SortExpression="obsah_posudku" >
                         </asp:BoundField>
                         <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" Visible="False" />
-                        <asp:BoundField DataField="datum_posudku" HeaderText="Datum posudku" SortExpression="datum_posudku" >
-                        <HeaderStyle CssClass="text-center" />
+                        <asp:BoundField DataField="datum_posudku" HeaderText="datum_posudku" SortExpression="datum_posudku" >
                         </asp:BoundField>
                         <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" Visible="False" />
+                        <asp:CheckBoxField DataField="zpristupnen" HeaderText="zpristupnen" SortExpression="zpristupnen" Visible="False" />
+                        <asp:BoundField DataField="komentar" HeaderText="komentar" SortExpression="komentar" Visible="False" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -90,7 +89,8 @@
                     <SortedDescendingCellStyle BackColor="#CAC9C9" />
                     <SortedDescendingHeaderStyle BackColor="#00547E" />
                 </asp:GridView>
-                <asp:SqlDataSource ID="zdroj2_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] WHERE ([clanek] = @clanek)">
+                <asp:SqlDataSource ID="zdroj2_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] WHERE ([clanek] = @clanek) AND ([zpristupnen]=1)
+">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="GridView3" Name="clanek" PropertyName="SelectedValue" Type="Int32" />
                     </SelectParameters>
