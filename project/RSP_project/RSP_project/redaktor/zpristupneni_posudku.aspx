@@ -28,7 +28,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="auto-style5"><br />
-        <span class="auto-style6"><strong><u>Vyberte Autora:</u><br /></strong></span><asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px">
+        <span class="auto-style6"><strong><u>Vyberte Autora:</u><br /></strong></span><asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px" OnSelectedIndexChanged="GridView11_SelectedIndexChanged">
             <Columns>
                 <asp:TemplateField HeaderText="Operace">
                       <ItemTemplate>
@@ -71,7 +71,7 @@
             <asp:Label ID="Label1" runat="server" style="text-decoration: underline" Text="Vyberte článek vybranného autora:"></asp:Label>
             </strong><span class="auto-style1"><strong><br class="auto-style2" />
                 <br class="auto-style2" />
-                <asp:gridview cssclass="table table-bordered" id="GridView12" runat="server" autogeneratecolumns="False" datakeynames="id_clanek" datasourceid="zdroj_rps" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3">
+                <asp:gridview cssclass="table table-bordered" id="GridView12" runat="server" autogeneratecolumns="False" datakeynames="id_clanek" datasourceid="zdroj_rps" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" OnSelectedIndexChanged="GridView12_SelectedIndexChanged">
                 <Columns>
                     <asp:TemplateField HeaderText="Operace">
 
@@ -195,7 +195,7 @@
                 <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" Height="234px" TextMode="MultiLine" Width="608px"></asp:TextBox>
                 <br />
                 <br />
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Odeslat" />
+            <asp:Button  ID="Button1" CssClass="btn btn-success btn-lg" runat="server" OnClick="Button1_Click" Text="Odeslat" />
             <br />
             <br />
                 <br />

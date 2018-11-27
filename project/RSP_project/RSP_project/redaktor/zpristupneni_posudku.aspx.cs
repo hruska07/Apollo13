@@ -14,12 +14,24 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
     SqlDataReader dr;
     string idecko,pomocna,komentar;
     bool zpristupnen;
-    
-    
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-        TextBox1.Visible = false;
+        if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
+            Response.Redirect("/login");
+
+        conn = DB.getConnection();
+        if (!Page.IsPostBack)
+        {
+            Label1.Visible = false;
+            Label2.Visible = false;
+            Label3.Visible = false;
+            Label4.Visible = false;
+            CheckBox1.Visible = false;
+            Button1.Visible = false;
+            TextBox1.Visible = false;
+        }
 
     }
 
@@ -35,13 +47,13 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
 
     protected void GridView13_SelectedIndexChanged(object sender, EventArgs e)
     {
+        Label3.Visible = true;
+        Label4.Visible = true;
+        CheckBox1.Visible = true;
+        Button1.Visible = true; 
 
 
-
-
-        conn = DB.getConnection();
-        conn.Close();
-        conn.Open();
+      
             idecko = GridView13.SelectedRow.Cells[1].Text;
             cmd = new SqlCommand("SELECT zpristupnen,komentar FROM Posudek WHERE id_posudek=@id_posude", conn);
             cmd.Parameters.AddWithValue("@id_posude", idecko);
@@ -68,9 +80,8 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        conn = DB.getConnection();
-        conn.Close();
-        conn.Open();
+
+      
         zpristupnen = CheckBox1.Checked;
         komentar = TextBox1.Text;
 
@@ -82,5 +93,15 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
         Response.Redirect(Request.RawUrl);
        
 
+    }
+
+    protected void GridView11_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Label1.Visible = true;
+    }
+
+    protected void GridView12_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Label2.Visible = true;
     }
 }
