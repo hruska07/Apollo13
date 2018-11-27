@@ -21,11 +21,14 @@
             font-size: 16px;
             line-height: 170%;
         }
+        .auto-style6 {
+            font-size: x-large;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="auto-style5">
-        <asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px">
+    <div class="auto-style5"><br />
+        <span class="auto-style6"><strong>Vyberte Autora:<br /></strong></span><asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px">
             <Columns>
                 <asp:TemplateField HeaderText="Operace">
                       <ItemTemplate>
@@ -106,23 +109,29 @@
         <span class="auto-style1"><strong><span class="auto-style2">
             Vyberte posudek:<br />
         </span><br class="auto-style4" />
-            <asp:GridView ID="GridView13" cssclass="table table-bordered" runat="server" DataSourceID="posudek_novy" AutoGenerateColumns="False" DataKeyNames="id_posudek" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" HorizontalAlign="Center">
+            <asp:GridView ID="GridView13" cssclass="table table-bordered" runat="server" DataSourceID="posudek_novy" AutoGenerateColumns="False" DataKeyNames="id_posudek,id_user" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" HorizontalAlign="Center" OnSelectedIndexChanged="GridView13_SelectedIndexChanged">
                 <Columns>
                     <asp:TemplateField HeaderText="Operace">
-                         <ItemTemplate>
+
+                            <ItemTemplate>
                                 <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select"/>
                             </ItemTemplate>
 
-
-
                     </asp:TemplateField>
-                    <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" InsertVisible="False" ReadOnly="True" SortExpression="id_posudek" Visible="False" />
-                    <asp:BoundField DataField="obsah_posudku" HeaderText="obsah_posudku" SortExpression="obsah_posudku" />
+                    <asp:BoundField DataField="id_posudek" HeaderText="Id posudku" InsertVisible="False" ReadOnly="True" SortExpression="id_posudek" />
+                    <asp:BoundField DataField="login" HeaderText="Login oponenta" SortExpression="login" />
+                    <asp:BoundField DataField="obsah_posudku" HeaderText="Obsah" SortExpression="obsah_posudku" />
                     <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" Visible="False" />
-                    <asp:BoundField DataField="datum_posudku" HeaderText="datum_posudku" SortExpression="datum_posudku" />
+                    <asp:BoundField DataField="datum_posudku" HeaderText="Datum" SortExpression="datum_posudku" />
                     <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" Visible="False" />
-                    <asp:CheckBoxField DataField="zpristupnen" HeaderText="zpristupnen" SortExpression="zpristupnen" />
-                    <asp:BoundField DataField="komentar" HeaderText="komentar" SortExpression="komentar" />
+                    <asp:CheckBoxField DataField="zpristupnen" HeaderText="Zpřístupněn" SortExpression="zpristupnen" />
+                    <asp:BoundField DataField="komentar" HeaderText="Komentář" SortExpression="komentar" />
+                    <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" Visible="False" />
+                    <asp:BoundField DataField="jmeno" HeaderText="jmeno" SortExpression="jmeno" Visible="False" />
+                    <asp:BoundField DataField="prijmeni" HeaderText="prijmeni" SortExpression="prijmeni" Visible="False" />
+                    <asp:BoundField DataField="password" HeaderText="password" SortExpression="password" Visible="False" />
+                    <asp:BoundField DataField="role" HeaderText="role" SortExpression="role" Visible="False" />
+                    <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" Visible="False" />
                 </Columns>
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -134,7 +143,8 @@
                 <SortedDescendingCellStyle BackColor="#CAC9C9" />
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
             </asp:GridView>
-            <asp:SqlDataSource ID="posudek_novy" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] WHERE ([clanek] = @clanek)" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [Posudek] WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))" InsertCommand="INSERT INTO [Posudek] ([obsah_posudku], [oponent], [datum_posudku], [clanek], [zpristupnen], [komentar]) VALUES (@obsah_posudku, @oponent, @datum_posudku, @clanek, @zpristupnen, @komentar)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [Posudek] SET [obsah_posudku] = @obsah_posudku, [oponent] = @oponent, [datum_posudku] = @datum_posudku, [clanek] = @clanek, [zpristupnen] = @zpristupnen, [komentar] = @komentar WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))">
+            <br />
+            <asp:SqlDataSource ID="posudek_novy" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] JOIN [User] ON ([oponent]=[id_user]) WHERE ([clanek] = @clanek)" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [Posudek] WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))" InsertCommand="INSERT INTO [Posudek] ([obsah_posudku], [oponent], [datum_posudku], [clanek], [zpristupnen], [komentar]) VALUES (@obsah_posudku, @oponent, @datum_posudku, @clanek, @zpristupnen, @komentar)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [Posudek] SET [obsah_posudku] = @obsah_posudku, [oponent] = @oponent, [datum_posudku] = @datum_posudku, [clanek] = @clanek, [zpristupnen] = @zpristupnen, [komentar] = @komentar WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))">
                 <DeleteParameters>
                     <asp:Parameter Name="original_id_posudek" Type="Int32" />
                     <asp:Parameter Name="original_obsah_posudku" Type="String" />
@@ -171,73 +181,19 @@
                     <asp:Parameter Name="original_komentar" Type="String" />
                 </UpdateParameters>
             </asp:SqlDataSource>
-                <br />
+                Zpřístupněn:<br />
             <br />
-            <span class="auto-style2">Upravte zde</span>:<asp:GridView ID="GridView14" cssclass="table table-bordered" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_posudek" DataSourceID="zdroj_finnal" HorizontalAlign="Center" OnSelectedIndexChanged="GridView14_SelectedIndexChanged">
-                <Columns>
-                    <asp:CommandField ShowEditButton="True" />
-                    <asp:TemplateField HeaderText="Operace">
-                            <ItemTemplate>
-                                <asp:Button CssClass="btn btn-danger" Text="Upravit" ID="edit_button" runat="server" CommandName="Edit"/>
-                            </ItemTemplate>
-
-
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" InsertVisible="False" ReadOnly="True" SortExpression="id_posudek" Visible="False" />
-                    <asp:BoundField DataField="obsah_posudku" HeaderText="obsah_posudku" SortExpression="obsah_posudku" Visible="False" />
-                    <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" Visible="False" />
-                    <asp:BoundField DataField="datum_posudku" HeaderText="datum_posudku" SortExpression="datum_posudku" Visible="False" />
-                    <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" Visible="False" />
-                    <asp:CheckBoxField DataField="zpristupnen" HeaderText="zpristupnen" SortExpression="zpristupnen" />
-                    <asp:BoundField DataField="komentar" HeaderText="komentar" SortExpression="komentar" />
-                </Columns>
-                <FooterStyle BackColor="White" ForeColor="#000066" />
-                <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-                <RowStyle ForeColor="#000066" />
-                <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                <SortedAscendingHeaderStyle BackColor="#007DBB" />
-                <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                <SortedDescendingHeaderStyle BackColor="#00547E" />
-            </asp:GridView>
-            <asp:SqlDataSource ID="zdroj_finnal" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" DeleteCommand="DELETE FROM [Posudek] WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))" InsertCommand="INSERT INTO [Posudek] ([obsah_posudku], [oponent], [datum_posudku], [clanek], [zpristupnen], [komentar]) VALUES (@obsah_posudku, @oponent, @datum_posudku, @clanek, @zpristupnen, @komentar)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT * FROM [Posudek] WHERE ([id_posudek] = @id_posudek)" UpdateCommand="UPDATE [Posudek] SET [obsah_posudku] = @obsah_posudku, [oponent] = @oponent, [datum_posudku] = @datum_posudku, [clanek] = @clanek, [zpristupnen] = @zpristupnen, [komentar] = @komentar WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))">
-                <DeleteParameters>
-                    <asp:Parameter Name="original_id_posudek" Type="Int32" />
-                    <asp:Parameter Name="original_obsah_posudku" Type="String" />
-                    <asp:Parameter Name="original_oponent" Type="Int32" />
-                    <asp:Parameter Name="original_datum_posudku" Type="DateTime" />
-                    <asp:Parameter Name="original_clanek" Type="Int32" />
-                    <asp:Parameter Name="original_zpristupnen" Type="Boolean" />
-                    <asp:Parameter Name="original_komentar" Type="String" />
-                </DeleteParameters>
-                <InsertParameters>
-                    <asp:Parameter Name="obsah_posudku" Type="String" />
-                    <asp:Parameter Name="oponent" Type="Int32" />
-                    <asp:Parameter Name="datum_posudku" Type="DateTime" />
-                    <asp:Parameter Name="clanek" Type="Int32" />
-                    <asp:Parameter Name="zpristupnen" Type="Boolean" />
-                    <asp:Parameter Name="komentar" Type="String" />
-                </InsertParameters>
-                <SelectParameters>
-                    <asp:ControlParameter ControlID="GridView13" Name="id_posudek" PropertyName="SelectedValue" Type="Int32" />
-                </SelectParameters>
-                <UpdateParameters>
-                    <asp:Parameter Name="obsah_posudku" Type="String" />
-                    <asp:Parameter Name="oponent" Type="Int32" />
-                    <asp:Parameter Name="datum_posudku" Type="DateTime" />
-                    <asp:Parameter Name="clanek" Type="Int32" />
-                    <asp:Parameter Name="zpristupnen" Type="Boolean" />
-                    <asp:Parameter Name="komentar" Type="String" />
-                    <asp:Parameter Name="original_id_posudek" Type="Int32" />
-                    <asp:Parameter Name="original_obsah_posudku" Type="String" />
-                    <asp:Parameter Name="original_oponent" Type="Int32" />
-                    <asp:Parameter Name="original_datum_posudku" Type="DateTime" />
-                    <asp:Parameter Name="original_clanek" Type="Int32" />
-                    <asp:Parameter Name="original_zpristupnen" Type="Boolean" />
-                    <asp:Parameter Name="original_komentar" Type="String" />
-                </UpdateParameters>
-            </asp:SqlDataSource>
+            <asp:CheckBox ID="CheckBox1" runat="server" />
+            <br />
+            <br />
+            Komentář:<br />
+            <br />
+                <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" Height="234px" TextMode="MultiLine" Width="608px"></asp:TextBox>
+                <br />
+                <br />
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Odeslat" />
+            <br />
+            <br />
                 <br />
                 </div>
     </div>

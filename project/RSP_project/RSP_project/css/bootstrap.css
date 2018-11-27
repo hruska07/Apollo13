@@ -138,6 +138,7 @@ dfn {
 b,
 strong {
   font-weight: bolder;
+    font-size: xx-large;
 }
 
 small {
@@ -217,6 +218,8 @@ svg {
 
 table {
   border-collapse: collapse;
+    font-size: medium;
+    margin-bottom: 0px;
 }
 
 caption {
