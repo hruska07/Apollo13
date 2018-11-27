@@ -22,9 +22,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="obsah_clanku" class="control-label col-sm-2" id="Label2">Obsah článku</label>
-                <div class="col-sm-10">
-                    <asp:TextBox CssClass="form-control col-sm-10" ID="obsah_clanku" runat="server" TextMode="MultiLine" Rows="10"></asp:TextBox>
+                &nbsp;<div class="col-sm-10">
                 </div>
             </div>
             <div class="form-group">
@@ -33,9 +31,9 @@
 
                 <div class="col-sm-10">
                     
-                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" Font-Names="Arial" ForeColor="Black" Width="390px" DataTextField="Tema" DataValueField="Tema">
+                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" Font-Names="Arial" ForeColor="Black" Width="390px" DataTextField="Tema_pk" DataValueField="Tema_pk">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Tema] FROM [Tema]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Tema_pk] FROM [Tema]"></asp:SqlDataSource>
                     
                 </div>
             </div>
@@ -44,14 +42,25 @@
                 <label for="soubory" class="control-label col-sm-2" id="Label5">Přídavné soubory</label>
                 <div class="col-sm-10">
                     
-                    <asp:Label ID="Label6" runat="server" Text="Soubor:"></asp:Label>
-                    <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Black" />
                     <br />
-                    <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Smazat výběr" ForeColor="Black" />
-                    
-                &nbsp;&nbsp;&nbsp;
-                    <asp:CheckBox ID="CheckBox1" runat="server" Text="Nahrát soubor" />
-                    
+                    <table>
+                        <tr>
+                            <td>
+                                <asp:Label ID="Label6" runat="server" Text="Soubor:"></asp:Label>
+                                <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Black" />
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Smazat výběr" ForeColor="Black" />
+                            </td>
+                        </tr>
+                    </table>            
+                    <br />
+                    <br />
+                
+                                        
                 </div>
             </div>
             <div class="form-group">
