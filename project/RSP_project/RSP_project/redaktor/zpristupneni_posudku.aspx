@@ -28,7 +28,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="auto-style5"><br />
-        <span class="auto-style6"><strong>Vyberte Autora:<br /></strong></span><asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px">
+        <span class="auto-style6"><strong><u>Vyberte Autora:</u><br /></strong></span><asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px">
             <Columns>
                 <asp:TemplateField HeaderText="Operace">
                       <ItemTemplate>
@@ -68,7 +68,8 @@
         <div class="text-center">
             <strong>
                 <br class="auto-style2" />
-            </strong><span class="auto-style1"><strong><span class="auto-style2">Vyberte článek vybranného autora:</span><br class="auto-style2" />
+            <asp:Label ID="Label1" runat="server" style="text-decoration: underline" Text="Vyberte článek vybranného autora:"></asp:Label>
+            </strong><span class="auto-style1"><strong><br class="auto-style2" />
                 <br class="auto-style2" />
                 <asp:gridview cssclass="table table-bordered" id="GridView12" runat="server" autogeneratecolumns="False" datakeynames="id_clanek" datasourceid="zdroj_rps" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3">
                 <Columns>
@@ -106,8 +107,9 @@
             </SelectParameters>
         </asp:sqldatasource>
         <div class="text-center">
-        <span class="auto-style1"><strong><span class="auto-style2">
-            Vyberte posudek:<br />
+            <asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="XX-Large" Font-Underline="True" Text="Vyberte posudek:"></asp:Label>
+            <span class="auto-style1"><strong><span class="auto-style2">
+            <br />
         </span><br class="auto-style4" />
             <asp:GridView ID="GridView13" cssclass="table table-bordered" runat="server" DataSourceID="posudek_novy" AutoGenerateColumns="False" DataKeyNames="id_posudek,id_user" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" HorizontalAlign="Center" OnSelectedIndexChanged="GridView13_SelectedIndexChanged">
                 <Columns>
@@ -181,12 +183,14 @@
                     <asp:Parameter Name="original_komentar" Type="String" />
                 </UpdateParameters>
             </asp:SqlDataSource>
-                Zpřístupněn:<br />
+                <asp:Label ID="Label3" runat="server" Font-Underline="True" Text="Zpřístupněn:"></asp:Label>
+            <br />
             <br />
             <asp:CheckBox ID="CheckBox1" runat="server" />
             <br />
             <br />
-            Komentář:<br />
+            <asp:Label ID="Label4" runat="server" Font-Underline="True" Text="Komentář:"></asp:Label>
+            <br />
             <br />
                 <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" Height="234px" TextMode="MultiLine" Width="608px"></asp:TextBox>
                 <br />
