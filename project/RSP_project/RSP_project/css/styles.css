@@ -59,7 +59,7 @@
 
 .sidebar {
     height: 100%;
-    width: 200px;
+    width: 230px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -88,7 +88,7 @@
 }
 
 .sidebar img {
-    width: 75%;
+    width: 90%;
     padding-top: 50px;
     padding-bottom: 70px;
 }
@@ -97,7 +97,7 @@
     display: none;
     position: absolute;
     top: 0;
-    left: 200px;
+    left: 230px;
     background-color: #171717;
     width: 200px;
     z-index: 1;
@@ -152,7 +152,7 @@
 
 .main {
     /*margin-left: 200px; /*Same as the width of the sidenav */
-    margin: 120px 50px 50px 250px;  /* (200 + 50)px*/
+    margin: 120px 50px 50px 280px;  /* (200 + 50)px*/
     color: #ffffff;
 }
 
@@ -176,7 +176,27 @@
     margin-bottom: 20px;
 }
 
-.obsah a:not(.badge) {
+.my-link {
+    color: #ff6363 !important;
+    text-decoration: none !important;
+}
+
+.my-link a {
+    color: #ff6363 !important;
+    text-decoration: none !important;
+}
+
+.my-link a:hover {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.my-link a:active {
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.obsah a.my-link {
     color: #ff6363;
     text-decoration: none;
 }
@@ -185,12 +205,12 @@
     font-size: 90% !important;
 }
 
-.obsah a:not(.badge):hover {
-    color: #ffffff;
+.obsah a.my-link:hover {
+    color: #ffffff !important;
     text-decoration: none;
 }
 
-.obsah a:not(.badge):active {
+.obsah a.my-link:active {
     color: #ffffff;
     text-decoration: none;
 }

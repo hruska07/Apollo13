@@ -11,7 +11,7 @@
             &emsp;&emsp;&emsp;LOGOS POLYTECHNIKOS je vysokoškolský odborný recenzovaný časopis, který slouží pro 
         publikační aktivity akademických pracovníků Vysoké školy polytechnické Jihlava i jiných
         vysokých škol, univerzit a výzkumných organizací. Je veden na seznamu recenzovaných odborných
-        a vědeckých časopisů <a target="_blank" href="https://dbh.nsd.uib.no/publiseringskanaler/erihplus/periodical/info?id=488187">ERIH PLUS</a> - European Reference Index for the Humanities and the Social
+        a vědeckých časopisů <a class="my-link" target="_blank" href="https://dbh.nsd.uib.no/publiseringskanaler/erihplus/periodical/info?id=488187">ERIH PLUS</a> - European Reference Index for the Humanities and the Social
         Science.
         </p>
        

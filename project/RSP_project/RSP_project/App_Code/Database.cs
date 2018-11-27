@@ -58,12 +58,23 @@ public class Database
 
     public DataRow getUserById(int id_user)
     {
-        SqlCommand select = new SqlCommand("SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE id_user = @id_user", conn);
+        SqlCommand select = new SqlCommand("SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE id_user = @id_user", getConnection());
         select.Parameters.AddWithValue("@id_user", id_user);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
         sda.SelectCommand = select;
         sda.Fill(ds);
         return ds.Tables[0].Rows[0];
-    } 
+    }
+
+    public DataRow getClanekById(int id_clanek)
+    {
+        SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor WHERE id_clanek = @id_clanek", getConnection());
+        select.Parameters.AddWithValue("@id_clanek", id_clanek);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        return ds.Tables[0].Rows[0];
+    }
 }

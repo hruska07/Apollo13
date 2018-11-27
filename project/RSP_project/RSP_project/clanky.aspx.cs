@@ -4,11 +4,37 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Data;
 
 public partial class _Default : System.Web.UI.Page
 {
+    Database DB = new Database();
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Request.RawUrl.ToString().Contains("/clanky?c=") && Request.RawUrl.ToString() != "/clanky?c=")
+        {
+            string a = Request.RawUrl.ToString();
+            Panel_prehled.Visible = false;
+            Panel_detail.Visible = true;
+            int id_clanek = Convert.ToInt32(Request.RawUrl.ToString().Substring(10));
+            DataRow clanek = DB.getClanekById(id_clanek);
+            Label_nadpis.Text = clanek["nadpis_clanku"].ToString();
+            Label_datum.Text = clanek["datum_clanku"].ToString();
+            Label_abstrakt.Text = clanek["abstrakt"].ToString();
+            Label_autor.Text = clanek["cele_jmeno"].ToString();
+        }
+        else
+        {
+            Panel_prehled.Visible = true;
+            Panel_detail.Visible = false;
+        }
 
+    }
+
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Response.Redirect("/clanky?c=" + GridView1.SelectedValue);
     }
 }
