@@ -1,7 +1,6 @@
 ﻿body {
     background-image: url('../graphics/Pozadi.png');
     color: #ffffff;
-    font-family: "Lato", sans-serif;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -230,7 +229,7 @@
 }
 
 .my-form {
-    width: 350px;
+    width: 370px;
     margin: 0 auto;
 }
 

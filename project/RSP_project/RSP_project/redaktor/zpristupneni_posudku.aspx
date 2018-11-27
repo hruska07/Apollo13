@@ -27,6 +27,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div class="obsah">
     <div class="auto-style5"><br />
         <span class="auto-style6"><strong><u>Vyberte Autora:</u><br /></strong></span><asp:gridview cssclass="table table-bordered" id="GridView11" runat="server" autogeneratecolumns="False" backcolor="White" bordercolor="#CCCCCC" borderstyle="None" borderwidth="1px" cellpadding="3" datakeynames="id_user" datasourceid="zdroj_odeslani_stavu_grid1" horizontalalign="Center" width="500px" OnSelectedIndexChanged="GridView11_SelectedIndexChanged">
             <Columns>
@@ -202,6 +203,5 @@
                 </div>
     </div>
     </div>
-    </strong></span>
 </asp:Content>
 
