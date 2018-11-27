@@ -36,8 +36,9 @@
                     <p class="card-text pt-2">
                         <asp:Label ID="Label_abstrakt" runat="server" Text="Label"></asp:Label>
                     </p>
-                    <a href="#" class="btn btn-info">Soubor</a>
-                    <footer class="blockquote-footer mt-1" style="color: #fff;">
+                    <asp:Button ID="Button1" runat="server" Text="Soubor" OnClick="Button1_Click" />
+         
+                    &nbsp;<footer class="blockquote-footer mt-1 " style="color: #fff;">
                         <asp:Label ID="Label_autor" runat="server" Text="Label"></asp:Label>
                     </footer>
                 </div>
