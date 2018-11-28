@@ -38,16 +38,17 @@ public partial class Zadani_prispevku : System.Web.UI.Page
         string name = fi.Name;
         string extn = fi.Extension;
 
+        
         SqlCommand cmd = new SqlCommand("SaveDocument", conn);
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.Add("@Name", SqlDbType.VarChar).Value = name;
-        cmd.Parameters.Add("@Content", SqlDbType.VarBinary).Value = documentContent;
-        cmd.Parameters.Add("@Extn", SqlDbType.VarChar).Value = extn;
-
+        var x = cmd.Parameters.Add("@Name", SqlDbType.VarChar).Value = name;
+        var y = cmd.Parameters.Add("@Content", SqlDbType.VarBinary).Value = documentContent;
+        var z = cmd.Parameters.Add("@Extn", SqlDbType.VarChar).Value = extn;
         cmd.ExecuteNonQuery();
 
-        SqlCommand get_ID = new SqlCommand("SELECT ID FROM [Documents] WHERE Name=@Name && Content=@Content && Extn=@Extn", conn);
-        int id = Convert.ToInt32(get_ID.ToString());
+        SqlCommand get_ID = new SqlCommand("SELECT ID FROM Documents ORDER BY ID DESC", conn);
+
+        int id = Convert.ToInt32(get_ID.ExecuteScalar());
 
         return id;
     }
