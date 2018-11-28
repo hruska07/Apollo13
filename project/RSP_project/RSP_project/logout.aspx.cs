@@ -9,9 +9,7 @@ public partial class logout : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Session["id_user"] = null;
-        Session["nazev_role"] = null;
-        Session["id_role"] = null;
+        Session.Clear();
         Response.Redirect("/default");
     }
 }
