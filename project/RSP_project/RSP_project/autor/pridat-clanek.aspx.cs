@@ -134,7 +134,6 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     protected void Button2_Click(object sender, EventArgs e)
     {
         FileUpload1.FileContent.Dispose();
-        
     }
 
 

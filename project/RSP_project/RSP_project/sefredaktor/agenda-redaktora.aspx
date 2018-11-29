@@ -19,9 +19,7 @@
                 <asp:BoundField DataField="prijmeni" HeaderText="Příjmení redaktora" SortExpression="prijmeni" />
             </Columns>
             <SelectedRowStyle cssClass="bg-dark text-center" />
-            <SortedAscendingCellStyle CssClass="table-dark" />
             <SortedAscendingHeaderStyle CssClass="bg-dark"/>
-            <SortedDescendingCellStyle CssClass="bg-dark" />
             <SortedDescendingHeaderStyle CssClass="table-dark"/>
             <HeaderStyle CssClass="text-center my-link" />
             <RowStyle CssClass="text-center" />
@@ -36,9 +34,7 @@
                 <asp:BoundField DataField="prijmeni" HeaderText="Přijmení oponenta" SortExpression="prijmeni" />
             </Columns>
             <SelectedRowStyle cssClass="bg-dark text-center" />
-            <SortedAscendingCellStyle CssClass="table-dark" />
             <SortedAscendingHeaderStyle CssClass="bg-dark"/>
-            <SortedDescendingCellStyle CssClass="bg-dark" />
             <SortedDescendingHeaderStyle CssClass="table-dark"/>
             <HeaderStyle CssClass="text-center my-link" />
             <RowStyle CssClass="text-center" />

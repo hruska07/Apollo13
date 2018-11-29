@@ -49,10 +49,8 @@
 
             </Columns>
             <SelectedRowStyle CssClass="bg-dark text-center" />
-            <SortedAscendingCellStyle CssClass="table-dark" />
-            <SortedAscendingHeaderStyle CssClass="bg-dark" />
-            <SortedDescendingCellStyle CssClass="bg-dark" />
-            <SortedDescendingHeaderStyle CssClass="table-dark" />
+            <SortedAscendingHeaderStyle CssClass="bg-dark"/>
+            <SortedDescendingHeaderStyle CssClass="table-dark"/>
             <HeaderStyle CssClass="text-center my-link" />
             <RowStyle CssClass="text-center" />
         </asp:GridView>
@@ -84,10 +82,8 @@
                         <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav" SortExpression="nazev_stav" />
                     </Columns>
                     <SelectedRowStyle CssClass="bg-dark text-center" />
-                    <SortedAscendingCellStyle CssClass="table-dark" />
-                    <SortedAscendingHeaderStyle CssClass="bg-dark" />
-                    <SortedDescendingCellStyle CssClass="bg-dark" />
-                    <SortedDescendingHeaderStyle CssClass="table-dark" />
+                    <SortedAscendingHeaderStyle CssClass="bg-dark"/>
+                    <SortedDescendingHeaderStyle CssClass="table-dark"/>
                     <HeaderStyle CssClass="text-center my-link" />
                     <RowStyle CssClass="text-center" />
                 </asp:GridView>

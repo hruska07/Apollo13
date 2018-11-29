@@ -37,9 +37,7 @@
                     </Columns>
                     <EditRowStyle CssClass="text-center" />
                     <SelectedRowStyle cssClass="bg-dark text-center" />
-                    <SortedAscendingCellStyle CssClass="table-dark" />
                     <SortedAscendingHeaderStyle CssClass="bg-dark"/>
-                    <SortedDescendingCellStyle CssClass="bg-dark" />
                     <SortedDescendingHeaderStyle CssClass="table-dark"/>
                     <HeaderStyle CssClass="text-center my-link" />
                     <RowStyle CssClass="text-center" />
@@ -75,15 +73,12 @@
                     </Columns>
                     <EditRowStyle CssClass="text-center" />
                     <SelectedRowStyle cssClass="bg-dark text-center" />
-                    <SortedAscendingCellStyle CssClass="table-dark" />
                     <SortedAscendingHeaderStyle CssClass="bg-dark"/>
-                    <SortedDescendingCellStyle CssClass="bg-dark" />
                     <SortedDescendingHeaderStyle CssClass="table-dark"/>
                     <HeaderStyle CssClass="text-center my-link" />
                     <RowStyle CssClass="text-center" />
                 </asp:GridView>
-                <asp:SqlDataSource ID="zdroj2_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] WHERE ([clanek] = @clanek) AND ([zpristupnen]=1)
-">
+                <asp:SqlDataSource ID="zdroj2_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] WHERE ([clanek] = @clanek) AND ([zpristupnen]=1)">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="GridView3" Name="clanek" PropertyName="SelectedValue" Type="Int32" />
                     </SelectParameters>

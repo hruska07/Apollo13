@@ -33,12 +33,12 @@
                 <asp:Label class="col-form-label col-sm-1" ID="Label6" runat="server" Text="Soubor"></asp:Label>
                 <div class="col-sm-11">                   
                     <asp:FileUpload ID="FileUpload1" runat="server" /><br />
-                    <asp:Button CssClass="btn btn-danger mt-2" ID="Button2" runat="server" OnClick="Button2_Click" Text="Smazat výběr" />            
                 </div>
             </div>
             <div class="form-group row">
+                <div class="col-sm-1"></div>
                 <div class="col-sm-11">
-                    <asp:Button CssClass="btn btn-success mt-3" ID="Button1" runat="server" OnClick="Button1_Click" Text="Odeslat článek" />
+                    <asp:Button CssClass="btn btn-danger mt-3" ID="Button1" runat="server" OnClick="Button1_Click" Text="Odeslat článek" />
                 </div>
             </div>
             <asp:Label ID="Label7" runat="server" Text="Label" Visible="False"></asp:Label>
