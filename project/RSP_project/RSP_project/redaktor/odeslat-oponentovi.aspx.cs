@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Data;
 
 public partial class redaktor_odeslat_clanek : System.Web.UI.Page
 {
     Database DB = new Database();
     SqlConnection conn = null;
+    Notifications nf = new Notifications();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -45,6 +47,11 @@ public partial class redaktor_odeslat_clanek : System.Web.UI.Page
             Label_message.Visible = true;
             Label_message.Text = "Record Inserted Succesfully into the Database";
             Label_message.ForeColor = System.Drawing.Color.CornflowerBlue;
+
+            //notifikace - mail
+            DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));
+            DataRow user = DB.getUserById(Convert.ToInt32(Session["id_user"]));
+            nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' se změnil. Aktuální stav: Čeká na posudek");
         }
         catch (Exception ex)
         {
