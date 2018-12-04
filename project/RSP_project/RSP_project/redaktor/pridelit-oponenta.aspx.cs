@@ -24,12 +24,13 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent) values(@clanek, @oponent)", conn);
+        SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent, datum_vyrizeni) values(@clanek, @oponent, @datum_vyrizeni)", conn);
         insert.Parameters.AddWithValue("@clanek",GridView1.SelectedValue);
         insert.Parameters.AddWithValue("@oponent", DropDownList1.SelectedValue);
+        insert.Parameters.AddWithValue("@datum_vyrizeni", textbox_datum.Text);
 
         SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", conn);
-        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ma_oponenta");
+        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ceka_na_posudek");
         int id_stav = (int)get_ID_stav.ExecuteScalar();
         SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
         update.Parameters.AddWithValue("@id_stav", id_stav);
@@ -39,13 +40,13 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         {
             insert.ExecuteNonQuery();
             update.ExecuteNonQuery();
-            Label1_vybrany_clanek.Text = "Record Inserted Succesfully into the Database";
+            Label1_vybrany_clanek.Text = "Záznam byl úspěšně vložen.";
             Label1_vybrany_clanek.ForeColor = System.Drawing.Color.CornflowerBlue;
 
             //notifikace - mail
             DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));
-            DataRow user = DB.getUserById(Convert.ToInt32(Session["id_user"]));
-            nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' se změnil. Aktuální stav: Má oponenta");
+            DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
+            nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' se změnil, byl přidělen oponent. Aktuální stav: Čeká na posudek");
         }
         catch (Exception ex)
         {

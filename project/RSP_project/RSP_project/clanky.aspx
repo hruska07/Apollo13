@@ -7,7 +7,7 @@
     <h3>Články</h3>
     <div class="obsah">
         <asp:Panel ID="Panel_prehled" runat="server">
-            <asp:GridView CssClass="table table-dark table-striped table-borderless" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+            <asp:GridView CssClass="table table-dark table-striped" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
                 <Columns>
                     <asp:BoundField DataField="id_clanek" HeaderText="ID článku" ReadOnly="True" SortExpression="id_clanek" Visible="False" HeaderStyle-CssClass="my-link text-center"/>
                     <asp:BoundField DataField="nadpis_clanku" HeaderText="Název článku" SortExpression="nadpis_clanku" />

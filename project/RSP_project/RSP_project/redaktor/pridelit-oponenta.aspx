@@ -2,6 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <title>Přidělit oponenta</title>
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                inline: true,
+                sideBySide: true,
+                locale: 'cs',
+                format: "DD.MM.YYYY HH:mm",
+            });
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
@@ -52,14 +62,17 @@
                     </SelectParameters>
                 </asp:SqlDataSource>
                 <br />
-            </div>
 
-        </div>
+                <p><strong>Vyberte, do kdy má oponent vydat posudek:</strong></p>
 
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <asp:Button CssClass="btn btn-lg btn-success" ID="Button1" Enabled="False" runat="server" OnClick="Button1_Click" Text="Potvrď výběr článku k oponentovi" />
-            </div>
+                <div style="background-color: #ffffff; color: #000000;">
+                    <asp:TextBox CssClass="form-control datetimepicker" ID="textbox_datum" runat="server"></asp:TextBox>
+                </div>
+                <br />
+
+                <div class="col-sm-12 text-center">
+                    <asp:Button CssClass="btn btn-lg btn-success" ID="Button1" Enabled="False" runat="server" OnClick="Button1_Click" Text="Potvrď výběr článku k oponentovi" />
+                </div>
         </div>
     </div>
 
