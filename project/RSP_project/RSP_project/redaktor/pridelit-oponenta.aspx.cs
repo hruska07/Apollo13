@@ -12,6 +12,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 {
     Database DB = new Database();
     SqlConnection conn = null;
+    Notifications nf = new Notifications();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -33,7 +34,6 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
         update.Parameters.AddWithValue("@id_stav", id_stav);
         update.Parameters.AddWithValue("@clanek", GridView1.SelectedValue);
-     
 
         try
         {
@@ -41,6 +41,11 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             update.ExecuteNonQuery();
             Label1_vybrany_clanek.Text = "Record Inserted Succesfully into the Database";
             Label1_vybrany_clanek.ForeColor = System.Drawing.Color.CornflowerBlue;
+
+            //notifikace - mail
+            DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));
+            DataRow user = DB.getUserById(Convert.ToInt32(Session["id_user"]));
+            nf.sendTestEmail(user["email"].ToString(), "Článek - změna stavu", "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' se změnil. Aktuální stav: Má oponenta");
         }
         catch (Exception ex)
         {
