@@ -11,4 +11,16 @@ public partial class oponent_stav : System.Web.UI.Page
     {
 
     }
+
+    protected void FormView1_PageIndexChanging(object sender, FormViewPageEventArgs e)
+    {
+       
+    }
+
+    protected void zmena(object sender, EventArgs e)
+    {
+        Response.Redirect(Request.RawUrl);
+
+
+    }
 }
