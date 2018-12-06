@@ -1,0 +1,31 @@
+﻿<%--
+Výchozí šablona skinu. Následující skiny jsou poskytnuty pouze jako ukázka.
+
+1. Skin pojmenovaného ovládacího prvku. Hodnota SkinId by měla být definovaná jedinečně,
+   protože v rámci jednoho motivu nejsou povolena duplicitní SkinId pro jednotlivé typy ovládacích prvků.
+
+<asp:GridView runat="server" SkinId="gridviewSkin" BackColor="White" >
+   <AlternatingRowStyle BackColor="Blue" />
+</asp:GridView>
+
+2. Výchozí skin. Hodnota SkinId není definována. V rámci jednoho motivu
+   je povolen pouze jeden skin pro každý typ ovládacího prvku.
+
+<asp:Image runat="server" ImageUrl="~/images/image1.jpg" />
+
+<Columns>
+        <asp:TemplateField>
+            <HeaderStyle CssClass="my-link" />
+        </asp:TemplateField>
+    </Columns>
+--%>
+
+<asp:GridView cssclass="table table-dark table-striped" runat="server">
+    <SelectedRowStyle cssClass="bg-dark text-center" /> 
+    <SortedAscendingHeaderStyle CssClass="bg-dark"/>
+    <SortedDescendingHeaderStyle CssClass="table-dark"/>
+    <HeaderStyle CssClass="text-center my-link" />
+    <RowStyle CssClass="text-center" />
+
+    
+</asp:GridView>

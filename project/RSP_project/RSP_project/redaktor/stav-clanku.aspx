@@ -26,33 +26,23 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="auto-style5">
-        <asp:GridView CssClass="table table-dark table-striped table-borderless" ID="GridView11" runat="server" AutoGenerateColumns="False" DataKeyNames="id_user" DataSourceID="zdroj_odeslani_stavu_grid1">
+        <asp:GridView ID="GridView11" runat="server" AutoGenerateColumns="False" DataKeyNames="id_user" DataSourceID="zdroj_odeslani_stavu_grid1">
             <Columns>
                 <asp:TemplateField HeaderText="Operace">
                     <ItemTemplate>
                         <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select" />
                     </ItemTemplate>
 
-                    <HeaderStyle CssClass="my-link" />
-
                 </asp:TemplateField>
                 <asp:BoundField DataField="jmeno" HeaderText="Jméno" SortExpression="jmeno">
-                    <HeaderStyle CssClass="my-link" />
                 </asp:BoundField>
                 <asp:BoundField DataField="login" HeaderText="Login" SortExpression="login">
-                    <HeaderStyle CssClass="my-link" />
                 </asp:BoundField>
                 <asp:BoundField DataField="prijmeni" HeaderText="Příjmení" SortExpression="prijmeni">
-                    <HeaderStyle CssClass="my-link" />
                 </asp:BoundField>
                 <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" Visible="False" />
 
             </Columns>
-            <SelectedRowStyle CssClass="bg-dark text-center" />
-            <SortedAscendingHeaderStyle CssClass="bg-dark"/>
-            <SortedDescendingHeaderStyle CssClass="table-dark"/>
-            <HeaderStyle CssClass="text-center my-link" />
-            <RowStyle CssClass="text-center" />
         </asp:GridView>
         <asp:SqlDataSource ID="zdroj_odeslani_stavu_grid1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [jmeno], [login], [prijmeni], [id_user] FROM [User] WHERE ([role] = @role)">
             <SelectParameters>
@@ -64,28 +54,24 @@
                 <br class="auto-style2" />
             </strong><span class="auto-style1"><strong><span class="auto-style2">Vyberte článek vybraného autora:</span><br class="auto-style2" />
                 <br class="auto-style2" />
-                <asp:GridView CssClass="table table-dark table-striped table-borderless" ID="GridView12" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="zdroj_rps">
+                <asp:GridView ID="GridView12" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="zdroj_rps">
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
 
                             <ItemTemplate>
                                 <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select" />
                             </ItemTemplate>
-                            <HeaderStyle CssClass="my-link" />
+                            
                         </asp:TemplateField>
                         <asp:BoundField DataField="id_clanek" HeaderText="id_clanek" InsertVisible="False" ReadOnly="True" SortExpression="id_clanek" Visible="False" />
                         <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku">
-                            <HeaderStyle CssClass="my-link" />
+                            
                         </asp:BoundField>
                         <asp:BoundField DataField="datum_clanku" HeaderText="Datum článku" SortExpression="datum_clanku" />
                         <asp:BoundField DataField="autor" HeaderText="Autor" SortExpression="autor" Visible="False" />
                         <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav" SortExpression="nazev_stav" />
                     </Columns>
-                    <SelectedRowStyle CssClass="bg-dark text-center" />
-                    <SortedAscendingHeaderStyle CssClass="bg-dark"/>
-                    <SortedDescendingHeaderStyle CssClass="table-dark"/>
-                    <HeaderStyle CssClass="text-center my-link" />
-                    <RowStyle CssClass="text-center" />
+                    
                 </asp:GridView>
             </strong></span>
         </div>
@@ -107,7 +93,7 @@
                 </em>
             </span>
         </div>
-        <asp:FormView CssClass="table table-dark table-striped table-borderless" ID="FormView1" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1a" DefaultMode="Edit" GridLines="Both" HorizontalAlign="Center" OnItemUpdated="zmena" OnPageIndexChanging="FormView1_PageIndexChanging1">
+        <asp:FormView ID="FormView1" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1a" DefaultMode="Edit" GridLines="Both" HorizontalAlign="Center" OnItemUpdated="zmena" OnPageIndexChanging="FormView1_PageIndexChanging1">
             <EditItemTemplate>
                 ID článku:
                 <asp:Label ID="id_clanekLabel1" runat="server" Text='<%# Eval("id_clanek") %>' />
@@ -136,9 +122,7 @@
                 &nbsp;<asp:LinkButton cssClass="btn btn-danger"  ID="DeleteButton" runat="server" CausesValidation="False" CommandName="Delete" Text="Odstranit" />
                 &nbsp;<asp:LinkButton cssClass="btn btn-danger"  ID="NewButton" runat="server" CausesValidation="False" CommandName="New" Text="Nový" />
             </ItemTemplate>
-            <EditRowStyle CssClass="bg-dark text-center" />
-            <HeaderStyle CssClass="text-center my-link" />
-            <RowStyle CssClass="text-center" />
+            
         </asp:FormView>
         <asp:SqlDataSource ID="SqlDataSource1a" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" DeleteCommand="DELETE FROM [Clanek] WHERE [id_clanek] = @original_id_clanek AND [stav] = @original_stav" InsertCommand="INSERT INTO [Clanek] ([stav]) VALUES (@stav)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT [id_clanek], [stav] FROM [Clanek] WHERE ([id_clanek] = @id_clanek)" UpdateCommand="UPDATE [Clanek] SET [stav] = @stav WHERE [id_clanek] = @original_id_clanek AND [stav] = @original_stav">
             <DeleteParameters>

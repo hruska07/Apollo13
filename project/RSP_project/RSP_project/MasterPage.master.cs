@@ -14,6 +14,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        Page.MaintainScrollPositionOnPostBack = true;
+
         DB.getConnection();
 
         if (Session["id_user"] == null)
