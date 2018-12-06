@@ -46,7 +46,11 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             //notifikace - mail
             DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));
             DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
-            nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' se změnil, byl přidělen oponent. Aktuální stav: Čeká na posudek");
+            string message = "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' byl změněn, byl přidělen oponent. Aktuální stav: Čeká na posudek";
+            nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", message);
+            //notifikace - stranky
+            DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "clanek_zmena_stavu", message);
+
         }
         catch (Exception ex)
         {

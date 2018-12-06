@@ -28,6 +28,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div id="Notifications" class="alert alert-warning alert-dismissible fade show my-notifications" role="alert" runat="server">
+            
+        </div>
+
         <div class="sidebar">
             <a href="https://logospolytechnikosapollo13.azurewebsites.net/">
                 <img src="/graphics/logoPolytechnikos.png"/>
@@ -44,7 +48,11 @@
                         </asp:Panel>
                         <asp:Panel ID="Panel_redaktor" runat="server" Visible="False">
                             <a href="/redaktor/pridelit-oponenta">Přidělit oponenta</a>
+                            <a href="/redaktor/zpristupneni-posudku">Zpřístupnění posudků</a>
                             <a href="/redaktor/stav-clanku">Stav článků</a>
+                        </asp:Panel>
+                        <asp:Panel ID="Panel_oponent" runat="server" Visible="False">
+                            <a href="/oponent/stav-clanku">Stav článků</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
                             <a href="/sefredaktor/agenda-redaktora">Agenda redaktora</a>

@@ -21,34 +21,27 @@
             <div class="col-sm-8">
                 <p><strong>Vyber článek z tabulky:</strong></p>
 
-                <asp:GridView CssClass="table table-dark table-striped table-borderless" ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged1">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged1">
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
                             <ItemTemplate>
                                 <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button1" runat="server" CommandName="Select" />
                             </ItemTemplate>
-
-                            <HeaderStyle CssClass="my-link" />
                         </asp:TemplateField>
                         <asp:BoundField DataField="id_clanek" HeaderText="ID článku" InsertVisible="False" ReadOnly="True" SortExpression="id_clanek" />
                         <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis" SortExpression="nadpis_clanku" />
                         <asp:BoundField DataField="datum_clanku" HeaderText="Datum vložení" SortExpression="datum_clanku" />
                         <asp:BoundField DataField="autor" HeaderText="ID Autora" SortExpression="autor" />
                     </Columns>
-                    <SelectedRowStyle CssClass="bg-dark text-center" />
-                    <SortedAscendingHeaderStyle CssClass="bg-dark"/>
-                    <SortedDescendingHeaderStyle CssClass="table-dark"/>
-                    <HeaderStyle CssClass="text-center my-link" />
-                    <RowStyle CssClass="text-center" />
                 </asp:GridView>
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [datum_clanku], [autor] FROM [Clanek] INNER JOIN [Stav] ON [Clanek].stav = [Stav].id_stav WHERE ([nazev_stav] = @nazev_stav)">
                     <SelectParameters>
                         <asp:Parameter DefaultValue="nema_oponenta" Name="nazev_stav" Type="String" />
                     </SelectParameters>
                 </asp:SqlDataSource>
-                <span class="auto-style1"><strong><span class="auto-style2">
+                <strong>
                     <p>Vybrané ID článku:&nbsp;<asp:Label ID="Label1_vybrany_clanek" runat="server" Font-Size="Medium"></asp:Label></p>
-                </span></strong></span>
+               </strong>
             </div>
 
             <div class="col-sm-4">
@@ -63,7 +56,7 @@
                 </asp:SqlDataSource>
                 <br />
 
-                <p><strong>Vyberte, do kdy má oponent vydat posudek:</strong></p>
+                <p><strong>Vyber, do kdy má oponent vydat posudek:</strong></p>
 
                 <div style="background-color: #ffffff; color: #000000;">
                     <asp:TextBox CssClass="form-control datetimepicker" ID="textbox_datum" runat="server"></asp:TextBox>
@@ -73,6 +66,7 @@
                 <div class="col-sm-12 text-center">
                     <asp:Button CssClass="btn btn-lg btn-success" ID="Button1" Enabled="False" runat="server" OnClick="Button1_Click" Text="Potvrď výběr článku k oponentovi" />
                 </div>
+            </div>
         </div>
     </div>
 
