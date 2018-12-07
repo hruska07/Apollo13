@@ -92,7 +92,7 @@ public partial class Zadani_prispevku : System.Web.UI.Page
                 soubor = Ulozit_soubor();
             }
 
-            SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku, datum_clanku,autor,stav,tema,soubor,abstrakt) values(@Nadpis, @datum_clanku,@autor,@stav,@tema,@soubor,@abstrakt)", conn);
+            SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku, datum_clanku,autor,stav,tema,soubor,abstrakt,keywords,autors,workplace) values(@Nadpis, @datum_clanku,@autor,@stav,@tema,@soubor,@abstrakt,@keyw,@aut,@workpl)", conn);
             insert.Parameters.AddWithValue("@Nadpis", Nadpis);
             insert.Parameters.AddWithValue("@abstrakt", Abstrakt);
             insert.Parameters.AddWithValue("@datum_clanku", date1);
@@ -100,6 +100,10 @@ public partial class Zadani_prispevku : System.Web.UI.Page
             insert.Parameters.AddWithValue("@stav", 1);
             insert.Parameters.AddWithValue("@tema", DropDownList1.SelectedValue.ToString());
             insert.Parameters.AddWithValue("@soubor", soubor);
+            insert.Parameters.AddWithValue("@keyw", keywords.Text);
+            insert.Parameters.AddWithValue("@aut", autors.Text);
+            insert.Parameters.AddWithValue("@workpl", workplace.Text);
+
 
         try
             {
@@ -135,6 +139,5 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     {
         FileUpload1.FileContent.Dispose();
     }
-
 
 }

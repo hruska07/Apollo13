@@ -36,6 +36,24 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="klicova_slova" class="col-form-label col-sm-1" id="Label10">Klíčová slova</label>
+                <div class="col-sm-11">
+                    <asp:TextBox CssClass="form-control" ID="keywords" runat="server"></asp:TextBox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="autori" class="col-form-label col-sm-1" id="Label11">Autoři</label>
+                <div class="col-sm-11">
+                    <asp:TextBox CssClass="form-control" ID="autors" runat="server"></asp:TextBox>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="pracoviste" class="col-form-label col-sm-1" id="Label12">Pracoviště</label>
+                <div class="col-sm-11">
+                    <asp:TextBox CssClass="form-control" ID="workplace" runat="server"></asp:TextBox>
+                </div>
+            </div>
+            <div class="form-group row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-11">
                     <asp:Button CssClass="btn btn-danger mt-3" ID="Button1" runat="server" OnClick="Button1_Click" Text="Odeslat článek" />
