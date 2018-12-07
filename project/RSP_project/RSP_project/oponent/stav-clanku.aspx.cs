@@ -46,4 +46,9 @@ public partial class oponent_stav : System.Web.UI.Page
         DropDownList1.SelectedValue = GridView1.DataKeys[GridView1.SelectedIndex]["id_stav"].ToString();
         Button_aktualizovat.Enabled = true;
     }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+
+    }
 }
