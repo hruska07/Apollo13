@@ -51,7 +51,7 @@
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="seznam_oponentu" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT id_user,role,jmeno,prijmeni,(jmeno +' '+ prijmeni) AS [cele_jmeno] FROM [User] WHERE ([role] = @role)">
                     <SelectParameters>
-                        <asp:Parameter DefaultValue="6" Name="role" Type="Int32" />
+                        <asp:Parameter DefaultValue="3" Name="role" Type="Int32" />
                     </SelectParameters>
                 </asp:SqlDataSource>
                 <br />
