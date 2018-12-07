@@ -41,7 +41,12 @@
         <br />
 
         <div class="text-center">
-            <strong>Vyberte nový stav zvoleného článku:</strong><br /><br />
+            <strong>Pokud chcete, můžete vybraný článek odmítnout tlačítkem níže:<br />
+            <br />
+            <asp:Button CssClass="btn btn-lg btn-success" ID="Button1" runat="server" Text="Odmítnout" OnClick="Button1_Click" />
+            <br />
+            <br />
+            Vyberte nový stav zvoleného článku:</strong><br /><br />
             <asp:DropDownList CssClass="form-control my-select" ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" DataTextField="nazev_stav_cit" DataValueField="id_stav">
             </asp:DropDownList>
             <br /><br />
