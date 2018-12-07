@@ -31,7 +31,12 @@
                 <asp:BoundField DataField="id_stav" HeaderText="id_stav" InsertVisible="False" ReadOnly="True" SortExpression="id_stav" Visible="False"></asp:BoundField>
             </Columns>
         </asp:GridView>
-        <asp:SqlDataSource ID="zdrojak" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Clanek].id_clanek,[User].id_user,[Propoj_clanek_oponent].Id_propoj,[User].jmeno,[User].prijmeni,[Clanek].nadpis_clanku,[Clanek].datum_clanku,[Clanek].Stav,[Stav].nazev_stav_cit,[Stav].id_stav  FROM Propoj_clanek_oponent JOIN [Clanek] ON clanek=id_clanek JOIN [User] ON autor=id_user JOIN [Stav] ON [Clanek].stav=[Stav].id_stav WHERE ([oponent]=11)"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="zdrojak" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Clanek].id_clanek,[User].id_user,[Propoj_clanek_oponent].Id_propoj,[User].jmeno,[User].prijmeni,[Clanek].nadpis_clanku,[Clanek].datum_clanku,[Clanek].Stav,[Stav].nazev_stav_cit,[Stav].id_stav  FROM Propoj_clanek_oponent JOIN [Clanek] ON clanek=id_clanek JOIN [User] ON autor=id_user JOIN [Stav] ON [Clanek].stav=[Stav].id_stav WHERE ([oponent]=@oponent)">
+            <SelectParameters>
+                        <asp:SessionParameter Name="oponent" SessionField="id_user" Type="Int32" />
+                    </SelectParameters>
+
+        </asp:SqlDataSource>
         <br />
         <br />
 
