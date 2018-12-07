@@ -4,17 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 using System.Data;
 
 public partial class oponent_stav : System.Web.UI.Page
 {
     Database DB = new Database();
+    SqlConnection conn = null;
     Notifications nf = new Notifications();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "oponent"))
             Response.Redirect("/login");
+        conn = DB.getConnection();
     }
 
     protected void Button_aktualizovat_Click(object sender, EventArgs e)
@@ -45,10 +48,20 @@ public partial class oponent_stav : System.Web.UI.Page
     {
         DropDownList1.SelectedValue = GridView1.DataKeys[GridView1.SelectedIndex]["id_stav"].ToString();
         Button_aktualizovat.Enabled = true;
+        Button1.Enabled = true;
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
+        int id_stav=1;
 
+        SqlCommand delete = new SqlCommand("delete from Propoj_clanek_oponent where ([clanek]=@clanek)", conn);
+        delete.Parameters.AddWithValue("@clanek",GridView1.SelectedValue);
+        delete.ExecuteNonQuery();
+        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
+        update.Parameters.AddWithValue("@id_stav", id_stav);
+        update.Parameters.AddWithValue("@clanek", GridView1.SelectedValue);
+       update.ExecuteNonQuery();
+        Response.Redirect(Request.RawUrl);
     }
 }

@@ -8,7 +8,7 @@
 
     <div class="obsah">
         <div class="text-center">
-            <strong>Vyberte článek:<br /><br />
+            <strong>Vyberte z přidělených článků:<br /><br />
             </strong>
         </div>
 
@@ -43,7 +43,7 @@
         <div class="text-center">
             <strong>Pokud chcete, můžete vybraný článek odmítnout tlačítkem níže:<br />
             <br />
-            <asp:Button CssClass="btn btn-lg btn-success" ID="Button1" runat="server" Text="Odmítnout" OnClick="Button1_Click" />
+            <asp:Button CssClass="btn btn-lg btn-success" ID="Button1" runat="server" Text="Odmítnout" OnClick="Button1_Click" Enabled="False" />
             <br />
             <br />
             Vyberte nový stav zvoleného článku:</strong><br /><br />
