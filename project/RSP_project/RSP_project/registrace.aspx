@@ -32,12 +32,13 @@
                 <asp:requiredfieldvalidator id="validator_heslo0" runat="server" errormessage="Musíte zadat heslo" controltovalidate="TextBox_password2" display="Dynamic"></asp:requiredfieldvalidator>
             </div>
             <div class="form-group">
-                <label for="rbl_role">Role:</label>
-                <asp:radiobuttonlist id="rbl_role" runat="server" cellpadding="0" cellspacing="1">
-                        <asp:ListItem Value="autor">&nbsp;Autor</asp:ListItem>
-                        <asp:ListItem Value="ctenar">&nbsp;Čtenář</asp:ListItem>
-                        <asp:ListItem Value="ostatni" Selected="True">&nbsp;Ostatní</asp:ListItem>
-                    </asp:radiobuttonlist>
+                <label for="rbl_role">Role:&nbsp;</label>
+                <asp:dropdownlist cssClass="form-control my-select" id="rbl_role" runat="server">
+                        <asp:ListItem Value="autor" Selected="True">&nbsp;Autor</asp:ListItem>
+                        <asp:ListItem Value="ostatni">&nbsp;Ostatní</asp:ListItem>
+                </asp:dropdownlist>
+                <br /><br />
+                <p class="text-justify">Pokud se NECHCETE registrovat jako <b>autor</b>, vyberte roli <b>ostatní</b> a napište <a class="my-link" href="mailto:logospolytechnikos@gmail.com">email</a> administrátorovi. Ten vám poté přidělí požadovanou roli.</p>
             </div>
             <div class="text-center">
                 <div class="form-group">

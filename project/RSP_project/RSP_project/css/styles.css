@@ -180,17 +180,17 @@
     text-decoration: none !important;
 }
 
-.my-link a {
+a.my-link {
     color: #ff6363 !important;
     text-decoration: none !important;
 }
 
-.my-link a:hover {
+a.my-link:hover {
     color: #ffffff !important;
     text-decoration: none;
 }
 
-.my-link a:active {
+a.my-link:active {
     color: #ffffff !important;
     text-decoration: none;
 }

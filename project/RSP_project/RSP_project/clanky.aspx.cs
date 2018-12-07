@@ -28,8 +28,10 @@ public partial class _Default : System.Web.UI.Page
             DataRow clanek = DB.getClanekById(id_clanek);
             Label_nadpis.Text = clanek["nadpis_clanku"].ToString();
             Label_datum.Text = clanek["datum_clanku"].ToString();
+            Label_keywords.Text = clanek["keywords"].ToString();
             Label_abstrakt.Text = clanek["abstrakt"].ToString();
-            Label_autor.Text = clanek["cele_jmeno"].ToString();
+            Label_autor.Text = clanek["autors"].ToString();
+            Label_pracoviste.Text = clanek["workplace"].ToString();
         }
         else
         {

@@ -61,7 +61,7 @@
                 </div>
             </asp:Panel>
             <a class="highlight<% if(Request.RawUrl.ToString() == "/default") { %> active<% } %>" href="/default">HOME</a>
-            <a class="highlight<% if(Request.RawUrl.ToString().Contains("/clanky")) { %> active<% } %>" href="/clanky">Články</a>
+            <a class="highlight<% if(Request.RawUrl.ToString() == "/casopisy") { %> active<% } %>" href="/casopisy">Časopisy</a>
             <a class="highlight<% if(Request.RawUrl.ToString() == "/publikace") { %> active<% } %>" href="/publikace">Publikace</a>
             <a class="highlight<% if(Request.RawUrl.ToString() == "/o-nas") { %> active<% } %>" href="/o-nas">O nás</a>
         </div>

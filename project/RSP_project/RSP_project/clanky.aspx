@@ -37,12 +37,17 @@
                         <span class="fa fa-calendar"></span> <asp:Label ID="Label_datum" runat="server" Text="Label"></asp:Label>
                     </h6>
                     <p class="card-text pt-2">
-                        <asp:Label ID="Label_abstrakt" runat="server" Text="Label"></asp:Label>
+                        Klíčová slova:<br />
+                        <asp:Label ID="Label_keywords" runat="server" Text="Label"></asp:Label>
+                    </p>
+                    <p class="card-text pt-2">
+                        Abstrakt:<br /><asp:Label ID="Label_abstrakt" runat="server" Text="Label"></asp:Label>
                     </p>
                     <asp:Button CssClass="btn btn-info" ID="Button1" runat="server" Text="Soubor" OnClick="Button1_Click" />
          
                     &nbsp;<footer class="blockquote-footer mt-1 " style="color: #fff;">
-                        <asp:Label ID="Label_autor" runat="server" Text="Label"></asp:Label>
+                        <asp:Label ID="Label_autor" runat="server" Text="Label"></asp:Label><br />
+                        Pracoviště:&nbsp;<asp:Label ID="Label_pracoviste" runat="server" Text="Label"></asp:Label>
                     </footer>
                 </div>
         </asp:Panel>

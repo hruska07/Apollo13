@@ -58,8 +58,10 @@
 
                 <p><strong>Vyber, do kdy má oponent vydat posudek:</strong></p>
 
-                <div style="background-color: #ffffff; color: #000000;">
-                    <asp:TextBox CssClass="form-control datetimepicker" ID="textbox_datum" runat="server"></asp:TextBox>
+                <div style="min-height: 256px;">
+                    <div style="background-color: #ffffff; color: #000000;">
+                        <asp:TextBox CssClass="form-control datetimepicker" ID="textbox_datum" runat="server"></asp:TextBox>
+                    </div>
                 </div>
                 <br />
 
