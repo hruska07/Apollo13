@@ -15,8 +15,7 @@
                     <asp:BoundField DataField="cele_jmeno" HeaderText="Autor" SortExpression="autor" />
                     <asp:TemplateField HeaderText="Detail">
                         <ItemTemplate>
-                            <asp:Button CssClass="btn btn-danger" Text="Detail" ID="select_button" runat="server" CommandName="Select" />
-                            <HeaderStyle CssClass="my-link" />
+                            <asp:Button CssClass="btn btn-danger" Text="Detail" ID="select_button" runat="server"/>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

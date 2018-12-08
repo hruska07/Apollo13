@@ -10,7 +10,7 @@
         <div class="text-center row">
             <div class="col-sm-12">
                 <p>Vaše všechny odeslané aktuální články:</p>
-                <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="zdroj3_zpetna_vazba" DataKeyNames="id_clanek">
+                <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="zdroj3_zpetna_vazba" DataKeyNames="id_clanek" OnRowCommand="GridView3_RowCommand">
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
                             <ItemTemplate>
@@ -25,6 +25,11 @@
                         </asp:BoundField>
                         <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav" SortExpression="nazev_stav_cit" >
                         </asp:BoundField>
+                        <asp:TemplateField HeaderText="Detail">
+                        <ItemTemplate>
+                            <asp:Button CssClass="btn btn-info" Text="Detail" ID="detail_button" runat="server" CausesValidation="false" CommandName="ShowDetail" CommandArgument='<%# Eval("id_clanek") %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
                 <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [datum_clanku], [nazev_stav_cit] FROM [Clanek] JOIN [Stav] ON [Clanek].[stav] = [Stav].[id_stav] WHERE ([autor] = @autor) ORDER BY [datum_clanku]">

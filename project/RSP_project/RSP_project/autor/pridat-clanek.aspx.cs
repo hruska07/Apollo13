@@ -29,28 +29,35 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
     }
 
-    protected int Ulozit_soubor()
+    protected string Saving_fi()
     {
-       
-        FileInfo fi = new FileInfo(FileUpload1.FileName);
-        byte[] documentContent = FileUpload1.FileBytes;
+        string file_path ="";
+        string folder = Server.MapPath("~/Saved_files/");
+        if (!Directory.Exists(folder))
+        {
+            Directory.CreateDirectory(folder);
+        }
 
-        string name = fi.Name;
-        string extn = fi.Extension;
+        if (FileUpload1.HasFile)
+        {
+            file_path = FileUpload1.FileName;
 
-        
-        SqlCommand cmd = new SqlCommand("SaveDocument", conn);
-        cmd.CommandType = CommandType.StoredProcedure;
-        var x = cmd.Parameters.Add("@Name", SqlDbType.VarChar).Value = name;
-        var y = cmd.Parameters.Add("@Content", SqlDbType.VarBinary).Value = documentContent;
-        var z = cmd.Parameters.Add("@Extn", SqlDbType.VarChar).Value = extn;
-        cmd.ExecuteNonQuery();
-
-        SqlCommand get_ID = new SqlCommand("SELECT ID FROM Documents ORDER BY ID DESC", conn);
-
-        int id = Convert.ToInt32(get_ID.ExecuteScalar());
-
-        return id;
+            string nameToCheck = file_path;
+            if (File.Exists(folder + nameToCheck))
+            {
+                int counter = 2;
+                while (File.Exists(folder + nameToCheck))
+                {
+                    // if a file with this name already exists,
+                    // prefix the filename with a number.
+                    nameToCheck = counter.ToString() + file_path;
+                    counter++;
+                }
+                file_path = nameToCheck;
+            }
+            FileUpload1.PostedFile.SaveAs(folder + file_path);
+        }
+        return file_path;
     }
 
     protected void Button1_Click(object sender, EventArgs e)
@@ -83,16 +90,8 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
             //příkaz do databáze
 
-            if (FileUpload1.HasFile == false)
-            {
-                soubor = 0;
-            }
-            else
-            {
-                soubor = Ulozit_soubor();
-            }
 
-            SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku, datum_clanku,autor,stav,tema,soubor,abstrakt,keywords,autors,workplace) values(@Nadpis, @datum_clanku,@autor,@stav,@tema,@soubor,@abstrakt,@keyw,@aut,@workpl)", conn);
+            SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku, datum_clanku,autor,stav,tema,soubor,abstrakt,keywords,autors,workplace,path) values(@Nadpis, @datum_clanku,@autor,@stav,@tema,@soubor,@abstrakt,@keyw,@aut,@workpl,@patha)", conn);
             insert.Parameters.AddWithValue("@Nadpis", Nadpis);
             insert.Parameters.AddWithValue("@abstrakt", Abstrakt);
             insert.Parameters.AddWithValue("@datum_clanku", date1);
@@ -103,6 +102,8 @@ public partial class Zadani_prispevku : System.Web.UI.Page
             insert.Parameters.AddWithValue("@keyw", keywords.Text);
             insert.Parameters.AddWithValue("@aut", autors.Text);
             insert.Parameters.AddWithValue("@workpl", workplace.Text);
+            insert.Parameters.AddWithValue("@patha", Saving_fi());
+
 
 
         try

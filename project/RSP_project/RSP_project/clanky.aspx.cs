@@ -59,8 +59,8 @@ public partial class _Default : System.Web.UI.Page
         {
             Response.Clear();
             Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename=" + name);
-            Response.TransmitFile(path);
+            Response.AppendHeader("content-disposition", "filename=" + path);
+            Response.TransmitFile(Server.MapPath("~/Saved_files/") + path);
             Response.End();
         }
 
