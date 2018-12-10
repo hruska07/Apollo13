@@ -64,4 +64,11 @@ public partial class oponent_stav : System.Web.UI.Page
        update.ExecuteNonQuery();
         Response.Redirect(Request.RawUrl);
     }
+
+    protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName != "ShowDetail") return;
+        int id = Convert.ToInt32(e.CommandArgument);
+        Response.Redirect(String.Format("/clanky?c={0}", id));
+    }
 }
