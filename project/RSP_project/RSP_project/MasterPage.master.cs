@@ -48,7 +48,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Panel_not_logged.Visible = false;
             Panel_logged.Visible = true;
             DataRow user = DB.getUserById(Convert.ToInt32(Session["id_user"]));
-            Label_logged_user.Text = user["login"].ToString();
+            Label_logged_user.Text = user["login"].ToString() + " (" + user["nazev"] + ")";
             Panel_role_menu.Visible = true;
             switch (user["nazev"].ToString())
             {
