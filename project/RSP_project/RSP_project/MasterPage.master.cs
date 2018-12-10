@@ -48,27 +48,31 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Panel_not_logged.Visible = false;
             Panel_logged.Visible = true;
             DataRow user = DB.getUserById(Convert.ToInt32(Session["id_user"]));
-            Label_logged_user.Text = user["login"].ToString() + " (" + user["nazev"] + ")";
+            Label_logged_user.Text = user["login"].ToString();
             Panel_role_menu.Visible = true;
             switch (user["nazev"].ToString())
             {
                 case "autor":
                     Label_role_menu.Text = "AUTOR";
+                    Label_logged_user.Text += " (autor)";
                     Panel_autor.Visible = true;
                     break;
 
                 case "redaktor":
                     Label_role_menu.Text = "REDAKTOR";
+                    Label_logged_user.Text += " (redaktor)";
                     Panel_redaktor.Visible = true;
                     break;
 
                 case "oponent":
                     Label_role_menu.Text = "OPONENT";
+                    Label_logged_user.Text += " (oponent)";
                     Panel_oponent.Visible = true;
                     break;
 
                 case "sefredaktor":
                     Label_role_menu.Text = "ŠÉFREDAKTOR";
+                    Label_logged_user.Text += " (šéfredaktor)";
                     Panel_sefredaktor.Visible = true;
                     break;
             }
