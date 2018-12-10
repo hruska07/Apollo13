@@ -7,8 +7,42 @@
     <h3>Stav článků</h3>
 
     <div class="obsah">
+            <div class="text-center">
+            <strong>
+           
+            Nejprve vyberte autora:<br /><br />
+                <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="id_user" DataSourceID="kzdrojak">
+                    <Columns>
+                        <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" Visible="False" />
+                        <asp:TemplateField HeaderText="Operace">
+
+                              <ItemTemplate>
+                        <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select" />
+                    </ItemTemplate>
+
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="login" HeaderText="login" SortExpression="login" />
+                        <asp:BoundField DataField="jmeno" HeaderText="jmeno" SortExpression="jmeno" />
+                        <asp:BoundField DataField="prijmeni" HeaderText="prijmeni" SortExpression="prijmeni" />
+                        <asp:BoundField DataField="password" HeaderText="password" SortExpression="password" Visible="False" />
+                        <asp:BoundField DataField="role" HeaderText="role" SortExpression="role" Visible="False" />
+                        <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" Visible="False" />
+                    </Columns>
+                </asp:GridView>
+                <asp:SqlDataSource ID="kzdrojak" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [User] WHERE ([role] = @role)">
+                    <SelectParameters>
+                        <asp:Parameter DefaultValue="2" Name="role" Type="Int32" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+            </strong>
+        </div>
+
+
+
         <div class="text-center">
-            <strong>Vyberte článek:<br /><br />
+            <strong>
+           
+            Vyberte článek:<br /><br />
             </strong>
         </div>
 
@@ -31,7 +65,11 @@
                 <asp:BoundField DataField="id_stav" HeaderText="id_stav" InsertVisible="False" ReadOnly="True" SortExpression="id_stav" Visible="False"></asp:BoundField>
             </Columns>
         </asp:GridView>
-        <asp:SqlDataSource ID="zdrojak" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Clanek].id_clanek,[User].id_user,[Propoj_clanek_oponent].Id_propoj,[User].jmeno,[User].prijmeni,[Clanek].nadpis_clanku,[Clanek].datum_clanku,[Clanek].Stav,[Stav].nazev_stav_cit,[Stav].id_stav  FROM Propoj_clanek_oponent JOIN [Clanek] ON clanek=id_clanek JOIN [User] ON autor=id_user JOIN [Stav] ON [Clanek].stav=[Stav].id_stav WHERE ([oponent]=11)"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="zdrojak" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Clanek].id_clanek,[User].id_user,[Propoj_clanek_oponent].Id_propoj,[User].jmeno,[User].prijmeni,[Clanek].nadpis_clanku,[Clanek].datum_clanku,[Clanek].Stav,[Stav].nazev_stav_cit,[Stav].id_stav  FROM Propoj_clanek_oponent JOIN [Clanek] ON clanek=id_clanek JOIN [User] ON autor=id_user JOIN [Stav] ON [Clanek].stav=[Stav].id_stav WHERE ([id_user]=@id_user)">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="GridView2" Name="id_user" PropertyName="SelectedValue" />
+            </SelectParameters>
+            </asp:SqlDataSource>
         <br />
         <br />
 
