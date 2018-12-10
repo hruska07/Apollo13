@@ -50,15 +50,8 @@
             <br />
             <asp:Button CssClass="btn btn-lg btn-success" ID="Button1" runat="server" Text="Odmítnout" OnClick="Button1_Click" Enabled="False" />
             <br />
+            </strong>
             <br />
-            Vyberte nový stav zvoleného článku:</strong><br /><br />
-            <asp:DropDownList CssClass="form-control my-select" ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" DataTextField="nazev_stav_cit" DataValueField="id_stav">
-            </asp:DropDownList>
-            <br /><br />
-            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [nazev_stav_cit], [id_stav] FROM [Stav] ORDER BY [id_stav]"></asp:SqlDataSource>
-            <asp:Button CssClass="btn btn-lg btn-success" ID="Button_aktualizovat" runat="server" Text="Aktualizovat stav" OnClick="Button_aktualizovat_Click" Enabled="False" /><br />
-            <br />
-            <asp:Label ID="Label_message" runat="server" Text="Label" Visible="False"></asp:Label>
 
         </div>
     </div>
