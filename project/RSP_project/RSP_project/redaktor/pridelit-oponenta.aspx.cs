@@ -27,7 +27,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent, datum_vyrizeni) values(@clanek, @oponent, @datum_vyrizeni)", conn);
         insert.Parameters.AddWithValue("@clanek",GridView1.SelectedValue);
         insert.Parameters.AddWithValue("@oponent", DropDownList1.SelectedValue);
-        insert.Parameters.AddWithValue("@datum_vyrizeni", textbox_datum.Text);
+        insert.Parameters.AddWithValue("@datum_vyrizeni", DateTime.Parse(textbox_datum.Text));
 
         SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", conn);
         get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ceka_na_posudek");
@@ -51,14 +51,12 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             //notifikace - stranky
             DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "clanek_zmena_stavu", message);
 
+            Response.Redirect("/redaktor/pridelit-oponenta");
         }
         catch (Exception ex)
         {
           Label1_vybrany_clanek.Text = "Error: " + ex.Message;
         }
-
-        Response.Redirect("/redaktor/pridelit-oponenta");
-      
 
     }
 

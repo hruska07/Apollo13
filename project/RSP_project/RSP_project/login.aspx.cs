@@ -18,6 +18,8 @@ public partial class login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["id_user"] != null)
+            Response.Redirect("/default");
         conn = DB.getConnection();
     }
 
@@ -39,6 +41,7 @@ public partial class login : System.Web.UI.Page
                 Session["id_user"] = ds.Tables[0].Rows[0]["id_user"].ToString();
                 Session["nazev_role"] = ds.Tables[0].Rows[0]["nazev"].ToString();
                 Session["id_role"] = ds.Tables[0].Rows[0]["role"].ToString();
+                Session.Timeout = 5;
                 //-- UKLADANI DO SESSION
 
                 Response.Redirect("/default");
