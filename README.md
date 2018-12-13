@@ -4,4 +4,4 @@ RSP_repository
 LOGOS POLYTECHNIKOS
 
 
-Web: https://logospolytechnikosapollo13.azurewebsites.net/
+Web: https://lpapollo13.azurewebsites.net/
