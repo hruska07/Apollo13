@@ -22,7 +22,7 @@
 
         <br />
         <fieldset>
-            <legend>&nbsp;Testovací účty:&nbsp;</legend>
+            <legend>&nbsp;Testovací účty&nbsp;</legend>
             <br />
             <div class="row">
                 <div class="col-sm-6">

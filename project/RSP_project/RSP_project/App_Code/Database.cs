@@ -10,7 +10,7 @@ public class Database
     private static SqlConnection conn = null;
 
     private string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString_seznam_volnych_clanku"].ConnectionString;
-    //Pro Lokalni DB (Apollo13.mdf)
+    //Pro Lokalni DB (Apollo13.mdf) odkomentuj nasledujici a take radky v SECRET.CONFIG:
     //private string ConnectionString = ConfigurationManager.ConnectionStrings["LokalniDB"].ConnectionString;
 
     /// <summary>

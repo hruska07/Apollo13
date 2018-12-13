@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
-using System.Web.Security;
+using System.Globalization;
 
 public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 {
@@ -27,7 +22,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent, datum_vyrizeni) values(@clanek, @oponent, @datum_vyrizeni)", conn);
         insert.Parameters.AddWithValue("@clanek",GridView1.SelectedValue);
         insert.Parameters.AddWithValue("@oponent", DropDownList1.SelectedValue);
-        insert.Parameters.AddWithValue("@datum_vyrizeni", DateTime.Parse(textbox_datum.Text));
+        insert.Parameters.AddWithValue("@datum_vyrizeni", DateTime.Parse(textbox_datum.Text, CultureInfo.CreateSpecificCulture("cs-CZ")));
 
         SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", conn);
         get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ceka_na_posudek");
@@ -55,7 +50,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         }
         catch (Exception ex)
         {
-          Label1_vybrany_clanek.Text = "Error: " + ex.Message;
+          Label1_vybrany_clanek.Text = "Chyba: " + ex.Message;
         }
 
     }
