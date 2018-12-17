@@ -2,16 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <title>Přidělit oponenta</title>
-    <script type="text/javascript">
-        $(function () {
-            $('.datetimepicker').datetimepicker({
-                inline: true,
-                sideBySide: true,
-                locale: 'cs',
-                format: "DD.MM.YYYY HH:mm",
-            });
-        });
-    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
@@ -74,3 +64,15 @@
 
 </asp:Content>
 
+<asp:Content ID="Content3" ContentPlaceHolderID="scripts" runat="server">
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker').datetimepicker({
+                inline: true,
+                sideBySide: true,
+                locale: 'cs',
+                format: "DD.MM.YYYY HH:mm",
+            });
+        });
+    </script>
+</asp:Content>
