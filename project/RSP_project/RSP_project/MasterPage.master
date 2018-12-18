@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/styles.css" type="text/css" />
 
     <!-- BOOTSTRAP v4 -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     
     <!-- FONT AWESOME -->
@@ -20,12 +20,14 @@
 <body>
     <form id="form1" runat="server">
         <div class="my-notifications">
-            <div id="Notifications" class="alert alert-warning alert-dismissible fade show" role="alert" runat="server">
+            <div id="Notifications" runat="server">
+            </div>
+            <div id="FlashMessages" runat="server">
             </div>
         </div>
 
         <div class="sidebar">
-            <a href="https://logospolytechnikosapollo13.azurewebsites.net/">
+            <a href="https://lpapollo13.azurewebsites.net/">
                 <img src="/graphics/logoPolytechnikos.png" />
             </a>
             <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
@@ -94,7 +96,7 @@
         </div>
     </form>
 
-    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
 

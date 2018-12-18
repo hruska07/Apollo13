@@ -1,6 +1,9 @@
 ﻿using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System;
+using System.Web;
+using System.Globalization;
 
 /// <summary>
 /// Třída pro napojení na DB
@@ -10,6 +13,7 @@ public class Database
     private static SqlConnection conn = null;
 
     private string ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString_seznam_volnych_clanku"].ConnectionString;
+
     //Pro Lokalni DB (Apollo13.mdf) odkomentuj nasledujici a take radky v SECRET.CONFIG:
     //private string ConnectionString = ConfigurationManager.ConnectionStrings["LokalniDB"].ConnectionString;
 
@@ -23,6 +27,34 @@ public class Database
             conn.Open();
         }
         return conn;
+    }
+
+    public void pridelOponenty(int clanek, string datum_vyrizeni, int oponent, int oponent2)
+    {
+        SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent, datum_vyrizeni) values (@clanek, @oponent, @datum_vyrizeni), (@clanek, @oponent2, @datum_vyrizeni)", getConnection());
+        insert.Parameters.AddWithValue("@clanek", clanek);
+        insert.Parameters.AddWithValue("@oponent", oponent);
+        insert.Parameters.AddWithValue("@oponent2", oponent2);
+        insert.Parameters.AddWithValue("@datum_vyrizeni", DateTime.Parse(datum_vyrizeni, CultureInfo.CreateSpecificCulture("cs-CZ")));
+
+        SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", getConnection());
+        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ceka_na_posudek");
+        int id_stav = (int)get_ID_stav.ExecuteScalar();
+        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
+        update.Parameters.AddWithValue("@id_stav", id_stav);
+        update.Parameters.AddWithValue("@clanek", clanek);
+
+        insert.ExecuteNonQuery();
+        update.ExecuteNonQuery();
+    }
+
+    public void addFlashMsg(string type, string message)
+    {
+        SqlCommand insert = new SqlCommand("INSERT INTO [Notifikace] (typ_notifikace, zprava, [user]) VALUES (@typ_notifikace, @zprava, @user)", getConnection());
+        insert.Parameters.AddWithValue("@typ_notifikace", type);
+        insert.Parameters.AddWithValue("@zprava", message);
+        insert.Parameters.AddWithValue("@user", HttpContext.Current.Session["id_user"].ToString());
+        insert.ExecuteNonQuery();
     }
 
     public void InsertUser(string jmeno, string prijmeni, string login, string pass1, string role, string email)
@@ -102,22 +134,32 @@ public class Database
 
     public DataTable getNotifications(int user)
     {
-        SqlCommand select = new SqlCommand("SELECT * FROM [Notifikace] WHERE [user] = @user", getConnection());
+        SqlCommand select = new SqlCommand("SELECT * FROM [Notifikace] WHERE [user] = @user AND typ_notifikace = 'info'", getConnection());
         select.Parameters.AddWithValue("@user", user);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
         sda.SelectCommand = select;
         sda.Fill(ds);
         DataTable table = ds.Tables[0];
-        if (table.Rows.Count > 0)
-            deleteNotifications(user);
         return table;
     }
 
-    public void deleteNotifications(int user)
+    public void deleteNotificationsAndFlashMsg(int user)
     {
         SqlCommand delete = new SqlCommand("DELETE FROM [Notifikace] WHERE [user] = @user", getConnection());
         delete.Parameters.AddWithValue("@user", user);
         delete.ExecuteNonQuery();
+    }
+
+    public DataRow getFĺashMsgs(int user)
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [Notifikace] WHERE [user] = @user AND (typ_notifikace = 'success' OR typ_notifikace = 'danger')", getConnection());
+        select.Parameters.AddWithValue("@user", user);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        DataTable table = ds.Tables[0];
+        return (table.Rows.Count > 0 ? table.Rows[0] : null);
     }
 }

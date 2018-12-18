@@ -35,15 +35,26 @@
             </div>
 
             <div class="col-sm-4">
-                <p><strong>Vyber oponenta ze seznamu:</strong></p>
+                <p><strong>Vyberte 2 oponenty ze seznamu:</strong></p>
 
-                <asp:DropDownList CssClass="form-control" ID="DropDownList1" runat="server" DataSourceID="seznam_oponentu" DataTextField="cele_jmeno" DataValueField="id_user" Font-Size="Medium">
+                <asp:DropDownList CssClass="form-control" ID="DropDownList1" runat="server" DataSourceID="seznam_oponentu" DataTextField="cele_jmeno" DataValueField="id_user" Font-Size="Medium" AutoPostBack="True">
                 </asp:DropDownList>
                 <asp:SqlDataSource ID="seznam_oponentu" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT id_user,role,jmeno,prijmeni,(jmeno +' '+ prijmeni) AS [cele_jmeno] FROM [User] WHERE ([role] = @role)">
                     <SelectParameters>
                         <asp:Parameter DefaultValue="3" Name="role" Type="Int32" />
                     </SelectParameters>
                 </asp:SqlDataSource>
+                <br />
+
+                <asp:DropDownList CssClass="form-control" ID="DropDownList2" runat="server" DataSourceID="SqlDataSource2" DataTextField="cele_jmeno" DataValueField="id_user" Font-Size="Medium">
+                </asp:DropDownList>
+                <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT id_user,role,jmeno,prijmeni,(jmeno +' '+ prijmeni) AS [cele_jmeno] FROM [User] WHERE ([role] = @role AND [id_user] <> @id_user)">
+                    <SelectParameters>
+                        <asp:Parameter DefaultValue="3" Name="role" Type="Int32" />
+                        <asp:ControlParameter ControlID="DropDownList1" DefaultValue="" Name="id_user" PropertyName="SelectedValue" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+              
                 <br />
 
                 <p><strong>Vyber, do kdy má oponent vydat posudek:</strong></p>

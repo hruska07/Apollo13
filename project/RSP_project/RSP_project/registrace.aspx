@@ -25,11 +25,11 @@
             <div class="form-group">
                 <asp:textbox placeholder="Heslo" id="TextBox_password1" cssclass="form-control" runat="server" textmode="Password"></asp:textbox>
                 <asp:requiredfieldvalidator id="validator_heslo" runat="server" errormessage="Musíte zadat heslo" controltovalidate="TextBox_password1" display="Dynamic"></asp:requiredfieldvalidator>
-                <asp:comparevalidator id="CompareValidator_stejnaPW" runat="server" controltocompare="TextBox_password2" controltovalidate="TextBox_password1" display="Dynamic" errormessage="Zadaná hesla nejsou stejná"></asp:comparevalidator>
             </div>
             <div class="form-group">
                 <asp:textbox placeholder="Heslo znovu" id="TextBox_password2" cssclass="form-control" runat="server" textmode="Password"></asp:textbox>
                 <asp:requiredfieldvalidator id="validator_heslo0" runat="server" errormessage="Musíte zadat heslo" controltovalidate="TextBox_password2" display="Dynamic"></asp:requiredfieldvalidator>
+                <asp:comparevalidator id="CompareValidator_stejnaPW" runat="server" controltocompare="TextBox_password1" controltovalidate="TextBox_password2" display="Dynamic" errormessage="Zadaná hesla nejsou stejná"></asp:comparevalidator>
             </div>
             <div class="form-group">
                 <label for="rbl_role">Role:&nbsp;</label>

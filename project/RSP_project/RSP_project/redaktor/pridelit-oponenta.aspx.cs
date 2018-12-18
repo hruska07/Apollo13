@@ -6,37 +6,26 @@ using System.Globalization;
 public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 {
     Database DB = new Database();
-    SqlConnection conn = null;
     Notifications nf = new Notifications();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
             Response.Redirect("/login");
-
-        conn = DB.getConnection();
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent, datum_vyrizeni) values(@clanek, @oponent, @datum_vyrizeni)", conn);
-        insert.Parameters.AddWithValue("@clanek",GridView1.SelectedValue);
-        insert.Parameters.AddWithValue("@oponent", DropDownList1.SelectedValue);
-        insert.Parameters.AddWithValue("@datum_vyrizeni", DateTime.Parse(textbox_datum.Text, CultureInfo.CreateSpecificCulture("cs-CZ")));
-
-        SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", conn);
-        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ceka_na_posudek");
-        int id_stav = (int)get_ID_stav.ExecuteScalar();
-        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
-        update.Parameters.AddWithValue("@id_stav", id_stav);
-        update.Parameters.AddWithValue("@clanek", GridView1.SelectedValue);
-
+        int id_clanek = (int)GridView1.SelectedValue;
+        string datum_vyrizeni = textbox_datum.Text;
+        int oponent = int.Parse(DropDownList1.SelectedValue);
+        int oponent2 = int.Parse(DropDownList2.SelectedValue);
+        
         try
         {
-            insert.ExecuteNonQuery();
-            update.ExecuteNonQuery();
-            Label1_vybrany_clanek.Text = "Záznam byl úspěšně vložen.";
-            Label1_vybrany_clanek.ForeColor = System.Drawing.Color.CornflowerBlue;
+            DB.pridelOponenty(id_clanek, datum_vyrizeni, oponent, oponent2);
+
+            DB.addFlashMsg("success", "Oponenti byli úspěšně přiděleni!");
 
             //notifikace - mail
             DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));
@@ -44,7 +33,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             string message = "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' byl změněn, byl přidělen oponent. Aktuální stav: Čeká na posudek";
             nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", message);
             //notifikace - stranky
-            DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "clanek_zmena_stavu", message);
+            DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "info", message);
 
             Response.Redirect("/redaktor/pridelit-oponenta");
         }
@@ -57,7 +46,7 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
     {
-        Label1_vybrany_clanek.Text = (GridView1.SelectedValue.ToString());
+        Label1_vybrany_clanek.Text = GridView1.SelectedValue.ToString();
         Button1.Enabled = true;
     }
 }
