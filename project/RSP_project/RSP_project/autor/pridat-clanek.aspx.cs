@@ -64,23 +64,25 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     {
         int soubor = 0;
 
-        /*
-                int cap = 0;
+        if (nadpis_clanku.Text != "" && obsah_aspektu.Text != "" && keywords.Text != "" && autors.Text != "" && workplace.Text !="")
+        {
+            /*
+                    int cap = 0;
 
-                 příprava pro kapacitu jednotlivých témat
-                string strSelect = "Select Kapacita From Tema where Tema_pk = @temat";
-                SqlCommand get_cap = new SqlCommand(strSelect, conn);
-                get_cap.Parameters.AddWithValue("@temat", DropDownList1.SelectedValue.ToString());
+                     příprava pro kapacitu jednotlivých témat
+                    string strSelect = "Select Kapacita From Tema where Tema_pk = @temat";
+                    SqlCommand get_cap = new SqlCommand(strSelect, conn);
+                    get_cap.Parameters.AddWithValue("@temat", DropDownList1.SelectedValue.ToString());
 
-                cap = Convert.ToInt32(get_cap.ToString());
-                
+                    cap = Convert.ToInt32(get_cap.ToString());
 
-        SqlCommand check_capacity = new SqlCommand("UPDATE [Tema] SET Kapacita = Kapacita - 1 WHERE Tema_pk = @temat");
-            check_capacity.Parameters.AddWithValue("@temat", DropDownList1.SelectedValue.ToString());
-            check_capacity.ExecuteNonQuery();
-            */
-        //textové pole nadpis
-        string Nadpis = nadpis_clanku.Text;
+
+            SqlCommand check_capacity = new SqlCommand("UPDATE [Tema] SET Kapacita = Kapacita - 1 WHERE Tema_pk = @temat");
+                check_capacity.Parameters.AddWithValue("@temat", DropDownList1.SelectedValue.ToString());
+                check_capacity.ExecuteNonQuery();
+                */
+            //textové pole nadpis
+            string Nadpis = nadpis_clanku.Text;
 
             //textové pole obsahu
 
@@ -106,34 +108,39 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
 
 
-        try
+            try
             {
                 //vložení do databáze
                 insert.ExecuteNonQuery();
 
-                Label7.Visible = true;
-                Label7.ForeColor = System.Drawing.Color.Green;
-                Label7.Text = "Příspěvek byl úspěšně přidán";
-                
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Příspěvek byl úspěšně přidán." + "');", true);
                 Response.Redirect("/default");
+
             }
             catch (Exception ex)
             {
                 Label7.Visible = true;
                 Label7.ForeColor = System.Drawing.Color.Red;
                 Label7.Text = "Error: " + ex.Message;
-                
+
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Chyba při ukládání do databáze." + "');", true);
+
+
             }
-        /*
+            /*
+            else
+            {
+                Label7.Visible = true;
+                Label7.ForeColor = System.Drawing.Color.Red;
+                Label7.Text = "Kapacita pro toto téma je již vyčerpána. Kontaktujte prosím správce.";
+            }
+            */
+
+        }
         else
         {
-            Label7.Visible = true;
-            Label7.ForeColor = System.Drawing.Color.Red;
-            Label7.Text = "Kapacita pro toto téma je již vyčerpána. Kontaktujte prosím správce.";
+            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Příspěvek nesmí být prázdný." + "');", true);
         }
-        */
-
-
     }
 
     protected void Button2_Click(object sender, EventArgs e)
