@@ -113,7 +113,9 @@ public partial class Zadani_prispevku : System.Web.UI.Page
                 //vložení do databáze
                 insert.ExecuteNonQuery();
 
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Příspěvek byl úspěšně přidán." + "');", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Příspěvek byl úspěšně přidán." + "');", true);
+                Session["flashMsgType"] = "success";
+                Session["flashMsgText"] = "Příspěvek byl úspěšně přidán";
                 Response.Redirect("/default");
 
             }
@@ -123,7 +125,9 @@ public partial class Zadani_prispevku : System.Web.UI.Page
                 Label7.ForeColor = System.Drawing.Color.Red;
                 Label7.Text = "Error: " + ex.Message;
 
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Chyba při ukládání do databáze." + "');", true);
+                //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Chyba při ukládání do databáze." + "');", true);
+                Session["flashMsgType"] = "danger";
+                Session["flashMsgText"] = "Chyba při ukládání do databáze";
 
 
             }

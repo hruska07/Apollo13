@@ -24,6 +24,8 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         try
         {
             DB.pridelOponenty(id_clanek, datum_vyrizeni, oponent, oponent2);
+            Session["flashMsgType"] = "success";
+            Session["flashMsgText"] = "Oponenti byli úspěšně přiděleni";
 
             //notifikace - mail
             DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));

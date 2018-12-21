@@ -29,7 +29,7 @@ public partial class oponent_stav : System.Web.UI.Page
             string message = "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' byl změněn. Aktuální stav: " + DropDownList1.SelectedItem.Text;
             nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", message);
             //notifikace - stranky
-            DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "clanek_zmena_stavu", message);
+            DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "info", message);
 
             Response.Redirect(Request.RawUrl);
         }
