@@ -141,25 +141,15 @@ public class Database
         sda.SelectCommand = select;
         sda.Fill(ds);
         DataTable table = ds.Tables[0];
+        if (table.Rows.Count > 0)
+            deleteNotifications(user);
         return table;
     }
 
-    public void deleteNotificationsAndFlashMsg(int user)
+    public void deleteNotifications(int user)
     {
         SqlCommand delete = new SqlCommand("DELETE FROM [Notifikace] WHERE [user] = @user", getConnection());
         delete.Parameters.AddWithValue("@user", user);
         delete.ExecuteNonQuery();
-    }
-
-    public DataRow getFĺashMsgs(int user)
-    {
-        SqlCommand select = new SqlCommand("SELECT * FROM [Notifikace] WHERE [user] = @user AND (typ_notifikace = 'success' OR typ_notifikace = 'danger')", getConnection());
-        select.Parameters.AddWithValue("@user", user);
-        SqlDataAdapter sda = new SqlDataAdapter();
-        DataSet ds = new DataSet();
-        sda.SelectCommand = select;
-        sda.Fill(ds);
-        DataTable table = ds.Tables[0];
-        return (table.Rows.Count > 0 ? table.Rows[0] : null);
     }
 }

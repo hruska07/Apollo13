@@ -20,9 +20,7 @@
 <body>
     <form id="form1" runat="server">
         <div class="my-notifications">
-            <div id="Notifications" runat="server">
-            </div>
-            <div id="FlashMessages" runat="server">
+            <div id="Notifications" class="alert alert-warning alert-dismissible fade show" role="alert" runat="server">
             </div>
         </div>
 

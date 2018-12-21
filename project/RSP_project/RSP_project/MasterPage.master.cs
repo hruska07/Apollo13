@@ -17,7 +17,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
         Page.MaintainScrollPositionOnPostBack = true;
 
         Notifications.Visible = false;
-        FlashMessages.Visible = false;
 
         DB.getConnection();
 
@@ -33,8 +32,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
             if (notifications.Rows.Count > 0)
             {
                 Notifications.Visible = true;
-                Notifications.Attributes.Add("class", "alert alert-warning alert-dismissible fade show");
-                Notifications.Attributes.Add("role", "alert");
 
                 string html = "<h4 class=\"alert-heading\">Nové upozornění!</h4>";
                 foreach (DataRow notification in notifications.Rows)
@@ -47,25 +44,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
                 Notifications.InnerHtml = html;
             }
-
-            DataRow flash = DB.getFĺashMsgs(int.Parse(Session["id_user"].ToString()));
-            if (flash != null)
-            {
-                FlashMessages.Visible = true;
-                FlashMessages.Attributes.Add("class", "alert alert-" + flash["typ_notifikace"].ToString() + " alert-dismissible fade show");
-                FlashMessages.Attributes.Add("role", "alert");
-
-                string html = "";
-                html += "<p class=\"mb-0\">" + flash["zprava"] + "</p>";
-
-                html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">" +
-                    "<span aria-hidden=\"true\">&times;</span>" +
-                    "</button>";
-
-                FlashMessages.InnerHtml = html;
-            }
-
-            DB.deleteNotificationsAndFlashMsg(int.Parse(Session["id_user"].ToString()));
 
             Panel_not_logged.Visible = false;
             Panel_logged.Visible = true;
