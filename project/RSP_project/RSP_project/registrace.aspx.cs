@@ -5,6 +5,7 @@ public partial class registrace : System.Web.UI.Page
 {
     private Database DB = new Database();
     private SqlConnection conn = null;
+    Notifications nf = new Notifications();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -15,7 +16,7 @@ public partial class registrace : System.Web.UI.Page
     {
         //kontrola zda je vše vyplněné
         if (validator_email.IsValid == true && validator_heslo.IsValid == true && validator_jmeno.IsValid == true
-            && validator_login.IsValid == true && validator_prijmeni.IsValid == true && CompareValidator_stejnaPW.IsValid == true)
+        && validator_login.IsValid == true && validator_prijmeni.IsValid == true && CompareValidator_stejnaPW.IsValid == true)
         {
             //nacteni dat do promennych
             string login = TextBox_login.Text;
@@ -61,6 +62,21 @@ public partial class registrace : System.Web.UI.Page
                     Label_output.Text = "Error: " + ex.Message;
                     Label_output.Visible = true;
                 }
+            }
+            try
+            {
+                string message = "Vaše registrace na Logos Polytechikos Appola 13 proběhla úspěšně\n Vaš login je: "+TextBox_login.Text+"\n Registrace provedena: "+DateTime.Now.ToString()+"\n V případě nejasností odpovězte na tento email\n\n Tým Logos Polytechnikos\n www.lpApollo13.azurewebsites.net";
+                nf.sendEmail(TextBox_email.Text, "Registrace Logos Polytechnikos", message);
+                //notifikace - stranky
+                //  DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "info", message);
+
+                Response.Redirect(Request.RawUrl);
+            }
+            catch (Exception)
+            {
+                Label_output2.Visible = true;
+                Label_output2.ForeColor = System.Drawing.Color.Red;
+                Label_output2.Text = "Chyba! Kontaktujte programátora.";
             }
         }
     }
