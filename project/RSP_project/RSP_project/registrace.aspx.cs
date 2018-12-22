@@ -62,7 +62,7 @@ public partial class registrace : System.Web.UI.Page
                     //notifikace - stranky
                     Session["flashMsgType"] = "success";
                     Session["flashMsgText"] = "Registrace proběhla úspěšně. Účet byl vytvořen";
-                    Response.Redirect(Request.RawUrl);
+                    Response.Redirect("/default");
                 }
                 catch (Exception ex)//kdyz neprobehne vyhodi se error
                 {
