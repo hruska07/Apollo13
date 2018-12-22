@@ -56,6 +56,13 @@ public partial class registrace : System.Web.UI.Page
                     Label_output.Text = "Účet úspěšně vytvořen s rolí: " + rbl_role.SelectedItem.Text;
                     Label_output.Visible = true;
                     Label_output.ForeColor = System.Drawing.Color.CornflowerBlue;
+                    //email notifikace
+                    string message = "Vaše registrace na Logos Polytechikos Appola 13 proběhla úspěšně\n Vaš login je: " + login + "\n V případě nejasností odpovězte na tento email\n\n Tým Logos Polytechnikos\n www.lpApollo13.azurewebsites.net";
+                    nf.sendEmail(TextBox_email.Text, "Registrace Logos Polytechnikos", message);
+                    //notifikace - stranky
+                    Session["flashMsgType"] = "success";
+                    Session["flashMsgText"] = "Registrace proběhla úspěšně. Účet byl vytvořen";
+                    Response.Redirect(Request.RawUrl);
                 }
                 catch (Exception ex)//kdyz neprobehne vyhodi se error
                 {
@@ -63,24 +70,7 @@ public partial class registrace : System.Web.UI.Page
                     Label_output.Visible = true;
                 }
             }
-            try
-            {
-                string message = "Vaše registrace na Logos Polytechikos Appola 13 proběhla úspěšně\n Vaš login je: "+TextBox_login.Text+"\n Registrace provedena: "+DateTime.Now.ToString()+"\n V případě nejasností odpovězte na tento email\n\n Tým Logos Polytechnikos\n www.lpApollo13.azurewebsites.net";
-                nf.sendEmail(TextBox_email.Text, "Registrace Logos Polytechnikos", message);
-                //notifikace - stranky
-                Session["flashMsgType"] = "success";
-                Session["flashMsgText"] = "Registrace proběhla úspěšně. Účet byl vytvořen";
 
-
-
-                Response.Redirect(Request.RawUrl);
-            }
-            catch (Exception)
-            {
-                Label_output2.Visible = true;
-                Label_output2.ForeColor = System.Drawing.Color.Red;
-                Label_output2.Text = "Chyba! Kontaktujte programátora.";
-            }
         }
     }
 }
