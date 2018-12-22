@@ -97,6 +97,17 @@ public class Database
         return ds.Tables[0].Rows[0];
     }
 
+    public DataRow getUserByLogin(string login)
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE login = @login", getConnection());
+        select.Parameters.AddWithValue("@login", login);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        return ds.Tables[0].Rows[0];
+    }
+
     public DataRow getClanekById(int id_clanek)
     {
         SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor WHERE id_clanek = @id_clanek", getConnection());

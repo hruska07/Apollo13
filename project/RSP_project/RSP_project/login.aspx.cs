@@ -34,8 +34,10 @@ public partial class login : System.Web.UI.Page
         cmd.Connection = conn;
         sda.SelectCommand = cmd;
         sda.Fill(ds, "User");
-        if (ds.Tables[0].Rows.Count > 0) {
-            if (password == ds.Tables[0].Rows[0]["password"].ToString()) {
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            if (password == ds.Tables[0].Rows[0]["password"].ToString())
+            {
 
                 //-- UKLADANI DO SESSION
                 Session["id_user"] = ds.Tables[0].Rows[0]["id_user"].ToString();
@@ -46,12 +48,14 @@ public partial class login : System.Web.UI.Page
 
                 Response.Redirect("/default");
             }
-            else {
+            else
+            {
                 Label_output.Visible = true;
                 Label_output.Text = "Špatné heslo!";
             }
         }
-        else {
+        else
+        {
             Label_output.Visible = true;
             Label_output.Text = "Uživatel nenalezen!";
         }

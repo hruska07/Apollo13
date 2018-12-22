@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 
 public partial class registrace : System.Web.UI.Page
@@ -6,6 +7,8 @@ public partial class registrace : System.Web.UI.Page
     private Database DB = new Database();
     private SqlConnection conn = null;
     Notifications nf = new Notifications();
+    SqlDataAdapter sda = new SqlDataAdapter();
+    DataSet ds = new DataSet();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -62,7 +65,29 @@ public partial class registrace : System.Web.UI.Page
                     //notifikace - stranky
                     Session["flashMsgType"] = "success";
                     Session["flashMsgText"] = "Registrace proběhla úspěšně. Účet byl vytvořen";
-                    Response.Redirect("/default");
+                    try
+                    {
+                        if (rbl_role.SelectedItem.Text == "Autor")
+                        {
+                            //DB.getUserByLogin(login);
+                            SqlCommand select = new SqlCommand("SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE login = @login", DB.getConnection());
+                            select.Parameters.AddWithValue("@login", login);
+                            sda.SelectCommand = select;
+                            sda.Fill(ds, "User");
+                            if (ds.Tables[0].Rows.Count > 0)
+                            {
+                                //-- UKLADANI DO SESSION
+                                Session["id_user"] = ds.Tables[0].Rows[0]["id_user"].ToString();
+                                Session["nazev_role"] = ds.Tables[0].Rows[0]["nazev"].ToString();
+                                Session["id_role"] = ds.Tables[0].Rows[0]["role"].ToString();
+                                Session.Timeout = 5;
+                                //-- UKLADANI DO SESSION
+                                Response.Redirect("/default");
+                            }
+                        }
+                        Response.Redirect("/default");
+                    }
+                    catch (Exception) { }
                 }
                 catch (Exception ex)//kdyz neprobehne vyhodi se error
                 {
