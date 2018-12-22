@@ -68,7 +68,10 @@ public partial class registrace : System.Web.UI.Page
                 string message = "Vaše registrace na Logos Polytechikos Appola 13 proběhla úspěšně\n Vaš login je: "+TextBox_login.Text+"\n Registrace provedena: "+DateTime.Now.ToString()+"\n V případě nejasností odpovězte na tento email\n\n Tým Logos Polytechnikos\n www.lpApollo13.azurewebsites.net";
                 nf.sendEmail(TextBox_email.Text, "Registrace Logos Polytechnikos", message);
                 //notifikace - stranky
-                //  DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "info", message);
+                Session["flashMsgType"] = "success";
+                Session["flashMsgText"] = "Registrace proběhla úspěšně. Účet byl vytvořen";
+
+
 
                 Response.Redirect(Request.RawUrl);
             }
