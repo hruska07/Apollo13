@@ -81,7 +81,6 @@ public partial class registrace : System.Web.UI.Page
                                 Session["nazev_role"] = ds.Tables[0].Rows[0]["nazev"].ToString();
                                 Session["id_role"] = ds.Tables[0].Rows[0]["role"].ToString();
                                 Session.Timeout = 5;
-                                //-- UKLADANI DO SESSION
                                 Response.Redirect("/default");
                             }
                         }
