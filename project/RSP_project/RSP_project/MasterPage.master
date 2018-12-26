@@ -58,6 +58,7 @@
                         </asp:Panel>
                         <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
                             <a href="/sefredaktor/agenda-redaktora">Agenda redaktora</a>
+                            <a href="/sefredaktor/agenda-autora">Agenda autora</a>
                         </asp:Panel>
                     </div>
                 </div>
