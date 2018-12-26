@@ -25,17 +25,33 @@ public partial class sefredaktor_agenda_oponenti : System.Web.UI.Page
     {
         if (GridView2.SelectedValue != null)
         {
-     
-            TextBox1.Visible = true;
-/*            nejakapromena = GridView2.SelectedRow.Cells[1].Text;
-            cmd = new SqlCommand("SELECT zpristupnen,komentar FROM Posudek WHERE id_posudek=@id_posude", conn);
-            cmd.Parameters.AddWithValue("@id_posude", nejakapromena);
-            dr = cmd.ExecuteReader();
-            dr.Read();*/
-
-
+            
+            Label2.Visible = true;
+           
+            TextBox2.Visible = true;
+                    nejakapromena = GridView2.SelectedRow.Cells[1].Text;
+                        cmd = new SqlCommand("SELECT obsah_posudku FROM Posudek WHERE clanek=@id_clanek", conn);
+                        cmd.Parameters.AddWithValue("@id_clanek", nejakapromena);
+                        dr = cmd.ExecuteReader();
+            dr.Read();
+            if (dr.HasRows)
+            {
+                TextBox2.Text = dr[0].ToString();
+            }
+            else
+            {
+                TextBox2.Text = "Žádný posudek";
+            }
+            
+            dr.Close();
+            cmd.Dispose();
 
 
         }
+    }
+
+    protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Label3.Visible = true;
     }
 }

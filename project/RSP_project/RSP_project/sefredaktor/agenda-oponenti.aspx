@@ -10,7 +10,7 @@
             </strong>
         </div>
 
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_user" DataSourceID="SqlDataSource1zdrojik">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_user" DataSourceID="SqlDataSource1zdrojik" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
         <Columns>
             <asp:CommandField ShowSelectButton="True" />
             <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" />
@@ -20,6 +20,7 @@
         </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1zdrojik" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT DISTINCT [Propoj_clanek_oponent].oponent,[User].id_user,[User].jmeno,[User].prijmeni FROM [User] JOIN [Propoj_clanek_oponent] ON id_user=oponent"></asp:SqlDataSource>
+         <div class="text-center">   <asp:Label ID="Label3" runat="server" Text="Zvolte článek" Font-Bold="True" Font-Underline="False" Visible="False"></asp:Label>:</div>
     <br />
     <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="SqlDataSource1sss" OnSelectedIndexChanged="GridView2_SelectedIndexChanged" AutoGenerateSelectButton="True">
         <Columns>
@@ -37,15 +38,9 @@
         </SelectParameters>
     </asp:SqlDataSource>
        
-   <div class="text-center">
-          <asp:Label ID="Label1" runat="server" Font-Bold="True" style="text-align: center" Text="Obsah článku:"></asp:Label>
-          <br /></div>
-       
-  
-    <asp:TextBox ID="TextBox1" runat="server" ClientIDMode="Predictable" Height="160px" ReadOnly="True" TextMode="MultiLine" Visible="False" Width="100%"></asp:TextBox>
     <br />  
           <div class="text-center">
-          <asp:Label ID="Label2" runat="server" Font-Bold="True" Text="Posudek(je-li dostupný):"></asp:Label>
+          <asp:Label ID="Label2" runat="server" Font-Bold="True" Text="Posudek(je-li dostupný):" Visible="False"></asp:Label>
           <br /></div>
     <asp:TextBox ID="TextBox2" runat="server" ClientIDMode="Predictable" Height="160px" ReadOnly="True" TextMode="MultiLine" Visible="False" Width="100%"></asp:TextBox>
      </div>
