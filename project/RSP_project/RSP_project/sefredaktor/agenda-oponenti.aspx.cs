@@ -27,8 +27,7 @@ public partial class sefredaktor_agenda_oponenti : System.Web.UI.Page
     {
         if (GridView2.SelectedValue != null)
         {
-            Label4.Visible = true;
-            Label5.Visible = true;
+           
             Label2.Visible = true;
            
             TextBox2.Visible = true;
@@ -56,7 +55,8 @@ public partial class sefredaktor_agenda_oponenti : System.Web.UI.Page
 
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
-        
+        Label4.Visible = true;
+        Label5.Visible = true;
         nejakapromena = GridView1.SelectedValue.ToString();
         
         Label3.Visible = true;
