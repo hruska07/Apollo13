@@ -27,21 +27,21 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             Session["flashMsgType"] = "success";
             Session["flashMsgText"] = "Oponenti byli úspěšně přiděleni";
 
-            //notifikace - mail
+            //notifikace - mail - autor
             DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));
             DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
             string message = "Stav vašeho článku '" + clanek["nadpis_clanku"] + "' byl změněn, byl přidělen oponent. Aktuální stav: Čeká na posudek";
             nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", message);
-            //notifikace - stranky
+            //notifikace - stranky - autor
             DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "info", message);
 
             //notifikace - mail - oponent
 
             DataRow prvni_oponent = DB.getUserById(oponent);
             DataRow druhy_oponent = DB.getUserById(oponent2);
-            string messages = "Byl Vám přidělen nový článek:  '" + clanek["nadpis_clanku"] + "";
-            nf.sendEmail(prvni_oponent["email"].ToString(), "Nový přidelený článek", message);
-            nf.sendEmail(druhy_oponent["email"].ToString(), "Nový přidelený článek", message);
+            string messages = "Byl Vám přidělen nový článek:  '" + clanek["nadpis_clanku"] + "'. Termín posudku je stanoven na "+datum_vyrizeni+"";
+            nf.sendEmail(prvni_oponent["email"].ToString(), "Nový přidelený článek", messages);
+            nf.sendEmail(druhy_oponent["email"].ToString(), "Nový přidelený článek", messages);
 
             //notifikace - stranky - oponent 
             DB.insertNotification(oponent, int.Parse(clanek["id_clanek"].ToString()), "info", messages);
