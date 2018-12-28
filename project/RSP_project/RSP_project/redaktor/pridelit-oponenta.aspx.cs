@@ -35,6 +35,20 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             //notifikace - stranky
             DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "info", message);
 
+            //notifikace - mail - oponent
+
+            DataRow prvni_oponent = DB.getUserById(oponent);
+            DataRow druhy_oponent = DB.getUserById(oponent2);
+            string messages = "Byl Vám přidělen nový článek:  '" + clanek["nadpis_clanku"] + "";
+            nf.sendEmail(prvni_oponent["email"].ToString(), "Nový přidelený článek", message);
+            nf.sendEmail(druhy_oponent["email"].ToString(), "Nový přidelený článek", message);
+
+            //notifikace - stranky - oponent 
+            DB.insertNotification(oponent, int.Parse(clanek["id_clanek"].ToString()), "info", messages);
+            DB.insertNotification(oponent2, int.Parse(clanek["id_clanek"].ToString()), "info", messages);
+
+
+
             Response.Redirect("/redaktor/pridelit-oponenta");
         }
         catch (Exception ex)
