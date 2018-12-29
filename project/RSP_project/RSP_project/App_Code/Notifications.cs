@@ -31,6 +31,6 @@ public class Notifications
             EnableSsl = true
         };
         string from = "logospolytechnikos@gmail.com";
-        //client.Send(from, recipients, subject, body);
+        client.Send(from, recipients, subject, body);
     }
 }
