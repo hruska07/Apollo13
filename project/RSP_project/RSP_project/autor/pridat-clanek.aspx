@@ -13,14 +13,14 @@
                 <label for="nadpis_clanku" class="col-form-label col-sm-1" id="Label1">Název článku</label>
                 <div class="col-sm-11">
                     <asp:TextBox CssClass="form-control" ID="nadpis_clanku" runat="server"></asp:TextBox>
-                    <asp:requiredfieldvalidator id="validator_nadpis" runat="server" errormessage="Nadpis musí být zadaný" controltovalidate="TextBox_login" display="Dynamic"></asp:requiredfieldvalidator>
+                    <asp:requiredfieldvalidator id="validator_nadpis" runat="server" errormessage="Nadpis musí být zadaný" controltovalidate="nadpis_clanku" display="Dynamic"></asp:requiredfieldvalidator>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="obsah_aspektu" class="col-form-label col-sm-1" id="Label3">Abstrakt</label>
                 <div class="col-sm-11">
                     <asp:TextBox CssClass="form-control" ID="obsah_aspektu" runat="server" TextMode="MultiLine" Rows="10"></asp:TextBox>
-                    <asp:requiredfieldvalidator id="validator_aspekt" runat="server" errormessage="Aspekt musí být zadaný" controltovalidate="TextBox_login" display="Dynamic"></asp:requiredfieldvalidator>
+                    <asp:requiredfieldvalidator id="validator_aspekt" runat="server" errormessage="Abstrakt musí být zadaný" controltovalidate="obsah_aspektu" display="Dynamic"></asp:requiredfieldvalidator>
                 </div>
             </div>
             <div class="form-group row">
@@ -41,21 +41,21 @@
                 <label for="klicova_slova" class="col-form-label col-sm-1" id="Label10">Klíčová slova</label>
                 <div class="col-sm-11">
                     <asp:TextBox CssClass="form-control" ID="keywords" runat="server"></asp:TextBox>
-                    <asp:requiredfieldvalidator id="validator_keywords" runat="server" errormessage="Klíčová slova musí být zadané" controltovalidate="TextBox_login" display="Dynamic"></asp:requiredfieldvalidator>
+                    <asp:requiredfieldvalidator id="validator_keywords" runat="server" errormessage="Klíčová slova musí být zadané" controltovalidate="keywords" display="Dynamic"></asp:requiredfieldvalidator>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="autori" class="col-form-label col-sm-1" id="Label11">Autoři</label>
                 <div class="col-sm-11">
                     <asp:TextBox CssClass="form-control" ID="autors" runat="server"></asp:TextBox>
-                    <asp:requiredfieldvalidator id="validator_autors" runat="server" errormessage="Autoři musí být zadaní" controltovalidate="TextBox_login" display="Dynamic"></asp:requiredfieldvalidator>
+                    <asp:requiredfieldvalidator id="validator_autors" runat="server" errormessage="Autoři musí být zadaní" controltovalidate="autors" display="Dynamic"></asp:requiredfieldvalidator>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="pracoviste" class="col-form-label col-sm-1" id="Label12">Pracoviště</label>
                 <div class="col-sm-11">
                     <asp:TextBox CssClass="form-control" ID="workplace" runat="server"></asp:TextBox>
-                    <asp:requiredfieldvalidator id="validator_workplace" runat="server" errormessage="Pracoviště musí být zadané" controltovalidate="TextBox_login" display="Dynamic"></asp:requiredfieldvalidator>
+                    <asp:requiredfieldvalidator id="validator_workplace" runat="server" errormessage="Pracoviště musí být zadané" controltovalidate="workplace" display="Dynamic"></asp:requiredfieldvalidator>
                 </div>
             </div>
             <div class="form-group row">
