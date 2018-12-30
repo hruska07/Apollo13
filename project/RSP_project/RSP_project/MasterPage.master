@@ -39,7 +39,7 @@
             </a>
             <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
                 <div class="dropdown">
-                    <a class="dropbtn<% if ((Request.RawUrl.ToString().Contains("/autor") || Request.RawUrl.ToString().Contains("/redaktor") || Request.RawUrl.ToString().Contains("/sefredaktor")))
+                    <a class="dropbtn<% if ((Request.RawUrl.ToString().Contains("/autor") || Request.RawUrl.ToString().Contains("/redaktor") || Request.RawUrl.ToString().Contains("/sefredaktor") || Request.RawUrl.ToString().Contains("/oponent")))
                         { %> active<% } %>" href="#">
                         <asp:Label ID="Label_role_menu" runat="server" Text="Label"></asp:Label>
                     </a>
@@ -51,10 +51,10 @@
                         <asp:Panel ID="Panel_redaktor" runat="server" Visible="False">
                             <a href="/redaktor/pridelit-oponenta">Přidělit oponenta</a>
                             <a href="/redaktor/zpristupneni-posudku">Zpřístupnění posudků</a>
-                            <a href="/redaktor/stav-clanku">Stav článků</a>
+                            <a href="/redaktor/terminy-oponenti">Oponenti - termíny</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_oponent" runat="server" Visible="False">
-                            <a href="/oponent/stav-clanku">Stav článků</a>
+                            <a href="/oponent/pridelene-clanky">Přidělené články</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
                             <a href="/sefredaktor/agenda-redaktora">Agenda redaktora</a>
