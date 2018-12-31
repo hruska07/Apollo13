@@ -24,10 +24,12 @@ public partial class helpdesk : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        SqlCommand insert = new SqlCommand("insert into [Helpdesk] (obsah_helpdesk,jmeno,email) values (@obsah_helpdesk,@jmeno,@email)", conn);
+       bool prom = false;
+        SqlCommand insert = new SqlCommand("insert into [Helpdesk] (obsah_helpdesk,jmeno,email,vyrizeno) values (@obsah_helpdesk,@jmeno,@email,@prom)", conn);
         insert.Parameters.AddWithValue("@obsah_helpdesk", TextBox3.Text);
         insert.Parameters.AddWithValue("@jmeno", TextBox1.Text);
         insert.Parameters.AddWithValue("@email", TextBox2.Text);
+        insert.Parameters.AddWithValue("@prom", prom);
         insert.ExecuteNonQuery();
         Response.Redirect(Request.RawUrl);
     }
