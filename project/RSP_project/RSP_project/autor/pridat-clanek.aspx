@@ -26,9 +26,10 @@
             <div class="form-group row">
                 <label for="kategorie" class="col-form-label col-sm-1" id="Label4">Kategorie</label>
                 <div class="col-sm-11">            
-                    <asp:DropDownList CssClass="form-control" ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" Font-Names="Arial" ForeColor="Black" Width="390px" DataTextField="Tema_pk" DataValueField="Tema_pk">
+                    <asp:DropDownList CssClass="form-control" ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" Font-Names="Arial" DataTextField="nazev_tema" DataValueField="id_tema" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
                     </asp:DropDownList>
-                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Tema_pk] FROM [Tema]"></asp:SqlDataSource>    
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_tema], [nazev_tema] FROM [Tema]" ProviderName="System.Data.SqlClient"></asp:SqlDataSource>    
+                    <asp:Label ID="Label_kapacita_kategorie" runat="server" Text="Label"></asp:Label>
                 </div>
             </div>
             <div class="form-group row">

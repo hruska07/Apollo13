@@ -218,6 +218,10 @@ a.my-link:active {
     color: #e8212e;
 }
 
+.my-text-red {
+    color: #ff6363;
+}
+
 @media screen and (max-height: 450px) {
     .sidebar {
         padding-top: 15px;

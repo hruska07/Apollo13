@@ -29,12 +29,98 @@ public class Database
         return conn;
     }
 
-    public void pridelOponenty(int clanek, string datum_vyrizeni, int oponent, int oponent2)
+    public DataRow getAktualniCasopisByTema(int tema)
     {
-        SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent, datum_vyrizeni) values (@clanek, @oponent, @datum_vyrizeni), (@clanek, @oponent2, @datum_vyrizeni)", getConnection());
+        SqlCommand select = new SqlCommand("SELECT TOP 1 [Casopis].[id_casopis], [Casopis].[datum_uzaverky], [Casopis].[kapacita], (SELECT COUNT(*) FROM [Clanek] WHERE [Clanek].[casopis] = [Casopis].[id_casopis]) AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[tema] = @tema ORDER BY [Casopis].[datum_uzaverky] DESC", getConnection());
+        select.Parameters.AddWithValue("@tema", tema);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        DataRow casopis = null;
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            casopis = ds.Tables[0].Rows[0];
+            var temp1 = casopis["datum_uzaverky"].ToString();
+            var temp2 = casopis["kapacita"].ToString();
+            var temp3 = casopis["pocet_clanku"].ToString();
+            if (((DateTime)casopis["datum_uzaverky"] > DateTime.Now) && ((int)casopis["pocet_clanku"] < (int)casopis["kapacita"]))
+            {
+                return casopis;
+            }
+        }
+
+        //select.Parameters.AddWithValue("@ted", DateTime.Now);
+        DateTime datum_uzaverky = new DateTime();
+
+        SqlCommand select2 = new SqlCommand("SELECT [Tema].[datum_uzaverky] FROM [Tema] WHERE [Tema].[id_tema] = @tema", getConnection());
+        select2.Parameters.AddWithValue("@tema", tema);
+        string datum_uzaverky_string = (string)select2.ExecuteScalar();
+        int rok;
+        if (casopis == null)
+            rok = DateTime.Now.Year;
+        else
+            rok = int.Parse(((DateTime)casopis["datum_uzaverky"]).ToString("yyyy")) + 1;
+        datum_uzaverky = DateTime.Parse(datum_uzaverky_string + rok.ToString());
+
+        if (datum_uzaverky <= DateTime.Now)
+            datum_uzaverky = DateTime.Parse(datum_uzaverky_string + (rok + 1).ToString());
+
+        SqlCommand insert = new SqlCommand("INSERT INTO [Casopis] (tema, datum_uzaverky) OUTPUT INSERTED.id_casopis VALUES (@tema, @datum_uzaverky)", getConnection());
+        insert.Parameters.AddWithValue("@tema", tema);
+        insert.Parameters.AddWithValue("@datum_uzaverky", datum_uzaverky);
+        return getCasopisById((int)insert.ExecuteScalar());
+    }
+
+    public void odeslatPosudek(string namety_k_diskuzi, char kriterium1, char kriterium2, char kriterium3, string doplnujici_komentar, int souhrnne_vyjadreni, int clanek, int oponent)
+    {
+        SqlCommand insert = new SqlCommand("insert into [Posudek] (namety_k_diskuzi, kriterium1, kriterium2, kriterium3, doplnujici_komentar, souhrnne_vyjadreni, clanek, oponent) values(@namety_k_diskuzi, @kriterium1, @kriterium2, @kriterium3, @doplnujici_komentar, @souhrnne_vyjadreni, @clanek, @oponent)", getConnection());
+        insert.Parameters.AddWithValue("@namety_k_diskuzi", namety_k_diskuzi);
+        insert.Parameters.AddWithValue("@kriterium1", kriterium1);
+        insert.Parameters.AddWithValue("@kriterium2", kriterium2);
+        insert.Parameters.AddWithValue("@kriterium3", kriterium3);
+        insert.Parameters.AddWithValue("@doplnujici_komentar", doplnujici_komentar);
+        insert.Parameters.AddWithValue("@souhrnne_vyjadreni", souhrnne_vyjadreni);
+        insert.Parameters.AddWithValue("@clanek", clanek);
+        insert.Parameters.AddWithValue("@oponent", oponent);
+        insert.ExecuteNonQuery();
+    }
+
+    public DataRow getCasopisById(int id_casopis)
+    {
+        SqlCommand select = new SqlCommand("SELECT [Casopis].[id_casopis], [Casopis].[kapacita], [Casopis].[datum_uzaverky], (SELECT COUNT(*) FROM [Clanek] WHERE [Clanek].[casopis] = @id_casopis) AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[id_casopis] = @id_casopis", getConnection());
+        select.Parameters.AddWithValue("@id_casopis", id_casopis);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        return ds.Tables[0].Rows[0];
+    }
+
+    public void insertClanek(string Nadpis, string Abstrakt, DateTime date1, int cislo_autora, int casopis, int soubor, string keywords, string autors, string workplace, string filename)
+    {
+        SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku, datum_clanku,autor,stav,casopis,soubor,abstrakt,keywords,autors,workplace,path) values(@Nadpis, @datum_clanku,@autor,@stav,@casopis,@soubor,@abstrakt,@keyw,@aut,@workpl,@patha)", getConnection());
+        insert.Parameters.AddWithValue("@Nadpis", Nadpis);
+        insert.Parameters.AddWithValue("@abstrakt", Abstrakt);
+        insert.Parameters.AddWithValue("@datum_clanku", date1);
+        insert.Parameters.AddWithValue("@autor", cislo_autora);
+        insert.Parameters.AddWithValue("@stav", 1);
+        insert.Parameters.AddWithValue("@casopis", casopis);
+        insert.Parameters.AddWithValue("@soubor", soubor);
+        insert.Parameters.AddWithValue("@keyw", keywords);
+        insert.Parameters.AddWithValue("@aut", autors);
+        insert.Parameters.AddWithValue("@workpl", workplace);
+        insert.Parameters.AddWithValue("@patha", filename);
+        insert.ExecuteNonQuery();
+    }
+
+    public void pridelOponenty(int clanek, string datum_vyrizeni, int oponent, int oponent2, int pridelil)
+    {
+        SqlCommand insert = new SqlCommand("insert into Propoj_clanek_oponent (clanek, oponent, datum_vyrizeni, pridelil) values (@clanek, @oponent, @datum_vyrizeni, @pridelil), (@clanek, @oponent2, @datum_vyrizeni, @pridelil)", getConnection());
         insert.Parameters.AddWithValue("@clanek", clanek);
         insert.Parameters.AddWithValue("@oponent", oponent);
         insert.Parameters.AddWithValue("@oponent2", oponent2);
+        insert.Parameters.AddWithValue("@pridelil", pridelil);
         insert.Parameters.AddWithValue("@datum_vyrizeni", DateTime.Parse(datum_vyrizeni, CultureInfo.CreateSpecificCulture("cs-CZ")));
 
         SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", getConnection());
@@ -46,15 +132,6 @@ public class Database
 
         insert.ExecuteNonQuery();
         update.ExecuteNonQuery();
-    }
-
-    public void addFlashMsg(string type, string message)
-    {
-        SqlCommand insert = new SqlCommand("INSERT INTO [Notifikace] (typ_notifikace, zprava, [user]) VALUES (@typ_notifikace, @zprava, @user)", getConnection());
-        insert.Parameters.AddWithValue("@typ_notifikace", type);
-        insert.Parameters.AddWithValue("@zprava", message);
-        insert.Parameters.AddWithValue("@user", HttpContext.Current.Session["id_user"].ToString());
-        insert.ExecuteNonQuery();
     }
 
     public void InsertUser(string jmeno, string prijmeni, string login, string pass1, string role, string email)
@@ -145,7 +222,7 @@ public class Database
 
     public DataTable getNotifications(int user)
     {
-        SqlCommand select = new SqlCommand("SELECT * FROM [Notifikace] WHERE [user] = @user AND typ_notifikace = 'info'", getConnection());
+        SqlCommand select = new SqlCommand("SELECT * FROM [Notifikace] WHERE [user] = @user", getConnection());
         select.Parameters.AddWithValue("@user", user);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();

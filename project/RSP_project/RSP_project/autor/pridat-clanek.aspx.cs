@@ -17,6 +17,7 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     DataSet ds = new DataSet();
     Database DB = new Database();
     int cislo_autora = 0;
+    int id_casopisu = 0;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,11 +28,19 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
         conn = DB.getConnection();
 
+        ZjistiKapacitu(1);
+    }
+
+    private void ZjistiKapacitu(int tema)
+    {
+        DataRow casopis = DB.getAktualniCasopisByTema(tema);
+        Label_kapacita_kategorie.Text = String.Format("Počet článků ve vybraném čísle: <span class=\"my-text-red\">{0}/{1}</span><br>Datum uzávěrky vybraného čísla: <span class=\"my-text-red\">{2}</span>", casopis["pocet_clanku"], casopis["kapacita"], ((DateTime)casopis["datum_uzaverky"]).ToString("d. M. yyyy"));
+        id_casopisu = (int)casopis["id_casopis"];
     }
 
     protected string Saving_fi()
     {
-        string file_path ="";
+        string file_path = "";
         string folder = Server.MapPath("~/Saved_files/");
         if (!Directory.Exists(folder))
         {
@@ -62,92 +71,41 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        if (validator_aspekt.IsValid == true && validator_nadpis .IsValid == true && validator_workplace.IsValid == true
-       && validator_autors.IsValid == true && validator_keywords.IsValid == true)
+        if (validator_aspekt.IsValid == true && validator_nadpis.IsValid == true && validator_workplace.IsValid == true
+            && validator_autors.IsValid == true && validator_keywords.IsValid == true)
         {
             int soubor = 0;
+            //textové pole nadpis
+            string Nadpis = nadpis_clanku.Text;
 
-            if (nadpis_clanku.Text != "" && obsah_aspektu.Text != "" && keywords.Text != "" && autors.Text != "" && workplace.Text != "")
+            //textové pole obsahu
+
+            string Abstrakt = obsah_aspektu.Text;
+            //aktuální čas a datum
+            DateTime date1 = DateTime.Now;
+
+            try
             {
-                /*
-                        int cap = 0;
-
-                         příprava pro kapacitu jednotlivých témat
-                        string strSelect = "Select Kapacita From Tema where Tema_pk = @temat";
-                        SqlCommand get_cap = new SqlCommand(strSelect, conn);
-                        get_cap.Parameters.AddWithValue("@temat", DropDownList1.SelectedValue.ToString());
-
-                        cap = Convert.ToInt32(get_cap.ToString());
-
-
-                SqlCommand check_capacity = new SqlCommand("UPDATE [Tema] SET Kapacita = Kapacita - 1 WHERE Tema_pk = @temat");
-                    check_capacity.Parameters.AddWithValue("@temat", DropDownList1.SelectedValue.ToString());
-                    check_capacity.ExecuteNonQuery();
-                    */
-                //textové pole nadpis
-                string Nadpis = nadpis_clanku.Text;
-
-                //textové pole obsahu
-
-                string Abstrakt = obsah_aspektu.Text;
-                //aktuální čas a datum
-                DateTime date1 = DateTime.Now;
-
                 //příkaz do databáze
+                DB.insertClanek(Nadpis, Abstrakt, date1, cislo_autora, id_casopisu, soubor, keywords.Text, autors.Text, workplace.Text, Saving_fi());
 
-
-                SqlCommand insert = new SqlCommand("insert into [Clanek] (nadpis_clanku, datum_clanku,autor,stav,tema,soubor,abstrakt,keywords,autors,workplace,path) values(@Nadpis, @datum_clanku,@autor,@stav,@tema,@soubor,@abstrakt,@keyw,@aut,@workpl,@patha)", conn);
-                insert.Parameters.AddWithValue("@Nadpis", Nadpis);
-                insert.Parameters.AddWithValue("@abstrakt", Abstrakt);
-                insert.Parameters.AddWithValue("@datum_clanku", date1);
-                insert.Parameters.AddWithValue("@autor", cislo_autora);
-                insert.Parameters.AddWithValue("@stav", 1);
-                insert.Parameters.AddWithValue("@tema", DropDownList1.SelectedValue.ToString());
-                insert.Parameters.AddWithValue("@soubor", soubor);
-                insert.Parameters.AddWithValue("@keyw", keywords.Text);
-                insert.Parameters.AddWithValue("@aut", autors.Text);
-                insert.Parameters.AddWithValue("@workpl", workplace.Text);
-                insert.Parameters.AddWithValue("@patha", Saving_fi());
-
-
-
-                try
-                {
-                    //vložení do databáze
-                    insert.ExecuteNonQuery();
-
-                    //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Příspěvek byl úspěšně přidán." + "');", true);
-                    Session["flashMsgType"] = "success";
-                    Session["flashMsgText"] = "Příspěvek byl úspěšně přidán";
-                    Response.Redirect("/default");
-
-                }
-                catch (Exception ex)
-                {
-                    Label7.Visible = true;
-                    Label7.ForeColor = System.Drawing.Color.Red;
-                    Label7.Text = "Error: " + ex.Message;
-
-                    //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Chyba při ukládání do databáze." + "');", true);
-                    Session["flashMsgType"] = "danger";
-                    Session["flashMsgText"] = "Chyba při ukládání do databáze";
-
-
-                }
-                /*
-                else
-                {
-                    Label7.Visible = true;
-                    Label7.ForeColor = System.Drawing.Color.Red;
-                    Label7.Text = "Kapacita pro toto téma je již vyčerpána. Kontaktujte prosím správce.";
-                }
-                */
-
+                Session["flashMsgType"] = "success";
+                Session["flashMsgText"] = "Příspěvek byl úspěšně přidán";
             }
-            else
+            catch (Exception ex)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "Příspěvek nesmí být prázdný." + "');", true);
+                Session["flashMsgType"] = "danger";
+                Session["flashMsgText"] = "Nastala chyba! Kontaktujte programátory. Text chyby: " + ex.Message;
+                Response.Redirect(Request.RawUrl);
             }
+
+            Response.Redirect("/autor/moje-clanky");
+        }
+        else
+        {
+            Session["flashMsgType"] = "danger";
+            Session["flashMsgText"] = "Všechna pole musí být vyplněna.";
+            Response.Redirect(Request.RawUrl);
         }
     }
 
@@ -156,4 +114,8 @@ public partial class Zadani_prispevku : System.Web.UI.Page
         FileUpload1.FileContent.Dispose();
     }
 
+    protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ZjistiKapacitu(int.Parse(((DropDownList)sender).SelectedValue.ToString()));
+    }
 }

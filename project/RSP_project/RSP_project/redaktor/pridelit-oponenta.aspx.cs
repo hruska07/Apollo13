@@ -20,12 +20,11 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
         string datum_vyrizeni = textbox_datum.Text;
         int oponent = int.Parse(DropDownList1.SelectedValue);
         int oponent2 = int.Parse(DropDownList2.SelectedValue);
+        int pridelil = int.Parse(Session["id_user"].ToString());
         
         try
         {
-            DB.pridelOponenty(id_clanek, datum_vyrizeni, oponent, oponent2);
-            Session["flashMsgType"] = "success";
-            Session["flashMsgText"] = "Oponenti byli úspěšně přiděleni";
+            DB.pridelOponenty(id_clanek, datum_vyrizeni, oponent, oponent2, pridelil);
 
             //notifikace - mail - autor
             DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView1.SelectedValue.ToString()));
@@ -35,26 +34,27 @@ public partial class redaktor_prideleni_oponenta : System.Web.UI.Page
             //notifikace - stranky - autor
             DB.insertNotification(int.Parse(clanek["autor"].ToString()), int.Parse(clanek["id_clanek"].ToString()), "info", message);
 
-            //notifikace - mail - oponent
+            //notifikace - mail (oponenti)
+            string message2 = "K recenzi Vám byl přidělen nový článek: " + clanek["nadpis_clanku"];
+            DataRow oponent1_DB = DB.getUserById(oponent);
+            DataRow oponent2_DB = DB.getUserById(oponent2);
+            nf.sendEmail(oponent1_DB["email"].ToString(), "Recenzní řízení - nový článek", message2);
+            nf.sendEmail(oponent2_DB["email"].ToString(), "Recenzní řízení - nový článek", message2);
 
-            DataRow prvni_oponent = DB.getUserById(oponent);
-            DataRow druhy_oponent = DB.getUserById(oponent2);
-            string messages = "Byl Vám přidělen nový článek:  '" + clanek["nadpis_clanku"] + "'. Termín posudku je stanoven na "+datum_vyrizeni+"";
-            nf.sendEmail(prvni_oponent["email"].ToString(), "Nový přidelený článek", messages);
-            nf.sendEmail(druhy_oponent["email"].ToString(), "Nový přidelený článek", messages);
+            //notifikace - stranky (oponenti)
+            DB.insertNotification(oponent, int.Parse(clanek["id_clanek"].ToString()), "info", message2);
+            DB.insertNotification(oponent2, int.Parse(clanek["id_clanek"].ToString()), "info", message2);
 
-            //notifikace - stranky - oponent 
-            DB.insertNotification(oponent, int.Parse(clanek["id_clanek"].ToString()), "info", messages);
-            DB.insertNotification(oponent2, int.Parse(clanek["id_clanek"].ToString()), "info", messages);
-
-
-
-            Response.Redirect("/redaktor/pridelit-oponenta");
+            Session["flashMsgType"] = "success";
+            Session["flashMsgText"] = "Oponenti byli úspěšně přiděleni";
         }
         catch (Exception ex)
         {
-          Label1_vybrany_clanek.Text = "Chyba: " + ex.Message;
+            Session["flashMsgType"] = "danger";
+            Session["flashMsgText"] = "Chyba při ukládání dat do databáze. Kontaktujte vývojáře.";
         }
+
+        Response.Redirect("/redaktor/pridelit-oponenta");
 
     }
 

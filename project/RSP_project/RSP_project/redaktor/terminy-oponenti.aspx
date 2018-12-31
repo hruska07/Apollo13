@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="terminy_oponenti.aspx.cs" Inherits="redaktor_terminy_oponenti" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="terminy-oponenti.aspx.cs" Inherits="redaktor_terminy_oponenti" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
@@ -9,8 +9,6 @@
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="id_user" DataSourceID="zdroj_oponenti">
         <Columns>
             <asp:TemplateField HeaderText="Operace">
-
-
                    <ItemTemplate>
                         <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select" />
                     </ItemTemplate>
