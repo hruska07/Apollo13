@@ -57,6 +57,7 @@
                             <a href="/oponent/pridelene-clanky">Přidělené články</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_sefredaktor" runat="server" Visible="False">
+                            <a href="/sefredaktor/sprava-casopisu-otevrene">Správa časopisů</a>
                             <a href="/sefredaktor/agenda-redaktora">Agenda redaktora</a>
                             <a href="/sefredaktor/agenda-autora">Agenda autora</a>
                         </asp:Panel>

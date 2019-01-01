@@ -66,10 +66,20 @@ public class Database
         if (datum_uzaverky <= DateTime.Now)
             datum_uzaverky = DateTime.Parse(datum_uzaverky_string + (rok + 1).ToString());
 
-        SqlCommand insert = new SqlCommand("INSERT INTO [Casopis] (tema, datum_uzaverky) OUTPUT INSERTED.id_casopis VALUES (@tema, @datum_uzaverky)", getConnection());
+        int konecny_rok = int.Parse(datum_uzaverky.ToString("yyyy"));
+        string oznaceni = String.Format("{0}/Ročník {1}/Číslo {2}", konecny_rok, konecny_rok % 100 - 9, tema);
+        SqlCommand insert = new SqlCommand("INSERT INTO [Casopis] (tema, datum_uzaverky, oznaceni) OUTPUT INSERTED.id_casopis VALUES (@tema, @datum_uzaverky, @oznaceni)", getConnection());
         insert.Parameters.AddWithValue("@tema", tema);
         insert.Parameters.AddWithValue("@datum_uzaverky", datum_uzaverky);
+        insert.Parameters.AddWithValue("@oznaceni", oznaceni);
         return getCasopisById((int)insert.ExecuteScalar());
+    }
+
+    public void removeClanekFromCasopis(int id_clanek)
+    {
+        SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [casopis] = NULL WHERE [id_clanek] = @id_clanek", getConnection());
+        update.Parameters.AddWithValue("@id_clanek", id_clanek);
+        update.ExecuteNonQuery();
     }
 
     public void odeslatPosudek(string namety_k_diskuzi, char kriterium1, char kriterium2, char kriterium3, string doplnujici_komentar, int souhrnne_vyjadreni, int clanek, int oponent)
@@ -88,7 +98,7 @@ public class Database
 
     public DataRow getCasopisById(int id_casopis)
     {
-        SqlCommand select = new SqlCommand("SELECT [Casopis].[id_casopis], [Casopis].[kapacita], [Casopis].[datum_uzaverky], (SELECT COUNT(*) FROM [Clanek] WHERE [Clanek].[casopis] = @id_casopis) AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[id_casopis] = @id_casopis", getConnection());
+        SqlCommand select = new SqlCommand("SELECT *, (SELECT COUNT(*) FROM [Clanek] WHERE [Clanek].[casopis] = @id_casopis) AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[id_casopis] = @id_casopis", getConnection());
         select.Parameters.AddWithValue("@id_casopis", id_casopis);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
