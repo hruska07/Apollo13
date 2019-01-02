@@ -18,6 +18,9 @@ public partial class Zadani_prispevku : System.Web.UI.Page
     Database DB = new Database();
     int cislo_autora = 0;
     int id_casopisu = 0;
+    bool upravuje = false;
+    int cislo_clanku = -1;
+    DataRow puv_clanek;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,6 +28,23 @@ public partial class Zadani_prispevku : System.Web.UI.Page
             Response.Redirect("/login");
         else
             cislo_autora = Convert.ToInt32(Session["id_user"]);
+
+        if (Request.Params["clanek"] != null)
+        {
+            upravuje = true;
+            cislo_clanku = int.Parse(Request.Params["clanek"]);
+            puv_clanek = DB.getClanekById(cislo_clanku);
+        }
+
+        if (Request.Params["clanek"] != null && nadpis_clanku.Text == "")
+        {
+            nadpis_clanku.Text = puv_clanek["nadpis_clanku"].ToString();
+            obsah_aspektu.Text = puv_clanek["abstrakt"].ToString();
+            keywords.Text = puv_clanek["keywords"].ToString();
+            autors.Text = puv_clanek["autors"].ToString();
+            workplace.Text = puv_clanek["workplace"].ToString();
+            DropDownList1.SelectedValue = puv_clanek["tema"].ToString();
+        }
 
         conn = DB.getConnection();
 
@@ -86,11 +106,22 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
             try
             {
+                if (!upravuje)
                 //příkaz do databáze
-                DB.insertClanek(Nadpis, Abstrakt, date1, cislo_autora, id_casopisu, soubor, keywords.Text, autors.Text, workplace.Text, Saving_fi());
+                {
+                    DB.insertClanek(Nadpis, Abstrakt, date1, cislo_autora, id_casopisu, soubor, keywords.Text, autors.Text, workplace.Text, Saving_fi());
 
-                Session["flashMsgType"] = "success";
-                Session["flashMsgText"] = "Příspěvek byl úspěšně přidán";
+                    Session["flashMsgType"] = "success";
+                    Session["flashMsgText"] = "Článek byl úspěšně přidán";
+                }
+                else
+                {
+                    string filename = FileUpload1.HasFile ? Saving_fi() : puv_clanek["path"].ToString();
+                    DB.updateClanek(cislo_clanku, Nadpis, Abstrakt, date1, cislo_autora, id_casopisu, soubor, keywords.Text, autors.Text, workplace.Text, filename);
+
+                    Session["flashMsgType"] = "success";
+                    Session["flashMsgText"] = "Článek byl úspěšně upraven";
+                }
             }
             catch (Exception ex)
             {

@@ -30,6 +30,11 @@
                             <asp:Button CssClass="btn btn-info" Text="Detail" ID="detail_button" runat="server" CausesValidation="false" CommandName="ShowDetail" CommandArgument='<%# Eval("id_clanek") %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Upravit">
+                        <ItemTemplate>
+                            <asp:Button CssClass="btn btn-warning" Text="Upravit článek" ID="upravit_button" runat="server" CausesValidation="false" CommandName="EditArticle" CommandArgument='<%# Eval("id_clanek") %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
                 <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [datum_clanku], [nazev_stav_cit] FROM [Clanek] JOIN [Stav] ON [Clanek].[stav] = [Stav].[id_stav] WHERE ([autor] = @autor) ORDER BY [datum_clanku]">
