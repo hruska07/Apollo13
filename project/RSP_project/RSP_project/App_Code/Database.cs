@@ -249,6 +249,16 @@ public class Database
         return ds.Tables[0].Rows[0];
     }
 
+    public DataTable getRedaktori()
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [User] WHERE role = 4", getConnection());
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataTable x = new DataTable();
+        sda.SelectCommand = select;
+        sda.Fill(x);
+        return x;
+    }
+
     public void aktualizovatStavClanku(int id_clanek, int novy_stav)
     {
         SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [stav] = @stav WHERE [id_clanek] = @id_clanek", getConnection());

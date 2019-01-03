@@ -79,12 +79,14 @@ public partial class _Default : System.Web.UI.Page
                 //notifikace - redakce
                 DataRow clanek = DB.getClanekById(id_clanek);
                 string message = "Bylo vloženo nové hodnocení článku '" + clanek["nadpis_clanku"] + "'";
-                /*DataTable users = DB.getRedaktori();
+
+                //DataTable users = DB.getRedaktori();
+                DataTable users = DB.getRedaktori();
                 foreach (DataRow user in users.Rows)
                 {
                     DB.insertNotification(int.Parse(user["id_user"].ToString()), message);
                     nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", message);
-                }*/
+                }
 
                 Session["flashMsgType"] = "success";
                 Session["flashMsgText"] = "Hodnocení bylo úspěšně odesláno";

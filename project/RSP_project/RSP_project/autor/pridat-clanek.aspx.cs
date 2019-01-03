@@ -121,6 +121,9 @@ public partial class Zadani_prispevku : System.Web.UI.Page
 
                     Session["flashMsgType"] = "success";
                     Session["flashMsgText"] = "Článek byl úspěšně upraven";
+                    
+                    // notifikace pro redaktora
+
                 }
             }
             catch (Exception ex)
