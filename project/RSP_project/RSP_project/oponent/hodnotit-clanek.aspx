@@ -80,12 +80,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="textbox_dolpnujici_komentar" class="col-form-label col-sm-2" id="Label5">Doplňující komentář</label>
-                <div class="col-sm-10">
-                    <asp:TextBox CssClass="form-control" ID="textbox_dolpnujici_komentar" runat="server" TextMode="MultiLine" Rows="10"></asp:TextBox>
-                </div>
-            </div>
-            <div class="form-group row">
                 <label for="DropDownList_souhrnne_vyjadreni" class="col-form-label col-sm-2" id="Label6">Souhrnné vyjádření</label>
                 <div class="col-sm-10">            
                     <asp:DropDownList CssClass="form-control" ID="DropDownList_souhrnne_vyjadreni" runat="server" AutoPostBack="True" DataSourceID="SqlDataSource1" DataTextField="text_vyjadreni" DataValueField="id_vyjadreni">

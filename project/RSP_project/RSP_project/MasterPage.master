@@ -98,6 +98,7 @@
                     </asp:Panel>
                     <asp:Panel ID="Panel_logged" runat="server">
                         <li><span class="fa fa-user red"></span>&nbsp;&nbsp;<asp:Label ID="Label_logged_user" runat="server" Text=""></asp:Label></li>
+                        <li><a href="/osobni-udaje"><span class="fa fa-cog red"></span>&nbsp;&nbsp;Osobní údaje</a></li>
                         <li><a href="/logout"><span class="fa fa-sign-out-alt red"></span>&nbsp;&nbsp;Odhlásit se</a></li>
                     </asp:Panel>
                 </ul>
