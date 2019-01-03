@@ -24,6 +24,11 @@
                             <asp:Button CssClass="btn btn-info" Text="Hodnotit článek" ID="detail_button" runat="server" CausesValidation="false" CommandName="Review" CommandArgument='<%# Eval("id_clanek") %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
+                <asp:TemplateField HeaderText="Operace">
+                        <ItemTemplate>
+                            <asp:Button CssClass="btn btn-warning" Text="Předchozí verze" ID="version_button" runat="server" CausesValidation="false" CommandName="Version" CommandArgument='<%# Eval("id_clanek") %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
             </Columns>
         </asp:GridView>
         <asp:SqlDataSource ID="zdrojak" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [Clanek].id_clanek, ([User].jmeno + ' ' + [User].prijmeni) AS cele_jmeno,[Clanek].nadpis_clanku,[Clanek].datum_clanku FROM Propoj_clanek_oponent JOIN [Clanek] ON clanek=id_clanek JOIN [User] ON Clanek.autor = [User].id_user WHERE ([oponent]=@oponent)">

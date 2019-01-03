@@ -66,10 +66,20 @@ public class Database
         if (datum_uzaverky <= DateTime.Now)
             datum_uzaverky = DateTime.Parse(datum_uzaverky_string + (rok + 1).ToString());
 
-        SqlCommand insert = new SqlCommand("INSERT INTO [Casopis] (tema, datum_uzaverky) OUTPUT INSERTED.id_casopis VALUES (@tema, @datum_uzaverky)", getConnection());
+        int konecny_rok = int.Parse(datum_uzaverky.ToString("yyyy"));
+        string oznaceni = String.Format("{0}/Ročník {1}/Číslo {2}", konecny_rok, konecny_rok % 100 - 9, tema);
+        SqlCommand insert = new SqlCommand("INSERT INTO [Casopis] (tema, datum_uzaverky, oznaceni) OUTPUT INSERTED.id_casopis VALUES (@tema, @datum_uzaverky, @oznaceni)", getConnection());
         insert.Parameters.AddWithValue("@tema", tema);
         insert.Parameters.AddWithValue("@datum_uzaverky", datum_uzaverky);
+        insert.Parameters.AddWithValue("@oznaceni", oznaceni);
         return getCasopisById((int)insert.ExecuteScalar());
+    }
+
+    public void removeClanekFromCasopis(int id_clanek)
+    {
+        SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [casopis] = NULL WHERE [id_clanek] = @id_clanek", getConnection());
+        update.Parameters.AddWithValue("@id_clanek", id_clanek);
+        update.ExecuteNonQuery();
     }
 
     public void odeslatPosudek(string namety_k_diskuzi, char kriterium1, char kriterium2, char kriterium3, string doplnujici_komentar, int souhrnne_vyjadreni, int clanek, int oponent)
@@ -84,11 +94,19 @@ public class Database
         insert.Parameters.AddWithValue("@clanek", clanek);
         insert.Parameters.AddWithValue("@oponent", oponent);
         insert.ExecuteNonQuery();
+
+        SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", getConnection());
+        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ma_posudek");
+        int id_stav = (int)get_ID_stav.ExecuteScalar();
+        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
+        update.Parameters.AddWithValue("@id_stav", id_stav);
+        update.Parameters.AddWithValue("@clanek", clanek);
+        update.ExecuteNonQuery();
     }
 
     public DataRow getCasopisById(int id_casopis)
     {
-        SqlCommand select = new SqlCommand("SELECT [Casopis].[id_casopis], [Casopis].[kapacita], [Casopis].[datum_uzaverky], (SELECT COUNT(*) FROM [Clanek] WHERE [Clanek].[casopis] = @id_casopis) AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[id_casopis] = @id_casopis", getConnection());
+        SqlCommand select = new SqlCommand("SELECT *, (SELECT COUNT(*) FROM [Clanek] WHERE [Clanek].[casopis] = @id_casopis) AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[id_casopis] = @id_casopis", getConnection());
         select.Parameters.AddWithValue("@id_casopis", id_casopis);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
@@ -112,6 +130,41 @@ public class Database
         insert.Parameters.AddWithValue("@workpl", workplace);
         insert.Parameters.AddWithValue("@patha", filename);
         insert.ExecuteNonQuery();
+    }
+
+    public void updateClanek(int id_clanek, string Nadpis, string Abstrakt, DateTime date1, int cislo_autora, int casopis, int soubor, string keywords, string autors, string workplace, string filename)
+    {
+        //ulozeni predchozi verze
+        DataRow puv_clanek = getClanekById(id_clanek);
+        SqlCommand insert = new SqlCommand("insert into [Clanek_predchozi_verze] (puvodni_clanek, nadpis_clanku, datum_clanku,autor,stav,casopis,soubor,abstrakt,keywords,autors,workplace,path) values(@puvodni_clanek, @Nadpis, @datum_clanku,@autor,@stav,@casopis,@soubor,@abstrakt,@keyw,@aut,@workpl,@patha)", getConnection());
+        insert.Parameters.AddWithValue("@puvodni_clanek", id_clanek);
+        insert.Parameters.AddWithValue("@Nadpis", puv_clanek["nadpis_clanku"]);
+        insert.Parameters.AddWithValue("@abstrakt", puv_clanek["abstrakt"]);
+        insert.Parameters.AddWithValue("@datum_clanku", puv_clanek["datum_clanku"]);
+        insert.Parameters.AddWithValue("@autor", puv_clanek["autor"]);
+        insert.Parameters.AddWithValue("@stav", puv_clanek["stav"]);
+        insert.Parameters.AddWithValue("@casopis", puv_clanek["casopis"]);
+        insert.Parameters.AddWithValue("@soubor", puv_clanek["soubor"]);
+        insert.Parameters.AddWithValue("@keyw", puv_clanek["keywords"]);
+        insert.Parameters.AddWithValue("@aut", puv_clanek["autors"]);
+        insert.Parameters.AddWithValue("@workpl", puv_clanek["workplace"]);
+        insert.Parameters.AddWithValue("@patha", puv_clanek["path"]);
+        insert.ExecuteNonQuery();
+
+        //aktualizace clanku
+        SqlCommand update = new SqlCommand("update [Clanek] SET nadpis_clanku = @Nadpis, datum_clanku = @datum_clanku,autor = @autor,stav = @stav,casopis = @casopis,soubor = @soubor,abstrakt = @abstrakt,keywords = @keyw,autors = @aut,workplace = @workpl,path = @patha", getConnection());
+        update.Parameters.AddWithValue("@Nadpis", Nadpis);
+        update.Parameters.AddWithValue("@abstrakt", Abstrakt);
+        update.Parameters.AddWithValue("@datum_clanku", date1);
+        update.Parameters.AddWithValue("@autor", cislo_autora);
+        update.Parameters.AddWithValue("@stav", 1);
+        update.Parameters.AddWithValue("@casopis", casopis);
+        update.Parameters.AddWithValue("@soubor", soubor);
+        update.Parameters.AddWithValue("@keyw", keywords);
+        update.Parameters.AddWithValue("@aut", autors);
+        update.Parameters.AddWithValue("@workpl", workplace);
+        update.Parameters.AddWithValue("@patha", filename);
+        update.ExecuteNonQuery();
     }
 
     public void pridelOponenty(int clanek, string datum_vyrizeni, int oponent, int oponent2, int pridelil)
@@ -187,13 +240,23 @@ public class Database
 
     public DataRow getClanekById(int id_clanek)
     {
-        SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor WHERE id_clanek = @id_clanek", getConnection());
+        SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor JOIN Casopis ON Clanek.casopis = Casopis.id_casopis WHERE id_clanek = @id_clanek", getConnection());
         select.Parameters.AddWithValue("@id_clanek", id_clanek);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
         sda.SelectCommand = select;
         sda.Fill(ds);
         return ds.Tables[0].Rows[0];
+    }
+
+    public DataTable getRedaktori()
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [User] WHERE role = 4", getConnection());
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataTable x = new DataTable();
+        sda.SelectCommand = select;
+        sda.Fill(x);
+        return x;
     }
 
     public void aktualizovatStavClanku(int id_clanek, int novy_stav)
@@ -204,19 +267,11 @@ public class Database
         update.ExecuteNonQuery();
     }
 
-    public void insertNotification(int user, int clanek, string typ_notifikace, string zprava)
+    public void insertNotification(int user, string zprava)
     {
-        SqlCommand delete = new SqlCommand("DELETE FROM [Notifikace] WHERE [user] = @user AND [typ_notifikace] = @typ_notifikace AND [clanek] = @clanek", getConnection());
-        delete.Parameters.AddWithValue("@user", user);
-        delete.Parameters.AddWithValue("@typ_notifikace", typ_notifikace);
-        delete.Parameters.AddWithValue("@clanek", clanek);
-        delete.ExecuteNonQuery();
-
-        SqlCommand insert = new SqlCommand("INSERT INTO [Notifikace] (typ_notifikace, zprava, [user], clanek) VALUES (@typ_notifikace, @zprava, @user, @clanek)", getConnection());
-        insert.Parameters.AddWithValue("@typ_notifikace", typ_notifikace);
+        SqlCommand insert = new SqlCommand("INSERT INTO [Notifikace] (zprava, [user]) VALUES (@zprava, @user)", getConnection());
         insert.Parameters.AddWithValue("@zprava", zprava);
         insert.Parameters.AddWithValue("@user", user);
-        insert.Parameters.AddWithValue("@clanek", clanek);
         insert.ExecuteNonQuery();
     }
 

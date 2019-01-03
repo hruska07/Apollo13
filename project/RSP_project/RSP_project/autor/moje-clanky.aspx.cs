@@ -15,8 +15,20 @@ public partial class zpetna_vazba : System.Web.UI.Page
 
     protected void GridView3_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        if (e.CommandName != "ShowDetail") return;
-        int id = Convert.ToInt32(e.CommandArgument);
-        Response.Redirect(String.Format("/clanky?c={0}", id));
+        switch (e.CommandName)
+        {
+            case "ShowDetail":
+                int id = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect(String.Format("/clanky?c={0}", id));
+                break;
+
+            case "EditArticle":
+                int id2 = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect(String.Format("/autor/pridat-clanek?clanek={0}", id2));
+                break;
+
+            default:
+                return;
+        }
     }
 }

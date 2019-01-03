@@ -24,12 +24,8 @@ public partial class oponent_stav : System.Web.UI.Page
 
         switch (e.CommandName)
         {
-            case "Review":
-                Response.Redirect(String.Format("/oponent/hodnotit-clanek?c={0}", id));
-                break;
-
-            case "Version":
-                Response.Redirect(String.Format("/oponent/clanek-verze?clanek={0}", id));
+            case "ShowDetail":
+                Response.Redirect(String.Format("/clanky?c={0}", id));
                 break;
 
             default:
