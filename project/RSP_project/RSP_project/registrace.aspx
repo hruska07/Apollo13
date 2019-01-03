@@ -13,6 +13,7 @@
             <div class="form-group">
                 <asp:textbox placeholder="E-mail" id="TextBox_email" cssclass="form-control" runat="server"></asp:textbox>
                 <asp:requiredfieldvalidator id="validator_email" runat="server" errormessage="Email musí být zadané" controltovalidate="TextBox_email" display="Dynamic"></asp:requiredfieldvalidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator_email" runat="server" ControlToValidate="TextBox_email" Display="Dynamic" ErrorMessage="Email ve špatném tvaru" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
             </div>
             <div class="form-group">
                 <asp:textbox placeholder="Jméno" id="TextBox_jmeno" cssclass="form-control" runat="server"></asp:textbox>
