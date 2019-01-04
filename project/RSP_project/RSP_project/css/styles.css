@@ -271,3 +271,9 @@ fieldset {
     z-index: 1000;
     width: 100%;
 }
+
+.my-form-element {
+    width: initial !important;
+    display: initial !important;
+    height: 33px !important;
+}

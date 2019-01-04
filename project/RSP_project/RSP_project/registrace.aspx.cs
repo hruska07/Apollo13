@@ -19,7 +19,7 @@ public partial class registrace : System.Web.UI.Page
     {
         //kontrola zda je vše vyplněné
         if (validator_email.IsValid == true && validator_heslo.IsValid == true && validator_jmeno.IsValid == true
-        && validator_login.IsValid == true && validator_prijmeni.IsValid == true && CompareValidator_stejnaPW.IsValid == true)
+        && validator_login.IsValid == true && validator_prijmeni.IsValid == true && CompareValidator_stejnaPW.IsValid == true && RegularExpressionValidator_email.IsValid==true)
         {
             //nacteni dat do promennych
             string login = TextBox_login.Text;

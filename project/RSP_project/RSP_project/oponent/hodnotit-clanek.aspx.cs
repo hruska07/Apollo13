@@ -69,12 +69,11 @@ public partial class _Default : System.Web.UI.Page
             char kriterium2 = char.Parse(DropDownList_kriterium2.SelectedValue);
             char kriterium3 = char.Parse(DropDownList_kriterium2.SelectedValue);
             string namety_k_diskuzi = textbox_namety_k_diskuzi.Text;
-            string doplnujici_komentar = textbox_dolpnujici_komentar.Text;
             int souhrnne_vyjadreni = int.Parse(DropDownList_souhrnne_vyjadreni.SelectedValue);
 
             try
             {
-                DB.odeslatPosudek(namety_k_diskuzi, kriterium1, kriterium2, kriterium3, doplnujici_komentar, souhrnne_vyjadreni, id_clanek, int.Parse(Session["id_user"].ToString()));
+                DB.odeslatPosudek(namety_k_diskuzi, kriterium1, kriterium2, kriterium3, souhrnne_vyjadreni, id_clanek, int.Parse(Session["id_user"].ToString()));
 
                 //notifikace - redakce
                 DataRow clanek = DB.getClanekById(id_clanek);
@@ -87,6 +86,7 @@ public partial class _Default : System.Web.UI.Page
                     DB.insertNotification(int.Parse(user["id_user"].ToString()), message);
                     nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", message);
                 }
+                DB.aktualizovatStavClanku(id_clanek, "ma_posudek");
 
                 Session["flashMsgType"] = "success";
                 Session["flashMsgText"] = "Hodnocení bylo úspěšně odesláno";

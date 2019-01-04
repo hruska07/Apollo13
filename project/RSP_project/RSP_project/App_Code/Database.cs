@@ -82,25 +82,62 @@ public class Database
         update.ExecuteNonQuery();
     }
 
-    public void odeslatPosudek(string namety_k_diskuzi, char kriterium1, char kriterium2, char kriterium3, string doplnujici_komentar, int souhrnne_vyjadreni, int clanek, int oponent)
+    public void odeslatPosudek(string namety_k_diskuzi, char kriterium1, char kriterium2, char kriterium3, int souhrnne_vyjadreni, int clanek, int oponent)
     {
-        SqlCommand insert = new SqlCommand("insert into [Posudek] (namety_k_diskuzi, kriterium1, kriterium2, kriterium3, doplnujici_komentar, souhrnne_vyjadreni, clanek, oponent) values(@namety_k_diskuzi, @kriterium1, @kriterium2, @kriterium3, @doplnujici_komentar, @souhrnne_vyjadreni, @clanek, @oponent)", getConnection());
+        SqlCommand insert = new SqlCommand("insert into [Posudek] (namety_k_diskuzi, kriterium1, kriterium2, kriterium3, souhrnne_vyjadreni, clanek, oponent) values(@namety_k_diskuzi, @kriterium1, @kriterium2, @kriterium3, @souhrnne_vyjadreni, @clanek, @oponent)", getConnection());
         insert.Parameters.AddWithValue("@namety_k_diskuzi", namety_k_diskuzi);
         insert.Parameters.AddWithValue("@kriterium1", kriterium1);
         insert.Parameters.AddWithValue("@kriterium2", kriterium2);
         insert.Parameters.AddWithValue("@kriterium3", kriterium3);
-        insert.Parameters.AddWithValue("@doplnujici_komentar", doplnujici_komentar);
         insert.Parameters.AddWithValue("@souhrnne_vyjadreni", souhrnne_vyjadreni);
         insert.Parameters.AddWithValue("@clanek", clanek);
         insert.Parameters.AddWithValue("@oponent", oponent);
         insert.ExecuteNonQuery();
 
-        SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", getConnection());
-        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ma_posudek");
-        int id_stav = (int)get_ID_stav.ExecuteScalar();
-        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
+        int id_stav = getIdStavClankuByNazev("ma_posudek");
+        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", getConnection());
         update.Parameters.AddWithValue("@id_stav", id_stav);
         update.Parameters.AddWithValue("@clanek", clanek);
+        update.ExecuteNonQuery();
+    }
+
+    public void updateUserLogin(string login, int user)
+    {
+        SqlCommand update = new SqlCommand("update [User] SET [User].[login] = @login WHERE [User].[id_user] = @id_user", getConnection());
+        update.Parameters.AddWithValue("@login", login);
+        update.Parameters.AddWithValue("@id_user", user);
+        update.ExecuteNonQuery();
+    }
+
+    public void updateUserJmeno(string jmeno, int user)
+    {
+        SqlCommand update = new SqlCommand("update [User] SET [User].[jmeno] = @jmeno WHERE [User].[id_user] = @id_user", getConnection());
+        update.Parameters.AddWithValue("@jmeno", jmeno);
+        update.Parameters.AddWithValue("@id_user", user);
+        update.ExecuteNonQuery();
+    }
+
+    public void updateUserPrijmeni(string prijmeni, int user)
+    {
+        SqlCommand update = new SqlCommand("update [User] SET [User].[prijmeni] = @prijmeni WHERE [User].[id_user] = @id_user", getConnection());
+        update.Parameters.AddWithValue("@prijmeni", prijmeni);
+        update.Parameters.AddWithValue("@id_user", user);
+        update.ExecuteNonQuery();
+    }
+
+    public void updateUserEmail(string email, int user)
+    {
+        SqlCommand update = new SqlCommand("update [User] SET email = @email WHERE id_user = @id", getConnection());
+        update.Parameters.AddWithValue("@email", email);
+        update.Parameters.AddWithValue("@id", user);
+        update.ExecuteNonQuery();
+    }
+
+    public void updateUserHeslo(string password, int user)
+    {
+        SqlCommand update = new SqlCommand("update [User] SET [User].[password] = @password WHERE [User].[id_user] = @id_user", getConnection());
+        update.Parameters.AddWithValue("@password", password);
+        update.Parameters.AddWithValue("@id_user", user);
         update.ExecuteNonQuery();
     }
 
@@ -152,7 +189,7 @@ public class Database
         insert.ExecuteNonQuery();
 
         //aktualizace clanku
-        SqlCommand update = new SqlCommand("update [Clanek] SET nadpis_clanku = @Nadpis, datum_clanku = @datum_clanku,autor = @autor,stav = @stav,casopis = @casopis,soubor = @soubor,abstrakt = @abstrakt,keywords = @keyw,autors = @aut,workplace = @workpl,path = @patha", getConnection());
+        SqlCommand update = new SqlCommand("update [Clanek] SET nadpis_clanku = @Nadpis, datum_clanku = @datum_clanku,autor = @autor,stav = @stav,casopis = @casopis,soubor = @soubor,abstrakt = @abstrakt,keywords = @keyw,autors = @aut,workplace = @workpl,path = @patha Where id_clanek=@clanek", getConnection());
         update.Parameters.AddWithValue("@Nadpis", Nadpis);
         update.Parameters.AddWithValue("@abstrakt", Abstrakt);
         update.Parameters.AddWithValue("@datum_clanku", date1);
@@ -164,6 +201,7 @@ public class Database
         update.Parameters.AddWithValue("@aut", autors);
         update.Parameters.AddWithValue("@workpl", workplace);
         update.Parameters.AddWithValue("@patha", filename);
+        update.Parameters.AddWithValue("@clanek", id_clanek);
         update.ExecuteNonQuery();
     }
 
@@ -176,10 +214,8 @@ public class Database
         insert.Parameters.AddWithValue("@pridelil", pridelil);
         insert.Parameters.AddWithValue("@datum_vyrizeni", DateTime.Parse(datum_vyrizeni, CultureInfo.CreateSpecificCulture("cs-CZ")));
 
-        SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", getConnection());
-        get_ID_stav.Parameters.AddWithValue("@nazev_stav", "ceka_na_posudek");
-        int id_stav = (int)get_ID_stav.ExecuteScalar();
-        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", conn);
+        int id_stav = getIdStavClankuByNazev("ceka_na_posudek");
+        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", getConnection());
         update.Parameters.AddWithValue("@id_stav", id_stav);
         update.Parameters.AddWithValue("@clanek", clanek);
 
@@ -189,7 +225,7 @@ public class Database
 
     public void InsertUser(string jmeno, string prijmeni, string login, string pass1, string role, string email)
     {
-        SqlCommand insert = new SqlCommand("insert into [User] (jmeno, prijmeni,login, password,role,email) values(@jmeno, @prijmeni,@login, @password,@role,@email)", conn);
+        SqlCommand insert = new SqlCommand("insert into [User] (jmeno, prijmeni,login, password,role,email) values(@jmeno, @prijmeni,@login, @password,@role,@email)", getConnection());
         insert.Parameters.AddWithValue("@jmeno", jmeno);
         insert.Parameters.AddWithValue("@prijmeni", prijmeni);
         insert.Parameters.AddWithValue("@login", login);
@@ -201,8 +237,8 @@ public class Database
     }
     public void checkExistReg(string login,string email,out int LoginExist,out int EmailExist)
     {
-        SqlCommand check_Login = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([login] = @login)", conn);
-        SqlCommand check_Email = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([email] = @email)", conn);
+        SqlCommand check_Login = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([login] = @login)", getConnection());
+        SqlCommand check_Email = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE ([email] = @email)", getConnection());
         check_Login.Parameters.AddWithValue("@login", login);
         check_Email.Parameters.AddWithValue("@email", email);
         //zaznamenani jestli probehl select
@@ -259,6 +295,7 @@ public class Database
         return x;
     }
 
+<<<<<<< HEAD
     public DataTable getAdmin()
     {
         SqlCommand select = new SqlCommand("SELECT * FROM [User] WHERE role = 6", getConnection());
@@ -270,10 +307,21 @@ public class Database
     }
 
     public void aktualizovatStavClanku(int id_clanek, int novy_stav)
+=======
+    public int getIdStavClankuByNazev(string nazev_stav)
     {
+        SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", getConnection());
+        get_ID_stav.Parameters.AddWithValue("@nazev_stav", nazev_stav);
+        return (int)get_ID_stav.ExecuteScalar();
+    }
+
+    public void aktualizovatStavClanku(int id_clanek, string novy_stav)
+>>>>>>> ce206733b4f1e314edac38bfe621d0bb396344c7
+    {
+        int id_stav = getIdStavClankuByNazev(novy_stav);
         SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [stav] = @stav WHERE [id_clanek] = @id_clanek", getConnection());
         update.Parameters.AddWithValue("@id_clanek", id_clanek);
-        update.Parameters.AddWithValue("@stav", novy_stav);
+        update.Parameters.AddWithValue("@stav", id_stav);
         update.ExecuteNonQuery();
     }
 

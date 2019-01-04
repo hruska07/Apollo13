@@ -62,28 +62,33 @@
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
 
-                            <ItemTemplate>
+                             <ItemTemplate>
                                 <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select" />
                             </ItemTemplate>
 
                         </asp:TemplateField>
-                        <asp:BoundField DataField="id_posudek" HeaderText="Id posudku" InsertVisible="False" ReadOnly="True" SortExpression="id_posudek" />
-                        <asp:BoundField DataField="login" HeaderText="Login oponenta" SortExpression="login" />
-                        <asp:BoundField DataField="obsah_posudku" HeaderText="Obsah" SortExpression="obsah_posudku" />
-                        <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" Visible="False" />
-                        <asp:BoundField DataField="datum_posudku" HeaderText="Datum" SortExpression="datum_posudku" />
+                        <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" InsertVisible="False" ReadOnly="True" SortExpression="id_posudek" />
+                        <asp:BoundField DataField="namety_k_diskuzi" HeaderText="namety_k_diskuzi" SortExpression="namety_k_diskuzi" />
+                        <asp:BoundField DataField="kriterium1" HeaderText="kriterium1" SortExpression="kriterium1" />
+                        <asp:BoundField DataField="kriterium2" HeaderText="kriterium2" SortExpression="kriterium2" />
+                        <asp:BoundField DataField="kriterium3" HeaderText="kriterium3" SortExpression="kriterium3" />
+                        <asp:BoundField DataField="doplnujici_komentar" HeaderText="doplnujici_komentar" SortExpression="doplnujici_komentar" Visible="False" />
+                        <asp:BoundField DataField="souhrnne_vyjadreni" HeaderText="souhrnne_vyjadreni" SortExpression="souhrnne_vyjadreni" />
+                        <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" />
+                        <asp:BoundField DataField="datum_posudku" HeaderText="datum_posudku" SortExpression="datum_posudku" />
                         <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" Visible="False" />
-                        <asp:CheckBoxField DataField="zpristupnen" HeaderText="Zpřístupněn" SortExpression="zpristupnen" />
-                        <asp:BoundField DataField="komentar" HeaderText="Komentář" SortExpression="komentar" />
-                        <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" Visible="False" />
+                        <asp:CheckBoxField DataField="zpristupnen" HeaderText="zpristupnen" SortExpression="zpristupnen" />
+                        <asp:BoundField DataField="id_user" HeaderText="id_user" SortExpression="id_user" InsertVisible="False" ReadOnly="True" Visible="False" />
                         <asp:BoundField DataField="jmeno" HeaderText="jmeno" SortExpression="jmeno" Visible="False" />
                         <asp:BoundField DataField="prijmeni" HeaderText="prijmeni" SortExpression="prijmeni" Visible="False" />
+                        <asp:BoundField DataField="login" HeaderText="Login oponenta" SortExpression="login" />
                         <asp:BoundField DataField="password" HeaderText="password" SortExpression="password" Visible="False" />
                         <asp:BoundField DataField="role" HeaderText="role" SortExpression="role" Visible="False" />
                         <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" Visible="False" />
                     </Columns>
                 </asp:GridView>
                 <br />
+                <b><asp:Label ID="Label6" Font-Size="Larger" runat="server" Text="Náměty k diskuzi:" Visible="False"></asp:Label></b>
                 <asp:SqlDataSource ID="posudek_novy" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Posudek] JOIN [User] ON ([oponent]=[id_user]) WHERE ([clanek] = @clanek)" ConflictDetection="CompareAllValues" DeleteCommand="DELETE FROM [Posudek] WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))" InsertCommand="INSERT INTO [Posudek] ([obsah_posudku], [oponent], [datum_posudku], [clanek], [zpristupnen], [komentar]) VALUES (@obsah_posudku, @oponent, @datum_posudku, @clanek, @zpristupnen, @komentar)" OldValuesParameterFormatString="original_{0}" UpdateCommand="UPDATE [Posudek] SET [obsah_posudku] = @obsah_posudku, [oponent] = @oponent, [datum_posudku] = @datum_posudku, [clanek] = @clanek, [zpristupnen] = @zpristupnen, [komentar] = @komentar WHERE [id_posudek] = @original_id_posudek AND [obsah_posudku] = @original_obsah_posudku AND [oponent] = @original_oponent AND [datum_posudku] = @original_datum_posudku AND [clanek] = @original_clanek AND (([zpristupnen] = @original_zpristupnen) OR ([zpristupnen] IS NULL AND @original_zpristupnen IS NULL)) AND (([komentar] = @original_komentar) OR ([komentar] IS NULL AND @original_komentar IS NULL))">
                     <DeleteParameters>
                         <asp:Parameter Name="original_id_posudek" Type="Int32" />
@@ -121,12 +126,20 @@
                         <asp:Parameter Name="original_komentar" Type="String" />
                     </UpdateParameters>
                 </asp:SqlDataSource>
+                <asp:TextBox ID="TextBox2" runat="server" Height="234px" Visible="False" Width="100%"></asp:TextBox>
+                <br />
+                <b><asp:Label ID="Label7" Font-Size="Larger" runat="server" Text="Souhrnné vyjádření:" Visible="False"></asp:Label></b>
+                <br />
+                <br />
+                <asp:TextBox ID="TextBox3" runat="server" Height="234px" Visible="False" Width="100%"></asp:TextBox>
+                <br />
+                <br />
                 <p><b><asp:Label ID="Label3" Font-Size="Larger" runat="server" Text="Zpřístupněn:"></asp:Label></b></p>
                 <asp:CheckBox ID="CheckBox1" runat="server" />
                 <br />
                 <br />
-                <p><b><asp:Label ID="Label4" runat="server" Font-Size="Larger" Text="Komentář:"></asp:Label></b></p>
-                <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" Height="234px" TextMode="MultiLine" Width="608px"></asp:TextBox>
+                <p><b><asp:Label ID="Label4" runat="server" Font-Size="Larger" Text="Komentář redaktora:"></asp:Label></b></p>
+                <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" Height="234px" TextMode="MultiLine" Width="100%"></asp:TextBox>
                 <br />
                 <br />
                 <asp:Button ID="Button1" CssClass="btn btn-success btn-lg" runat="server" OnClick="Button1_Click" Text="Odeslat" />
