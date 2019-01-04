@@ -78,6 +78,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     Label_role_menu.Text = "REDAKTOR";
                     Label_logged_user.Text += " (redaktor)";
                     Panel_redaktor.Visible = true;
+                    Panel_helpdesk_zobrazeni.Visible = true;
                     break;
 
                 case "oponent":
@@ -90,12 +91,14 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     Label_role_menu.Text = "ŠÉFREDAKTOR";
                     Label_logged_user.Text += " (šéfredaktor)";
                     Panel_sefredaktor.Visible = true;
+                    Panel_helpdesk_zobrazeni.Visible = true;
                     break;
 
                 case "admin":
                     Label_role_menu.Text = "ADMINISTRÁTOR";
                     Label_logged_user.Text += " (administrátor)";
                     Panel_administrator.Visible = true;
+                    Panel_helpdesk_zobrazeni.Visible = true;
                     break;
                 case "ctenar":
                     Label_role_menu.Text = "ČTENÁŘ";

@@ -40,7 +40,8 @@
             <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
                 <div class="dropdown">
                     <a class="dropbtn<% if ((Request.RawUrl.ToString().Contains("/autor") || Request.RawUrl.ToString().Contains("/redaktor") || Request.RawUrl.ToString().Contains("/sefredaktor") || Request.RawUrl.ToString().Contains("/oponent") || Request.RawUrl.ToString().Contains("/admin")))
-                        { %> active<% } %>" href="#">
+                        { %> active<% } %>"
+                        href="#">
                         <asp:Label ID="Label_role_menu" runat="server" Text="Label"></asp:Label>
                     </a>
                     <div class="dropdown-content">
@@ -74,14 +75,33 @@
                     </div>
                 </div>
             </asp:Panel>
+
             <a class="highlight<% if (Request.RawUrl.ToString() == "/default")
-                { %> active<% } %>" href="/default">HOME</a>
+                { %> active<% } %>"
+                href="/default">HOME</a>
+
+            <div class="dropdown">
+                <a class="dropbtn dropbtn-white<% if ((Request.RawUrl.ToString().Contains("/helpdesk")))
+                    { %> active<% } %>"
+                    href="#">HELPDESK
+                </a>
+                <div class="dropdown-content">
+                    <a href="/helpdesk/helpdesk">Nový dotaz</a>
+                    <asp:Panel ID="Panel_helpdesk_zobrazeni" runat="server" Visible="False">
+                        <a href="/helpdesk/helpdesk_zobrazeni">Dotazy - odpovědět</a>
+                    </asp:Panel>
+                </div>
+            </div>
+
             <a class="highlight<% if (Request.RawUrl.ToString() == "/casopisy")
-                { %> active<% } %>" href="/casopisy">Časopisy</a>
+                { %> active<% } %>"
+                href="/casopisy">Časopisy</a>
             <a class="highlight<% if (Request.RawUrl.ToString() == "/publikace")
-                { %> active<% } %>" href="/publikace">Publikace</a>
+                { %> active<% } %>"
+                href="/publikace">Publikace</a>
             <a class="highlight<% if (Request.RawUrl.ToString() == "/o-nas")
-                { %> active<% } %>" href="/o-nas">O nás</a>
+                { %> active<% } %>"
+                href="/o-nas">O nás</a>
         </div>
 
         <div class="main">
@@ -90,16 +110,6 @@
         </div>
 
         <div class="search-login">
-            <!--
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Hledej článek...">
-                <div class="input-group-btn">
-                    <button class="btn btn-default" type="submit">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-            -->
             <div class="login-reg-btn">
                 <ul style="padding-left: 0px;">
                     <asp:Panel ID="Panel_not_logged" runat="server">
@@ -115,7 +125,7 @@
             </div>
         </div>
 
-       
+
         <asp:ContentPlaceHolder ID="scripts" runat="server">
         </asp:ContentPlaceHolder>
     </form>

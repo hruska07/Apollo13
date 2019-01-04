@@ -70,7 +70,7 @@
 }
 
 .sidebar a.highlight {
-    padding: 45px 0;
+    padding: 40px 0;
     text-decoration: none;
     font-size: 18px;
     color: #ffffff;
@@ -103,7 +103,7 @@
 }
 
 .dropdown-content a {
-    padding: 45px 0;
+    padding: 40px 0;
     text-decoration: none;
     font-size: 18px;
     color: #ffffff;
@@ -114,13 +114,17 @@
     width: 100%;
     border: none;
     outline: none;
-    padding: 45px 0;
+    padding: 40px 0;
     margin: 0 auto;
     text-decoration: none;
     font-size: 18px;
     color: #ff6363;
     display: block;
     background-color: inherit;
+}
+
+.dropdown .dropbtn-white {
+    color: white;
 }
 
 .dropdown-content a:hover {
