@@ -55,8 +55,9 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
         Label7.Visible = true;
 
 
-        idecko = GridView13.SelectedRow.Cells[1].Text;
-            cmd = new SqlCommand("SELECT zpristupnen,doplnujici_komentar,namety_k_diskuzi FROM Posudek WHERE id_posudek=@id_posude", conn);
+        //  idecko = GridView13.SelectedRow.Cells[1].Text;
+        idecko = GridView13.SelectedValue.ToString();
+        cmd = new SqlCommand("SELECT zpristupnen,doplnujici_komentar,namety_k_diskuzi FROM Posudek WHERE id_posudek=@id_posude", conn);
             cmd.Parameters.AddWithValue("@id_posude", idecko);
             dr = cmd.ExecuteReader();
             dr.Read();
@@ -105,15 +106,19 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
         zpristupnen = CheckBox1.Checked;
         komentar = TextBox1.Text;
 
-          SqlCommand update = new SqlCommand("update Posudek set zpristupnen=@zpristupnen,doplnujici_komentar=@doplnujici_komentar Where id_posudek=@id_posudek", conn);
+          SqlCommand update = new SqlCommand("update Posudek set zpristupnen=@zpristupnen,doplnujici_komentar=@doplnujici_komentar, namety_k_diskuzi=@namet Where id_posudek=@id_posudek", conn);
         update.Parameters.AddWithValue("@zpristupnen", zpristupnen);
         update.Parameters.AddWithValue("@doplnujici_komentar", komentar);
         update.Parameters.AddWithValue("@id_posudek", GridView13.SelectedValue);
-update.ExecuteNonQuery();
+        update.Parameters.AddWithValue("@namet", TextBox2.Text);
+        update.ExecuteNonQuery();
 
 
-        update = new SqlCommand("UPDATE [Souhrnne_vyjadreni] JOIN [Posudek] ON [Souhrnne_vyjadreni].id_vyjadreni=[Posudek].souhrnne_vyjadreni SET [Souhrnne_vyjadreni].text_vyjadreni=@vyjadreni WHERE [Posudek].id_posudek=@id_posudek", conn);
+      //  update = new SqlCommand("UPDATE [Posudek] JOIN [Souhrnne_vyjadreni] ON [Posudek].souhrnne_vyjadreni=[Souhrnne_vyjadreni].id_vyjadreni SET [Souhrnne_vyjadreni].text_vyjadreni=@vyjadreni WHERE [Posudek].id_posudek=@id_posudek", conn);
+        update = new SqlCommand("UPDATE t1 SET t1.text_vyjadreni=@vyjadreni FROM [Souhrnne_vyjadreni] AS t1 JOIN [Posudek] AS t2 ON t1.id_vyjadreni = t2.souhrnne_vyjadreni  WHERE t2.id_posudek=@id_posudek", conn);
+
         update.Parameters.AddWithValue("@vyjadreni",TextBox3.Text);
+        update.Parameters.AddWithValue("@id_posudek", GridView13.SelectedValue);
 
         update.ExecuteNonQuery();
 

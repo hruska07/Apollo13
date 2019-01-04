@@ -58,7 +58,7 @@
                 <br />
                 <p><b><asp:Label ID="Label2" runat="server" Font-Bold="True" Font-Size="Larger" Text="Vyberte posudek:"></asp:Label></b></p>
 
-                <asp:GridView ID="GridView13" runat="server" DataSourceID="posudek_novy" AutoGenerateColumns="False" DataKeyNames="id_posudek,id_user" OnSelectedIndexChanged="GridView13_SelectedIndexChanged">
+                <asp:GridView ID="GridView13" runat="server" DataSourceID="posudek_novy" AutoGenerateColumns="False" DataKeyNames="id_posudek" OnSelectedIndexChanged="GridView13_SelectedIndexChanged">
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
 
@@ -67,21 +67,21 @@
                             </ItemTemplate>
 
                         </asp:TemplateField>
-                        <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" InsertVisible="False" ReadOnly="True" SortExpression="id_posudek" />
-                        <asp:BoundField DataField="namety_k_diskuzi" HeaderText="namety_k_diskuzi" SortExpression="namety_k_diskuzi" />
-                        <asp:BoundField DataField="kriterium1" HeaderText="kriterium1" SortExpression="kriterium1" />
-                        <asp:BoundField DataField="kriterium2" HeaderText="kriterium2" SortExpression="kriterium2" />
-                        <asp:BoundField DataField="kriterium3" HeaderText="kriterium3" SortExpression="kriterium3" />
+                        <asp:BoundField DataField="login" HeaderText="Login oponenta" SortExpression="login" />
+                        <asp:BoundField DataField="id_posudek" HeaderText="id_posudek" InsertVisible="False" ReadOnly="True" SortExpression="id_posudek" Visible="False" />
+                        <asp:BoundField DataField="namety_k_diskuzi" HeaderText="namety_k_diskuzi" SortExpression="namety_k_diskuzi" Visible="False" />
+                        <asp:BoundField DataField="kriterium1" HeaderText="Kritérium 1" SortExpression="kriterium1" />
+                        <asp:BoundField DataField="kriterium2" HeaderText="Kritérium 2" SortExpression="kriterium2" />
+                        <asp:BoundField DataField="kriterium3" HeaderText="Kritérium 3" SortExpression="kriterium3" />
                         <asp:BoundField DataField="doplnujici_komentar" HeaderText="doplnujici_komentar" SortExpression="doplnujici_komentar" Visible="False" />
-                        <asp:BoundField DataField="souhrnne_vyjadreni" HeaderText="souhrnne_vyjadreni" SortExpression="souhrnne_vyjadreni" />
-                        <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" />
+                        <asp:BoundField DataField="souhrnne_vyjadreni" HeaderText="souhrnne_vyjadreni" SortExpression="souhrnne_vyjadreni" Visible="False" />
+                        <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" Visible="False" />
                         <asp:BoundField DataField="datum_posudku" HeaderText="datum_posudku" SortExpression="datum_posudku" />
                         <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" Visible="False" />
-                        <asp:CheckBoxField DataField="zpristupnen" HeaderText="zpristupnen" SortExpression="zpristupnen" />
+                        <asp:CheckBoxField DataField="zpristupnen" HeaderText="Zpřístupněn" SortExpression="zpristupnen" />
                         <asp:BoundField DataField="id_user" HeaderText="id_user" SortExpression="id_user" InsertVisible="False" ReadOnly="True" Visible="False" />
                         <asp:BoundField DataField="jmeno" HeaderText="jmeno" SortExpression="jmeno" Visible="False" />
                         <asp:BoundField DataField="prijmeni" HeaderText="prijmeni" SortExpression="prijmeni" Visible="False" />
-                        <asp:BoundField DataField="login" HeaderText="Login oponenta" SortExpression="login" />
                         <asp:BoundField DataField="password" HeaderText="password" SortExpression="password" Visible="False" />
                         <asp:BoundField DataField="role" HeaderText="role" SortExpression="role" Visible="False" />
                         <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" Visible="False" />
@@ -126,12 +126,12 @@
                         <asp:Parameter Name="original_komentar" Type="String" />
                     </UpdateParameters>
                 </asp:SqlDataSource>
-                <asp:TextBox ID="TextBox2" runat="server" Height="234px" Visible="False" Width="100%"></asp:TextBox>
+                <asp:TextBox ID="TextBox2" runat="server" Height="234px" Visible="False" Width="100%" TextMode="MultiLine"></asp:TextBox>
                 <br />
                 <b><asp:Label ID="Label7" Font-Size="Larger" runat="server" Text="Souhrnné vyjádření:" Visible="False"></asp:Label></b>
                 <br />
                 <br />
-                <asp:TextBox ID="TextBox3" runat="server" Height="234px" Visible="False" Width="100%"></asp:TextBox>
+                <asp:TextBox ID="TextBox3" runat="server" Height="234px" Visible="False" Width="100%" TextMode="MultiLine"></asp:TextBox>
                 <br />
                 <br />
                 <p><b><asp:Label ID="Label3" Font-Size="Larger" runat="server" Text="Zpřístupněn:"></asp:Label></b></p>
