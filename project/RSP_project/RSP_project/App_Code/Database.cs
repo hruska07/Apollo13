@@ -295,7 +295,6 @@ public class Database
         return x;
     }
 
-<<<<<<< HEAD
     public DataTable getAdmin()
     {
         SqlCommand select = new SqlCommand("SELECT * FROM [User] WHERE role = 6", getConnection());
@@ -306,8 +305,7 @@ public class Database
         return x;
     }
 
-    public void aktualizovatStavClanku(int id_clanek, int novy_stav)
-=======
+    
     public int getIdStavClankuByNazev(string nazev_stav)
     {
         SqlCommand get_ID_stav = new SqlCommand("SELECT [id_stav] FROM [Stav] WHERE [nazev_stav] = @nazev_stav", getConnection());
@@ -316,7 +314,6 @@ public class Database
     }
 
     public void aktualizovatStavClanku(int id_clanek, string novy_stav)
->>>>>>> ce206733b4f1e314edac38bfe621d0bb396344c7
     {
         int id_stav = getIdStavClankuByNazev(novy_stav);
         SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [stav] = @stav WHERE [id_clanek] = @id_clanek", getConnection());
