@@ -19,6 +19,9 @@ public partial class helpdesk_zobrazeni : System.Web.UI.Page
     string idecko,mail;
     protected void Page_Load(object sender, EventArgs e)
     {
+        if ((Session["id_user"] == null) || ((Session["nazev_role"].ToString() != "redaktor") && (Session["nazev_role"].ToString() != "sefredaktor") && (Session["nazev_role"].ToString() != "admin")))
+            Response.Redirect("/default");
+
         conn = DB.getConnection();
     }
 
