@@ -83,7 +83,7 @@
                 <div class="form-group row">
                     <label for="DropDownList_souhrnne_vyjadreni" class="col-form-label col-sm-2" id="Label6">Souhrnné vyjádření</label>
                     <div class="col-sm-10">
-                        <asp:DropDownList CssClass="form-control" ID="DropDownList_souhrnne_vyjadreni" runat="server" AutoPostBack="True" DataSourceID="SqlDataSource1" DataTextField="text_vyjadreni" DataValueField="id_vyjadreni">
+                        <asp:DropDownList CssClass="form-control" ID="DropDownList_souhrnne_vyjadreni" runat="server" DataSourceID="SqlDataSource1" DataTextField="text_vyjadreni" DataValueField="id_vyjadreni">
                         </asp:DropDownList>
                         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Souhrnne_vyjadreni]"></asp:SqlDataSource>
                     </div>

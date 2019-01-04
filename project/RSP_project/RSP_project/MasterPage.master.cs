@@ -18,6 +18,21 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
         Notifications.Visible = false;
         FlashMsg.Visible = false;
+		
+		if (Session["flashMsgText"] != null)
+            {
+                FlashMsg.Visible = true;
+                FlashMsg.Attributes.Add("class", String.Format("mt-1 alert alert-{0} alert-dismissible fade show", Session["flashMsgType"].ToString()));
+                string html = "<p class=\"mb-0\">" + Session["flashMsgText"].ToString() + "</p>";
+
+                html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">" +
+                    "<span aria-hidden=\"true\">&times;</span>" +
+                    "</button>";
+
+                FlashMsg.InnerHtml = html;
+                Session["flashMsgType"] = null;
+                Session["flashMsgText"] = null;
+            }
 
         DB.getConnection();
 
@@ -44,21 +59,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     "</button>";
 
                 Notifications.InnerHtml = html;
-            }
-
-            if (Session["flashMsgText"] != null)
-            {
-                FlashMsg.Visible = true;
-                FlashMsg.Attributes.Add("class", String.Format("mt-1 alert alert-{0} alert-dismissible fade show", Session["flashMsgType"].ToString()));
-                string html = "<p class=\"mb-0\">" + Session["flashMsgText"].ToString() + "</p>";
-
-                html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">" +
-                    "<span aria-hidden=\"true\">&times;</span>" +
-                    "</button>";
-
-                FlashMsg.InnerHtml = html;
-                Session["flashMsgType"] = null;
-                Session["flashMsgText"] = null;
             }
 
             Panel_not_logged.Visible = false;

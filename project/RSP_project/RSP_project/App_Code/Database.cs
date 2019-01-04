@@ -108,12 +108,6 @@ public class Database
         insert.Parameters.AddWithValue("@clanek", clanek);
         insert.Parameters.AddWithValue("@oponent", oponent);
         insert.ExecuteNonQuery();
-
-        int id_stav = getIdStavClankuByNazev("ma_posudek");
-        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", getConnection());
-        update.Parameters.AddWithValue("@id_stav", id_stav);
-        update.Parameters.AddWithValue("@clanek", clanek);
-        update.ExecuteNonQuery();
     }
 
     public void updateUserLogin(string login, int user)
@@ -398,4 +392,22 @@ public class Database
         delete.Parameters.AddWithValue("@user", user);
         delete.ExecuteNonQuery();
     }
+
+
+    public void inserthelpdesk(string text1,string text2,string text3)
+    {
+
+        bool prome = false;
+        SqlCommand insert = new SqlCommand("insert into [Helpdesk] (obsah_helpdesk,jmeno,email,vyrizeno) values (@obsah_helpdesk,@jmeno,@email,@prom)", conn);
+        insert.Parameters.AddWithValue("@obsah_helpdesk", text3);
+        insert.Parameters.AddWithValue("@jmeno", text1);
+        insert.Parameters.AddWithValue("@email", text2);
+        insert.Parameters.AddWithValue("@prom", prome);
+        insert.ExecuteNonQuery();
+        insert.Dispose();
+
+     
+
+    }
+
 }
