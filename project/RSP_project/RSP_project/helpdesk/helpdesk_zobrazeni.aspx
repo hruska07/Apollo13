@@ -41,7 +41,7 @@
     <asp:TextBox ID="TextBox2" runat="server" Height="173px" Width="95%" Visible="False" TextMode="MultiLine"></asp:TextBox>
     <br />
     <br />
-    <asp:Button ID="Button1" runat="server" Text="Odeslat" Visible="False" OnClick="Button1_Click" />
+    <asp:Button ID="Button1" CssClass="btn btn-lg btn-success" runat="server" Text="Odeslat" Visible="False" OnClick="Button1_Click" />
     <br />
                </div></div>
 </asp:Content>

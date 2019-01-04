@@ -9,23 +9,29 @@
     <p>
         Jméno:</p>
     <p>
-        <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
+        <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged" required ></asp:TextBox>
     </p>
     <p>
         Email:</p>
     <p>
-        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+        <asp:TextBox ID="TextBox2" runat="server" required></asp:TextBox>
     </p>
+
+
+               <asp:RegularExpressionValidator ID="remail" runat="server" 
+               ControlToValidate="TextBox2" 
+               ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ValidateRequestMode="Enabled"></asp:RegularExpressionValidator>
+
 
     <br />
     Dotaz:<br />
                <br />
-    <asp:TextBox ID="TextBox3" runat="server" Height="173px" TextMode="MultiLine" Width="95%"></asp:TextBox>
+    <asp:TextBox ID="TextBox3" runat="server" Height="173px" TextMode="MultiLine" Width="95%" required></asp:TextBox>
     <br />
     <br />
-    <asp:Button ID="Button1" runat="server" Text="Odeslat dotaz" OnClick="Button1_Click" />
+    <asp:Button ID="Button1" CssClass="btn btn-lg btn-success" runat="server" Text="Odeslat dotaz" OnClick="Button1_Click" />
                </div></div>
-</asp:Content>
+    </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="scripts" Runat="Server">
 </asp:Content>
 
