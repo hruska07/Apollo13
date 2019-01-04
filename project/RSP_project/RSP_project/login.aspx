@@ -24,20 +24,33 @@
         <fieldset>
             <legend>&nbsp;Testovací účty&nbsp;</legend>
             <br />
-            <div class="row">
+            <div class="row text-center">
                 <div class="col-sm-6">
-                    <p>Heslo:</p>
+                    <p>HESLO:</p>
                     <br />
-                    <p>Autor - login:</p>
-                    <p>Redaktor - login:</p>
-                    <p>Šéfredaktor - login:</p>
+                    <p>ROLE</p>
+                    <hr class="border-white"/>
+                    <p>Autor</p>
+                    <p>Oponent</p>
+                    <p>Oponent</p>
+                    <p>Oponent</p>
+                    <p>Redaktor</p>
+                    <p>Šéfredaktor</p>
+                    <p>Admin</p>
                 </div>
+                
                 <div class="col-sm-6">
                     <p><b>123456</b></p>
                     <br />
+                    <p>LOGIN</p>
+                    <hr class="border-white"/>
                     <p><b>autor</b></p>
+                    <p><b>oponent</b></p>
+                    <p><b>oponent2</b></p>
+                    <p><b>oponent3</b></p>
                     <p><b>redaktor</b></p>
                     <p><b>sefredaktor</b></p>
+                    <p><b>admin</b></p>
                 </div>
             </div>
         </fieldset>

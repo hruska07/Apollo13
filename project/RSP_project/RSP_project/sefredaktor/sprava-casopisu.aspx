@@ -23,11 +23,6 @@
                             <asp:Button CssClass="btn btn-info" Text="Stáhnout" ID="detail_button" runat="server" CausesValidation="false" CommandName="ShowDetail" CommandArgument='<%# Eval("id_clanek") %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Operace">
-                        <ItemTemplate>
-                            <asp:Button CssClass="btn btn-danger" Text="Odebrat z čísla" ID="Button1" runat="server" CausesValidation="false" CommandName="RemoveArticle" CommandArgument='<%# Eval("id_clanek") %>'/>
-                        </ItemTemplate>
-                    </asp:TemplateField>
                 </Columns>
             </asp:gridview>
         <asp:sqldatasource id="SqlDataSource1" runat="server" connectionstring="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" selectcommand="SELECT [Clanek].*, Stav.nazev_stav_cit, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [Clanek].[autor] = [User].[id_user] JOIN [Stav] ON [Clanek].[stav] = [Stav].[id_stav] WHERE Clanek.casopis = @casopis">

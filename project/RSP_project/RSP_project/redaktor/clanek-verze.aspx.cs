@@ -14,7 +14,7 @@ public partial class oponent_stav : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "oponent"))
+        if ((Session["id_user"] == null) || (Session["nazev_role"].ToString() != "redaktor"))
             Response.Redirect("/login");
     }
 

@@ -35,6 +35,33 @@ public partial class _Default : System.Web.UI.Page
             Label_abstrakt.Text = clanek["abstrakt"].ToString();
             Label_autor.Text = clanek["autors"].ToString();
             Label_pracoviste.Text = clanek["workplace"].ToString();
+
+            DataRow posudek = DB.getPosudekByClanekAOponent(id_clanek, int.Parse(Session["id_user"].ToString()));
+            if (posudek == null)
+            {
+                Label_uvod.Text = "Níže prosím ohodnoťte článek";
+            }
+            else
+            {
+                Label_uvod.Text = "Vaše zadané hodnocení";
+                Button_odeslat.Visible = false;
+                DropDownList_kriterium1.SelectedValue = posudek["kriterium1"].ToString();
+                DropDownList_kriterium1.Enabled = false;
+                DropDownList_kriterium2.SelectedValue = posudek["kriterium2"].ToString();
+                DropDownList_kriterium2.Enabled = false;
+                DropDownList_kriterium3.SelectedValue = posudek["kriterium3"].ToString();
+                DropDownList_kriterium3.Enabled = false;
+                textbox_namety_k_diskuzi.Text = posudek["namety_k_diskuzi"].ToString();
+                textbox_namety_k_diskuzi.Enabled = false;
+                DropDownList_souhrnne_vyjadreni.SelectedValue = posudek["souhrnne_vyjadreni"].ToString();
+                DropDownList_souhrnne_vyjadreni.Enabled = false;
+                string komentar = posudek["doplnujici_komentar"].ToString();
+                if (komentar != "")
+                {
+                    Panel_doplnujici_komentar.Visible = true;
+                    textbox_doplnujici_komentar.Text = komentar;
+                }
+            }
         }
         else
         {
@@ -97,14 +124,6 @@ public partial class _Default : System.Web.UI.Page
                 Session["flashMsgText"] = "Nastala chyba! Kontaktujte programátory. Text chyby: " + ex.Message;
                 Response.Redirect(Request.RawUrl);
             }
-
-            /* ZDE JE POTREBA PROVEST JESTE NEKOLIK VECI, A TO:
-             * 1) ZMĚNIT STAV ČLÁNKU NA "MÁ POSUDEK" (NEBO NA NOVÝ STAV "V RECENZNÍM ŘÍZENÍ"???)
-             * 2) NOTIFIKOVAT REDAKTORA O NOVÉM POSUDKU 
-             *      - ZÁROVEŇ BY TO CHTĚLO U REDAKTORA VYŘEŠIT ZPŘÍSTUPŇOVÁNÍ POSUDKŮ AUTOROVI ČLÁNKU - POKUD JSOU JIŽ POSUDKY 2??
-             *      - ZÁROVEŇ POKUD BYL ČLÁNEK PŘIJAT/ZAMÍTNUT S VÝHRADAMI, UMOŽNIT AUTOROVI ČLÁNEK ZMĚNIT
-             *      - ZÁROVEŇ UMOŽNIT REDAKTOROVI PŘI ZAMÍTNUTÍ ČLÁNKU VYŘADIT ČLÁNEK Z ČÍSLA ČASOPISU
-             */
 
             Response.Redirect("/oponent/pridelene-clanky");
         }

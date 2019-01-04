@@ -19,9 +19,9 @@
                 <asp:BoundField DataField="cele_jmeno" HeaderText="Autor" SortExpression="cele_jmeno"></asp:BoundField>
                 <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku"></asp:BoundField>
                 <asp:BoundField DataField="datum_clanku" HeaderText="Článek přidán" SortExpression="datum_clanku"></asp:BoundField>
-                  <asp:TemplateField HeaderText="Detail">
+                  <asp:TemplateField HeaderText="Detail/Hodnocení">
                         <ItemTemplate>
-                            <asp:Button CssClass="btn btn-info" Text="Hodnotit článek" ID="detail_button" runat="server" CausesValidation="false" CommandName="Review" CommandArgument='<%# Eval("id_clanek") %>'/>
+                            <asp:Button CssClass="btn btn-info" Text="Detail/Hodnocení" ID="detail_button" runat="server" CausesValidation="false" CommandName="Review" CommandArgument='<%# Eval("id_clanek") %>'/>
                         </ItemTemplate>
                     </asp:TemplateField>
                 <asp:TemplateField HeaderText="Operace">
