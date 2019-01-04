@@ -91,6 +91,19 @@ public partial class MasterPage : System.Web.UI.MasterPage
                     Label_logged_user.Text += " (šéfredaktor)";
                     Panel_sefredaktor.Visible = true;
                     break;
+
+                case "admin":
+                    Label_role_menu.Text = "ADMINISTRÁTOR";
+                    Label_logged_user.Text += " (administrátor)";
+                    Panel_administrator.Visible = true;
+                    break;
+                case "ctenar":
+                    Label_role_menu.Text = "ČTENÁŘ";
+                    Label_logged_user.Text += " (čtenář)";
+                    Panel_ctenar.Visible = true;
+                    break;
+
+
             }
         }
 

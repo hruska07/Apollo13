@@ -39,7 +39,7 @@
             </a>
             <asp:Panel ID="Panel_role_menu" runat="server" Visible="False">
                 <div class="dropdown">
-                    <a class="dropbtn<% if ((Request.RawUrl.ToString().Contains("/autor") || Request.RawUrl.ToString().Contains("/redaktor") || Request.RawUrl.ToString().Contains("/sefredaktor") || Request.RawUrl.ToString().Contains("/oponent")))
+                    <a class="dropbtn<% if ((Request.RawUrl.ToString().Contains("/autor") || Request.RawUrl.ToString().Contains("/redaktor") || Request.RawUrl.ToString().Contains("/sefredaktor") || Request.RawUrl.ToString().Contains("/oponent") || Request.RawUrl.ToString().Contains("/admin")))
                         { %> active<% } %>" href="#">
                         <asp:Label ID="Label_role_menu" runat="server" Text="Label"></asp:Label>
                     </a>
@@ -60,6 +60,16 @@
                             <a href="/sefredaktor/sprava-casopisu-otevrene">Správa časopisů</a>
                             <a href="/sefredaktor/agenda-redaktora">Agenda redaktora</a>
                             <a href="/sefredaktor/agenda-autora">Agenda autora</a>
+                        </asp:Panel>
+                        <asp:Panel ID="Panel_administrator" runat="server" Visible="False">
+                            <a href="/admin/tabulka_casopis">Časopis</a>
+                            <a href="/admin/tabulka_clanek">Článek</a>
+                            <a href="/admin/tabulka_helpdesk">Helpdesk</a>
+                            <a href="/admin/tabulka_role">Role</a>
+                            <a href="/admin/tabulka_user">Uživatelé</a>
+                        </asp:Panel>
+                        <asp:Panel ID="Panel_ctenar" runat="server" Visible="False">
+                            <a href="/ctenar/clanky">Články</a>
                         </asp:Panel>
                     </div>
                 </div>

@@ -259,6 +259,16 @@ public class Database
         return x;
     }
 
+    public DataTable getAdmin()
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [User] WHERE role = 6", getConnection());
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataTable x = new DataTable();
+        sda.SelectCommand = select;
+        sda.Fill(x);
+        return x;
+    }
+
     public void aktualizovatStavClanku(int id_clanek, int novy_stav)
     {
         SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [stav] = @stav WHERE [id_clanek] = @id_clanek", getConnection());

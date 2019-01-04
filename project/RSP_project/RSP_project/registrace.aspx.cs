@@ -65,6 +65,16 @@ public partial class registrace : System.Web.UI.Page
                     //notifikace - stranky
                     Session["flashMsgType"] = "success";
                     Session["flashMsgText"] = "Registrace proběhla úspěšně. Účet byl vytvořen";
+                    //notifikace - admin
+
+                    //email notifikace admina
+                    DataTable users = DB.getAdmin();
+                    message = "Byl zaregistrován uživatel s loginem: " + login + ".\n Zkontrolujte jeho roli.";
+                    foreach (DataRow user in users.Rows)
+                    {
+                        DB.insertNotification(int.Parse(user["id_user"].ToString()), message);
+                        nf.sendEmail(user["email"].ToString(), "Nový uživatel byl zaregistrován", message);
+                    }
                     try
                     {
                         if (rbl_role.SelectedItem.Text == "Autor")
