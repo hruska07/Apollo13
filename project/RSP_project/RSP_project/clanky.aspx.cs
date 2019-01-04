@@ -24,8 +24,12 @@ public partial class _Default : System.Web.UI.Page
             string a = Request.RawUrl.ToString();
             Panel_prehled.Visible = false;
             Panel_detail.Visible = true;
-            int id_clanek = Convert.ToInt32(Request.RawUrl.ToString().Substring(10));
-            DataRow clanek = DB.getClanekById(id_clanek);
+            int id_clanek = Convert.ToInt32(Request.Params["c"]);
+            DataRow clanek;
+            if (Request.Params["v"] == null)
+                clanek = DB.getClanekById(id_clanek);
+            else
+                clanek = DB.getClanekVerzeById(id_clanek);
             Label_nadpis.Text = clanek["nadpis_clanku"].ToString();
             Label_datum.Text = clanek["datum_clanku"].ToString();
             Label_keywords.Text = clanek["keywords"].ToString();
@@ -50,8 +54,12 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        int id_clanek = Convert.ToInt32(Request.RawUrl.ToString().Substring(10));
-        DataRow clanek = DB.getClanekById(id_clanek);
+        int id_clanek = Convert.ToInt32(Request.Params["c"]);
+        DataRow clanek;
+        if (Request.Params["v"] == null)
+            clanek = DB.getClanekById(id_clanek);
+        else
+            clanek = DB.getClanekVerzeById(id_clanek);
         string path = clanek["path"].ToString();
         string name = clanek["nadpis_clanku"].ToString();
 

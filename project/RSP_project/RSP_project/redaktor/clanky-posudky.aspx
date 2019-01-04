@@ -1,28 +1,17 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="zpristupneni-posudku.aspx.cs" Inherits="redaktor_zpristupneni_posudku" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="clanky-posudky.aspx.cs" Inherits="redaktor_zpristupneni_posudku" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <h3>Zpřístupnění posudků</h3>
+    <h3>Správa článků - posudků</h3>
     <div class="obsah">
         <div class="text-center">
 
             <p><b><asp:Label ID="Label5" runat="server" Font-Size="Larger" Text="Vyberte autora:"></asp:Label></b></p>
-            <asp:GridView ID="GridView11" runat="server" AutoGenerateColumns="False" DataKeyNames="id_user" DataSourceID="zdroj_odeslani_stavu_grid1" OnSelectedIndexChanged="GridView11_SelectedIndexChanged">
-                <Columns>
-                    <asp:TemplateField HeaderText="Operace">
-                        <ItemTemplate>
-                            <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="login" HeaderText="Login" SortExpression="login"></asp:BoundField>
-                    <asp:BoundField DataField="jmeno" HeaderText="Jméno" SortExpression="jmeno"></asp:BoundField>
-                    <asp:BoundField DataField="prijmeni" HeaderText="Příjmení" SortExpression="prijmeni"></asp:BoundField>
-                    <asp:BoundField DataField="id_user" HeaderText="id_user" InsertVisible="False" ReadOnly="True" SortExpression="id_user" Visible="False" />
 
-                </Columns>
-            </asp:GridView>
-            <asp:SqlDataSource ID="zdroj_odeslani_stavu_grid1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [jmeno], [login], [prijmeni], [id_user] FROM [User] WHERE ([role] = @role)">
+            <asp:DropDownList CssClass="form-control my-dropdown" ID="DropDownList_autor" runat="server" DataSourceID="zdroj_odeslani_stavu_grid1" DataTextField="cele_jmeno" DataValueField="id_user" AutoPostBack="true">
+             </asp:DropDownList>
+            <asp:SqlDataSource ID="zdroj_odeslani_stavu_grid1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT ([jmeno] + ' ' + [prijmeni]) AS cele_jmeno, [id_user] FROM [User] WHERE ([role] = @role)">
                 <SelectParameters>
                     <asp:Parameter DefaultValue="2" Name="role" Type="Int32" />
                 </SelectParameters>
@@ -32,7 +21,7 @@
                 <p>
                     <strong><asp:Label ID="Label1" runat="server" Font-Size="Larger" Text="Vyberte článek vybraného autora:"></asp:Label></strong>
                 </p>
-                <asp:GridView ID="GridView12" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="zdroj_rps" OnSelectedIndexChanged="GridView12_SelectedIndexChanged">
+                <asp:GridView ID="GridView12" runat="server" AutoGenerateColumns="False" DataKeyNames="id_clanek" DataSourceID="zdroj_rps" OnRowCommand="GridView12_RowCommand">
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
 
@@ -45,13 +34,33 @@
                         <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku"></asp:BoundField>
                         <asp:BoundField DataField="datum_clanku" HeaderText="Datum článku" SortExpression="datum_clanku" />
                         <asp:BoundField DataField="autor" HeaderText="Autor" SortExpression="autor" Visible="False" />
-                        <asp:BoundField DataField="nazev_stav" HeaderText="Stav" SortExpression="nazev_stav" />
+                        <asp:BoundField DataField="nazev_stav_cit" HeaderText="Stav" SortExpression="nazev_stav_cit" />
+                         <asp:TemplateField HeaderText="Detail">
+                        <ItemTemplate>
+                            <asp:Button CssClass="btn btn-info" Text="Detail" ID="detail_button" runat="server" CausesValidation="false" CommandName="ShowDetail" CommandArgument='<%# Eval("id_clanek") %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Verze">
+                        <ItemTemplate>
+                            <asp:Button CssClass="btn btn-warning" Text="Předchozí verze" ID="version_button" runat="server" CausesValidation="false" CommandName="Version" CommandArgument='<%# Eval("id_clanek") %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                         <asp:TemplateField HeaderText="Schválit">
+                        <ItemTemplate>
+                            <asp:Button CssClass="btn btn-success" Text="Schválit" ID="Button_schvalit" runat="server" CausesValidation="false" CommandName="Schvalit" CommandArgument='<%# Eval("id_clanek") %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Zamítnout">
+                        <ItemTemplate>
+                            <asp:Button CssClass="btn btn-danger" Text="Zamítnout" ID="Button_zamitnout" runat="server" CausesValidation="false" CommandName="Zamitnout" CommandArgument='<%# Eval("id_clanek") %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
             </div>
-            <asp:SqlDataSource ID="zdroj_rps" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT Clanek.id_clanek, Clanek.nadpis_clanku, Clanek.datum_clanku,Clanek.autor,Stav.nazev_stav  FROM [Clanek] JOIN [Stav] ON Clanek.stav=Stav.id_stav WHERE ([autor] = @autor)">
+            <asp:SqlDataSource ID="zdroj_rps" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT Clanek.id_clanek, Clanek.nadpis_clanku, Clanek.datum_clanku,Clanek.autor,Stav.nazev_stav_cit  FROM [Clanek] JOIN [Stav] ON Clanek.stav=Stav.id_stav WHERE ([autor] = @autor AND Stav.id_stav <> 4 AND Stav.id_stav <> 5)">
                 <SelectParameters>
-                    <asp:ControlParameter ControlID="GridView11" Name="autor" PropertyName="SelectedValue" />
+                    <asp:ControlParameter ControlID="DropDownList_autor" Name="autor" PropertyName="SelectedValue" />
                 </SelectParameters>
             </asp:SqlDataSource>
             <div class="text-center">
@@ -76,7 +85,7 @@
                         <asp:BoundField DataField="doplnujici_komentar" HeaderText="doplnujici_komentar" SortExpression="doplnujici_komentar" Visible="False" />
                         <asp:BoundField DataField="souhrnne_vyjadreni" HeaderText="souhrnne_vyjadreni" SortExpression="souhrnne_vyjadreni" Visible="False" />
                         <asp:BoundField DataField="oponent" HeaderText="oponent" SortExpression="oponent" Visible="False" />
-                        <asp:BoundField DataField="datum_posudku" HeaderText="datum_posudku" SortExpression="datum_posudku" />
+                        <asp:BoundField DataField="datum_posudku" HeaderText="Datum vložení" SortExpression="datum_posudku" />
                         <asp:BoundField DataField="clanek" HeaderText="clanek" SortExpression="clanek" Visible="False" />
                         <asp:CheckBoxField DataField="zpristupnen" HeaderText="Zpřístupněn" SortExpression="zpristupnen" />
                         <asp:BoundField DataField="id_user" HeaderText="id_user" SortExpression="id_user" InsertVisible="False" ReadOnly="True" Visible="False" />
@@ -131,7 +140,9 @@
                 <b><asp:Label ID="Label7" Font-Size="Larger" runat="server" Text="Souhrnné vyjádření:" Visible="False"></asp:Label></b>
                 <br />
                 <br />
-                <asp:TextBox ID="TextBox3" runat="server" Height="234px" Visible="False" Width="100%" TextMode="MultiLine"></asp:TextBox>
+                <asp:DropDownList CssClass="form-control" ID="DropDownList_souhrnne_vyjadreni" runat="server" DataSourceID="SqlDataSource1" DataTextField="text_vyjadreni" DataValueField="id_vyjadreni" Visible="false">
+                        </asp:DropDownList>
+                        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Souhrnne_vyjadreni]"></asp:SqlDataSource>
                 <br />
                 <br />
                 <p><b><asp:Label ID="Label3" Font-Size="Larger" runat="server" Text="Zpřístupněn:"></asp:Label></b></p>

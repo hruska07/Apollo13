@@ -277,3 +277,8 @@ fieldset {
     display: initial !important;
     height: 33px !important;
 }
+
+.my-dropdown {
+    width: initial !important;
+    display: initial !important;
+}

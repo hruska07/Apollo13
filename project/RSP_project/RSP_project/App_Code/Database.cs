@@ -75,6 +75,21 @@ public class Database
         return getCasopisById((int)insert.ExecuteScalar());
     }
 
+    public DataRow getPosudekByClanekAOponent(int id_clanek, int oponent)
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM Posudek JOIN Souhrnne_vyjadreni ON Posudek.souhrnne_vyjadreni = Souhrnne_vyjadreni.id_vyjadreni WHERE clanek = @clanek AND oponent = @oponent", getConnection());
+        select.Parameters.AddWithValue("@clanek", id_clanek);
+        select.Parameters.AddWithValue("@oponent", oponent);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        if (ds.Tables[0].Rows.Count > 0)
+            return ds.Tables[0].Rows[0];
+        else
+            return null;
+    }
+
     public void removeClanekFromCasopis(int id_clanek)
     {
         SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [casopis] = NULL WHERE [id_clanek] = @id_clanek", getConnection());
@@ -277,6 +292,17 @@ public class Database
     public DataRow getClanekById(int id_clanek)
     {
         SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor JOIN Casopis ON Clanek.casopis = Casopis.id_casopis WHERE id_clanek = @id_clanek", getConnection());
+        select.Parameters.AddWithValue("@id_clanek", id_clanek);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        return ds.Tables[0].Rows[0];
+    }
+
+    public DataRow getClanekVerzeById(int id_clanek)
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [Clanek_predchozi_verze] WHERE id_verze = @id_clanek", getConnection());
         select.Parameters.AddWithValue("@id_clanek", id_clanek);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();

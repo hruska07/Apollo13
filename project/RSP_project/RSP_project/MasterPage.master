@@ -50,8 +50,8 @@
                         </asp:Panel>
                         <asp:Panel ID="Panel_redaktor" runat="server" Visible="False">
                             <a href="/redaktor/pridelit-oponenta">Přidělit oponenta</a>
-                            <a href="/redaktor/zpristupneni-posudku">Zpřístupnění posudků</a>
                             <a href="/redaktor/terminy-oponenti">Oponenti - termíny</a>
+                            <a href="/redaktor/clanky-posudky">Články/posudky</a>
                         </asp:Panel>
                         <asp:Panel ID="Panel_oponent" runat="server" Visible="False">
                             <a href="/oponent/pridelene-clanky">Přidělené články</a>
