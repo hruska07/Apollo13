@@ -36,7 +36,7 @@
             </asp:GridView>
             <asp:SqlDataSource ID="SqlDataSource_AgendaRedaktor" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [User].jmeno,[User].prijmeni,[Clanek].nadpis_clanku,[Stav].nazev_stav_cit
 FROM [User] JOIN [Propoj_clanek_oponent] ON ([User].id_user = [Propoj_clanek_oponent].oponent) JOIN [Clanek] ON([Clanek].id_clanek=[Propoj_clanek_oponent].clanek) JOIN Stav ON ([Clanek].stav=[Stav].id_stav)
-WHERE prideleno=@prideleno">
+WHERE pridelil=@prideleno">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="GridView2" Name="prideleno" PropertyName="SelectedValue" />
                 </SelectParameters>
