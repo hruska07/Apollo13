@@ -19,12 +19,8 @@ public partial class zpetna_vazba : System.Web.UI.Page
         {
             case "ShowDetail":
                 int id = Convert.ToInt32(e.CommandArgument);
-                Response.Redirect(String.Format("/clanky?c={0}", id));
-                break;
-
-            case "EditArticle":
-                int id2 = Convert.ToInt32(e.CommandArgument);
-                Response.Redirect(String.Format("/autor/pridat-clanek?clanek={0}", id2));
+                Session["id_clankupp"] = id;
+                Response.Redirect(String.Format("/ctenar/pridat_komentar"));
                 break;
 
             default:

@@ -178,6 +178,17 @@ public class Database
         insert.ExecuteNonQuery();
     }
 
+    public void insertKomentar(int ID_clanku, int Autor, string Nadpis, string Abstrakt, string Hodnoceni)
+    {
+        SqlCommand insert = new SqlCommand("insert into [Nazor_ctenare] (ID_clanku, autor,nadpis,obsah,hodnoceni) values(@ID, @Autor, @Nadpis,@Obsah,@Hodnoceni)", getConnection());
+        insert.Parameters.AddWithValue("@ID", ID_clanku);
+        insert.Parameters.AddWithValue("@Autor", Autor);
+        insert.Parameters.AddWithValue("@Nadpis", Nadpis);
+        insert.Parameters.AddWithValue("@Obsah", Abstrakt);
+        insert.Parameters.AddWithValue("@Hodnoceni", Hodnoceni);
+        insert.ExecuteNonQuery();
+    }
+
     public void updateClanek(int id_clanek, string Nadpis, string Abstrakt, DateTime date1, int cislo_autora, int casopis, int soubor, string keywords, string autors, string workplace, string filename)
     {
         //ulozeni predchozi verze
@@ -286,6 +297,17 @@ public class Database
     public DataRow getClanekById(int id_clanek)
     {
         SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor JOIN Casopis ON Clanek.casopis = Casopis.id_casopis WHERE id_clanek = @id_clanek", getConnection());
+        select.Parameters.AddWithValue("@id_clanek", id_clanek);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        return ds.Tables[0].Rows[0];
+    }
+
+    public DataRow getClanekByIdnew(int id_clanek)
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [Clanek] WHERE id_clanek = @id_clanek", getConnection());
         select.Parameters.AddWithValue("@id_clanek", id_clanek);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
