@@ -79,7 +79,7 @@ public partial class helpdesk : System.Web.UI.Page
                 {
                     DB.insertNotification(element, message);
                     uzivatele = DB.getUserById(element);
-                    //     nf.sendEmail(uzivatele["email"].ToString(), "Helpdesk - nový dotaz", message2);
+                         nf.sendEmail(uzivatele["email"].ToString(), "Helpdesk - nový dotaz", message2);
 
 
                 }
