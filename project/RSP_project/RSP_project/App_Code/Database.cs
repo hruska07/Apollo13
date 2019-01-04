@@ -108,12 +108,6 @@ public class Database
         insert.Parameters.AddWithValue("@clanek", clanek);
         insert.Parameters.AddWithValue("@oponent", oponent);
         insert.ExecuteNonQuery();
-
-        int id_stav = getIdStavClankuByNazev("ma_posudek");
-        SqlCommand update = new SqlCommand("update Clanek set stav=@id_stav Where id_clanek=@clanek", getConnection());
-        update.Parameters.AddWithValue("@id_stav", id_stav);
-        update.Parameters.AddWithValue("@clanek", clanek);
-        update.ExecuteNonQuery();
     }
 
     public void updateUserLogin(string login, int user)

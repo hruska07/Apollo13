@@ -101,7 +101,7 @@ public partial class _Default : System.Web.UI.Page
             try
             {
                 DB.odeslatPosudek(namety_k_diskuzi, kriterium1, kriterium2, kriterium3, souhrnne_vyjadreni, id_clanek, int.Parse(Session["id_user"].ToString()));
-
+                DB.aktualizovatStavClanku(id_clanek, "ma_posudek");
                 //notifikace - redakce
                 DataRow clanek = DB.getClanekById(id_clanek);
                 string message = "Bylo vloženo nové hodnocení článku '" + clanek["nadpis_clanku"] + "'";
@@ -113,7 +113,7 @@ public partial class _Default : System.Web.UI.Page
                     DB.insertNotification(int.Parse(user["id_user"].ToString()), message);
                     nf.sendEmail(user["email"].ToString(), "Článek - změna stavu", message);
                 }
-                DB.aktualizovatStavClanku(id_clanek, "ma_posudek");
+                
 
                 Session["flashMsgType"] = "success";
                 Session["flashMsgText"] = "Hodnocení bylo úspěšně odesláno";
@@ -122,7 +122,6 @@ public partial class _Default : System.Web.UI.Page
             {
                 Session["flashMsgType"] = "danger";
                 Session["flashMsgText"] = "Nastala chyba! Kontaktujte programátory. Text chyby: " + ex.Message;
-                Response.Redirect(Request.RawUrl);
             }
 
             Response.Redirect("/oponent/pridelene-clanky");
@@ -132,5 +131,6 @@ public partial class _Default : System.Web.UI.Page
             Session["flashMsgType"] = "danger";
             Session["flashMsgText"] = "Pole 'náměty k diskuzi' nesmí být prázdné.";
         }
+        Response.Redirect(Request.RawUrl);
     }
 }

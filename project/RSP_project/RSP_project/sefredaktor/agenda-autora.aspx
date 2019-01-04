@@ -25,7 +25,7 @@
             <br />
             <br />
             <p><b>
-                <asp:Label ID="Label1" runat="server" Font-Size="Larger" Text="Seznam článku vybraného autora:"></asp:Label></b></p>
+                <asp:Label ID="Label1" runat="server" Font-Size="Larger" Text="Seznam článků vybraného autora:"></asp:Label></b></p>
             <asp:GridView CssClass="table table-dark table-striped table-borderless" ID="GridView1" runat="server" DataSourceID="SqlDataSource1" AutoGenerateColumns="False" AllowSorting="True">
                 <Columns>
                     <asp:BoundField DataField="id_clanek" HeaderText="ID" SortExpression="id_clanek" />
