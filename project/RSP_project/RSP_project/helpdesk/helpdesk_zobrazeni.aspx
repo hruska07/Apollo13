@@ -7,14 +7,21 @@
      <div class="obsah">
            <div class="text-center">
                  <p><b><asp:Label ID="Label3" runat="server" Text="Vyberte dotaz:" Font-Bold="True"></asp:Label></b></p>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AllowPaging="True">
         <Columns>
-            <asp:CommandField ShowSelectButton="True" />
-            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
-            <asp:BoundField DataField="obsah_helpdesk" HeaderText="obsah_helpdesk" SortExpression="obsah_helpdesk" />
-            <asp:BoundField DataField="jmeno" HeaderText="jmeno" SortExpression="jmeno" />
-            <asp:BoundField DataField="email" HeaderText="email" SortExpression="email" />
-            <asp:CheckBoxField DataField="vyrizeno" HeaderText="vyrizeno" SortExpression="vyrizeno" />
+            <asp:TemplateField HeaderText="Operace">
+                   <ItemTemplate>
+                                <asp:Button CssClass="btn btn-danger" Text="Vybrat" ID="select_button" runat="server" CommandName="Select" />
+                            </ItemTemplate>
+
+
+            </asp:TemplateField>
+            <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" Visible="False" />
+            <asp:BoundField DataField="obsah_helpdesk" HeaderText="obsah_helpdesk" SortExpression="obsah_helpdesk" Visible="False" />
+            <asp:BoundField DataField="jmeno" HeaderText="Jméno" SortExpression="jmeno" />
+            <asp:BoundField DataField="email" HeaderText="Email" SortExpression="email" />
+            <asp:CheckBoxField DataField="vyrizeno" HeaderText="vyrizeno" SortExpression="vyrizeno" Visible="False" />
+            <asp:BoundField DataField="odpoved" HeaderText="odpoved" SortExpression="odpoved" Visible="False" />
         </Columns>
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT * FROM [Helpdesk] WHERE ([vyrizeno] = @vyrizeno)">

@@ -376,4 +376,22 @@ public class Database
         delete.Parameters.AddWithValue("@user", user);
         delete.ExecuteNonQuery();
     }
+
+
+    public void inserthelpdesk(string text1,string text2,string text3)
+    {
+
+        bool prome = false;
+        SqlCommand insert = new SqlCommand("insert into [Helpdesk] (obsah_helpdesk,jmeno,email,vyrizeno) values (@obsah_helpdesk,@jmeno,@email,@prom)", conn);
+        insert.Parameters.AddWithValue("@obsah_helpdesk", text3);
+        insert.Parameters.AddWithValue("@jmeno", text1);
+        insert.Parameters.AddWithValue("@email", text2);
+        insert.Parameters.AddWithValue("@prom", prome);
+        insert.ExecuteNonQuery();
+        insert.Dispose();
+
+     
+
+    }
+
 }
