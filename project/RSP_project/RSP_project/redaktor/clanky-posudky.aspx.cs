@@ -13,6 +13,7 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
     SqlCommand cmd;
     SqlConnection conn = null;
     SqlDataReader dr;
+    Notifications nf = new Notifications();
     string idecko,pomocna,komentar;
     bool zpristupnen;
 
@@ -55,7 +56,7 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
         Label7.Visible = true;
 
 
-        //  idecko = GridView13.SelectedRow.Cells[1].Text;
+       
         idecko = GridView13.SelectedValue.ToString();
         cmd = new SqlCommand("SELECT zpristupnen,doplnujici_komentar,namety_k_diskuzi FROM Posudek WHERE id_posudek=@id_posude", conn);
             cmd.Parameters.AddWithValue("@id_posude", idecko);
@@ -101,12 +102,34 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        //notifikace - redaktor
-      
+        //notifikace - oponent
+
+
+        DataRow posudek = DB.getPosudekById(Convert.ToInt32(GridView13.SelectedValue.ToString()));
+        DataRow uzivatel = DB.getUserById(Convert.ToInt32(posudek["oponent"].ToString()));
+        string message2 = "Redaktor zkontroloval váš posudek!";
+        nf.sendEmail(uzivatel["email"].ToString(), "Zkontrolovaný posudek", message2);
+        //notifikace - stranky - oponent
+        DB.insertNotification(int.Parse(posudek["oponent"].ToString()), message2);
+
+
+
         zpristupnen = CheckBox1.Checked;
         if (zpristupnen)
         {
             //notifikace - autor
+           
+            //notifikace - mail - autor
+            DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView12.SelectedValue.ToString()));
+            DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
+            string message = "Váš článek: '" + clanek["nadpis_clanku"] + " má nové hodnocení !";
+            nf.sendEmail(user["email"].ToString(), "Zpřístupněný posudek", message);
+            //notifikace - stranky - autor
+            DB.insertNotification(int.Parse(clanek["autor"].ToString()), message);
+
+
+
+
         }
 
         komentar = TextBox1.Text;
@@ -144,6 +167,14 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
                     Session["flashMsgText"] = "Článek byl úspěšně schválen.";
 
                     //notifikace - autor
+                    //notifikace - mail - autor
+                    DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView12.SelectedValue.ToString()));
+                    DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
+                    string message = "Váš článek: '" + clanek["nadpis_clanku"] + "' byl SCHVÁLEN!";
+                    nf.sendEmail(user["email"].ToString(), "Schválený článek", message);
+                    //notifikace - stranky - autor
+                    DB.insertNotification(int.Parse(clanek["autor"].ToString()), message);
+
                 }
                 catch (Exception ex)
                 {
@@ -164,6 +195,15 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
                     Session["flashMsgText"] = "Článek byl úspěšně zamítnut.";
 
                     //notifikace - autor
+/*
+                    //notifikace - mail - autor
+                    DataRow clanek = DB.getClanekById(Convert.ToInt32(id_clanek.ToString()));
+                    DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
+                    string message = "Váš článek: '" + clanek["nadpis_clanku"] + "' byl ZAMÍTNUT !";
+                    nf.sendEmail(user["email"].ToString(), "Zamítnutý článek", message);
+                    //notifikace - stranky - autor
+                    DB.insertNotification(int.Parse(clanek["autor"].ToString()), message);*/
+
                 }
                 catch (Exception ex)
                 {

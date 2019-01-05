@@ -283,6 +283,18 @@ public class Database
         return ds.Tables[0].Rows[0];
     }
 
+    public DataRow getPosudekById(int id_posudek)
+    {
+        SqlCommand select = new SqlCommand("SELECT * FROM [Posudek] WHERE id_posudek = @id_posudek", getConnection());
+        select.Parameters.AddWithValue("@id_posudek", id_posudek);
+        SqlDataAdapter sda = new SqlDataAdapter();
+        DataSet ds = new DataSet();
+        sda.SelectCommand = select;
+        sda.Fill(ds);
+        return ds.Tables[0].Rows[0];
+    }
+
+
     public DataRow getUserByLogin(string login)
     {
         SqlCommand select = new SqlCommand("SELECT * FROM [User] INNER JOIN [Role] ON [User].role = [Role].id_role WHERE login = @login", getConnection());
