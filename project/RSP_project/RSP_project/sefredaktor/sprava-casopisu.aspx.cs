@@ -57,22 +57,6 @@ public partial class _Default : System.Web.UI.Page
                 }
                 break;
 
-            case "RemoveArticle":
-                try
-                {
-                    DB.removeClanekFromCasopis(id_clanek);
-                    Session["flashMsgType"] = "success";
-                    Session["flashMsgText"] = "Článek byl z čísla úspěšně odstraněn.";
-                }
-                catch (Exception ex)
-                {
-                    Session["flashMsgType"] = "danger";
-                    Session["flashMsgText"] = "Nastala chyba! Kontaktujte programátory. Text chyby: " + ex.Message;
-                    Response.Redirect(Request.RawUrl);
-                }
-                Response.Redirect(Request.RawUrl);
-                break;
-
             default:
                 return;
         }

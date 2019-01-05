@@ -10,7 +10,7 @@
         <div class="text-center row">
             <div class="col-sm-12">
                 <p>Vaše všechny odeslané aktuální články:</p>
-                <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="zdroj3_zpetna_vazba" DataKeyNames="id_clanek" OnRowCommand="GridView3_RowCommand">
+                <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="zdroj3_zpetna_vazba" DataKeyNames="id_clanek, nazev_stav" OnRowCommand="GridView3_RowCommand" OnRowDataBound="GridView3_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="Operace">
                             <ItemTemplate>
@@ -18,6 +18,8 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="id_clanek" HeaderText="id_clanek" SortExpression="id_clanek" InsertVisible="False" ReadOnly="True" Visible="False" >
+                        </asp:BoundField>
+                        <asp:BoundField DataField="nazev_stav" HeaderText="nazev_stav" SortExpression="nazev_stav" InsertVisible="False" ReadOnly="True" Visible="False" >
                         </asp:BoundField>
                         <asp:BoundField DataField="nadpis_clanku" HeaderText="Nadpis článku" SortExpression="nadpis_clanku" > <HeaderStyle CssClass="text-center" />
                         </asp:BoundField>
@@ -37,7 +39,7 @@
                     </asp:TemplateField>
                     </Columns>
                 </asp:GridView>
-                <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [datum_clanku], [nazev_stav_cit] FROM [Clanek] JOIN [Stav] ON [Clanek].[stav] = [Stav].[id_stav] WHERE ([autor] = @autor) ORDER BY [datum_clanku]">
+                <asp:SqlDataSource ID="zdroj3_zpetna_vazba" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString_seznam_volnych_clanku %>" SelectCommand="SELECT [id_clanek], [nadpis_clanku], [datum_clanku], [nazev_stav_cit], [nazev_stav] FROM [Clanek] JOIN [Stav] ON [Clanek].[stav] = [Stav].[id_stav] WHERE ([autor] = @autor) ORDER BY [datum_clanku]">
                     <SelectParameters>
                         <asp:SessionParameter Name="autor" SessionField="id_user" Type="Int32" />
                     </SelectParameters>

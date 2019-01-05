@@ -31,7 +31,7 @@ public class Database
 
     public DataRow getAktualniCasopisByTema(int tema)
     {
-        SqlCommand select = new SqlCommand("SELECT TOP 1 [Casopis].[id_casopis], [Casopis].[datum_uzaverky], [Casopis].[kapacita], (SELECT COUNT(*) FROM [Clanek] WHERE [Clanek].[casopis] = [Casopis].[id_casopis]) AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[tema] = @tema ORDER BY [Casopis].[datum_uzaverky] DESC", getConnection());
+        SqlCommand select = new SqlCommand("SELECT [Casopis].[id_casopis], [Casopis].[datum_uzaverky], [Casopis].[kapacita], (SELECT COUNT(*) FROM [Clanek] JOIN [Stav] ON Stav.id_stav = Clanek.stav WHERE [Clanek].[casopis] = [Casopis].[id_casopis] AND Stav.nazev_stav <> 'zamitnut') AS [pocet_clanku] FROM [Casopis] WHERE [Casopis].[tema] = @tema AND [Casopis].[datum_uzaverky] > GETDATE() ORDER BY [Casopis].[datum_uzaverky] ASC", getConnection());
         select.Parameters.AddWithValue("@tema", tema);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();
@@ -40,13 +40,16 @@ public class Database
         DataRow casopis = null;
         if (ds.Tables[0].Rows.Count > 0)
         {
-            casopis = ds.Tables[0].Rows[0];
-            var temp1 = casopis["datum_uzaverky"].ToString();
-            var temp2 = casopis["kapacita"].ToString();
-            var temp3 = casopis["pocet_clanku"].ToString();
-            if (((DateTime)casopis["datum_uzaverky"] > DateTime.Now) && ((int)casopis["pocet_clanku"] < (int)casopis["kapacita"]))
+            foreach (DataRow temp_casopis in ds.Tables[0].Rows)
             {
-                return casopis;
+                casopis = temp_casopis;
+                var temp1 = temp_casopis["datum_uzaverky"].ToString();
+                var temp2 = temp_casopis["kapacita"].ToString();
+                var temp3 = temp_casopis["pocet_clanku"].ToString();
+                if ((/*(DateTime)casopis["datum_uzaverky"] > DateTime.Now) &&*/ ((int)temp_casopis["pocet_clanku"] < (int)temp_casopis["kapacita"])))
+                {
+                    return temp_casopis;
+                }
             }
         }
 
@@ -58,7 +61,10 @@ public class Database
         string datum_uzaverky_string = (string)select2.ExecuteScalar();
         int rok;
         if (casopis == null)
+        {
             rok = DateTime.Now.Year;
+        }
+            
         else
             rok = int.Parse(((DateTime)casopis["datum_uzaverky"]).ToString("yyyy")) + 1;
         datum_uzaverky = DateTime.Parse(datum_uzaverky_string + rok.ToString());
@@ -88,13 +94,6 @@ public class Database
             return ds.Tables[0].Rows[0];
         else
             return null;
-    }
-
-    public void removeClanekFromCasopis(int id_clanek)
-    {
-        SqlCommand update = new SqlCommand("UPDATE [Clanek] SET [casopis] = NULL WHERE [id_clanek] = @id_clanek", getConnection());
-        update.Parameters.AddWithValue("@id_clanek", id_clanek);
-        update.ExecuteNonQuery();
     }
 
     public void odeslatPosudek(string namety_k_diskuzi, char kriterium1, char kriterium2, char kriterium3, int souhrnne_vyjadreni, int clanek, int oponent)
@@ -308,7 +307,7 @@ public class Database
 
     public DataRow getClanekById(int id_clanek)
     {
-        SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor JOIN Casopis ON Clanek.casopis = Casopis.id_casopis WHERE id_clanek = @id_clanek", getConnection());
+        SqlCommand select = new SqlCommand("SELECT *, ([User].[jmeno] +' '+ [User].[prijmeni]) AS [cele_jmeno] FROM [Clanek] JOIN [User] ON [User].id_user = [Clanek].autor JOIN Stav ON stav.id_stav = Clanek.stav JOIN Casopis ON Clanek.casopis = Casopis.id_casopis WHERE id_clanek = @id_clanek", getConnection());
         select.Parameters.AddWithValue("@id_clanek", id_clanek);
         SqlDataAdapter sda = new SqlDataAdapter();
         DataSet ds = new DataSet();

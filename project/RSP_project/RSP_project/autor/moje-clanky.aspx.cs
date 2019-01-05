@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -29,6 +30,28 @@ public partial class zpetna_vazba : System.Web.UI.Page
 
             default:
                 return;
+        }
+    }
+
+    protected void GridView3_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType != DataControlRowType.DataRow)
+        {
+            return;
+        }
+
+        Button button = (Button)e.Row.FindControl("upravit_button");
+
+        string nazev_stav = (string)((DataRowView)e.Row.DataItem)["nazev_stav"];
+
+        if (nazev_stav == "zamitnut" || nazev_stav == "schvalen")
+        {
+            button.Enabled = false;
+            button.ToolTip = "Tento článek byl již schválen/zamítnut a nelze ho již upravovat!";
+        }
+        else
+        {
+            button.Enabled = true;
         }
     }
 }

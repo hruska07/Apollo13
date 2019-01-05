@@ -34,6 +34,12 @@ public partial class Zadani_prispevku : System.Web.UI.Page
             upravuje = true;
             cislo_clanku = int.Parse(Request.Params["clanek"]);
             puv_clanek = DB.getClanekById(cislo_clanku);
+            if (puv_clanek["nazev_stav"].ToString() == "zamitnut" || puv_clanek["nazev_stav"].ToString() == "schvalen")
+            {
+                Session["flashMsgType"] = "danger";
+                Session["flashMsgText"] = "Tento článek byl již schválen/zamítnut a nelze ho již upravovat!";
+                Response.Redirect("/autor/moje-clanky");
+            }
         }
 
         if (Request.Params["clanek"] != null && nadpis_clanku.Text == "")

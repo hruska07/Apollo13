@@ -189,20 +189,18 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
                 id_clanek = Convert.ToInt32(e.CommandArgument);
                 try
                 {
-                    DB.removeClanekFromCasopis(id_clanek);
                     DB.aktualizovatStavClanku(id_clanek, "zamitnut");
                     Session["flashMsgType"] = "success";
                     Session["flashMsgText"] = "Článek byl úspěšně zamítnut.";
 
                     //notifikace - autor
-/*
                     //notifikace - mail - autor
                     DataRow clanek = DB.getClanekById(Convert.ToInt32(id_clanek.ToString()));
                     DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
                     string message = "Váš článek: '" + clanek["nadpis_clanku"] + "' byl ZAMÍTNUT !";
                     nf.sendEmail(user["email"].ToString(), "Zamítnutý článek", message);
                     //notifikace - stranky - autor
-                    DB.insertNotification(int.Parse(clanek["autor"].ToString()), message);*/
+                    DB.insertNotification(int.Parse(clanek["autor"].ToString()), message);
 
                 }
                 catch (Exception ex)
