@@ -102,49 +102,57 @@ public partial class redaktor_zpristupneni_posudku : System.Web.UI.Page
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        //notifikace - oponent
-
-
-        DataRow posudek = DB.getPosudekById(Convert.ToInt32(GridView13.SelectedValue.ToString()));
-        DataRow uzivatel = DB.getUserById(Convert.ToInt32(posudek["oponent"].ToString()));
-        string message2 = "Redaktor zkontroloval váš posudek!";
-        nf.sendEmail(uzivatel["email"].ToString(), "Zkontrolovaný posudek", message2);
-        //notifikace - stranky - oponent
-        DB.insertNotification(int.Parse(posudek["oponent"].ToString()), message2);
-
-
-
-        zpristupnen = CheckBox1.Checked;
-        if (zpristupnen)
+        try
         {
-            //notifikace - autor
-           
-            //notifikace - mail - autor
-            DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView12.SelectedValue.ToString()));
-            DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
-            string message = "Váš článek: '" + clanek["nadpis_clanku"] + " má nové hodnocení !";
-            nf.sendEmail(user["email"].ToString(), "Zpřístupněný posudek", message);
-            //notifikace - stranky - autor
-            DB.insertNotification(int.Parse(clanek["autor"].ToString()), message);
+            //notifikace - oponent
+
+
+            DataRow posudek = DB.getPosudekById(Convert.ToInt32(GridView13.SelectedValue.ToString()));
+            DataRow uzivatel = DB.getUserById(Convert.ToInt32(posudek["oponent"].ToString()));
+            string message2 = "Redaktor zkontroloval váš posudek!";
+            nf.sendEmail(uzivatel["email"].ToString(), "Zkontrolovaný posudek", message2);
+            //notifikace - stranky - oponent
+            DB.insertNotification(int.Parse(posudek["oponent"].ToString()), message2);
 
 
 
+            zpristupnen = CheckBox1.Checked;
+            if (zpristupnen)
+            {
+                //notifikace - autor
 
+                //notifikace - mail - autor
+                DataRow clanek = DB.getClanekById(Convert.ToInt32(GridView12.SelectedValue.ToString()));
+                DataRow user = DB.getUserById(Convert.ToInt32(clanek["autor"].ToString()));
+                string message = "Váš článek: '" + clanek["nadpis_clanku"] + " má nové hodnocení !";
+                nf.sendEmail(user["email"].ToString(), "Zpřístupněný posudek", message);
+                //notifikace - stranky - autor
+                DB.insertNotification(int.Parse(clanek["autor"].ToString()), message);
+                Session["flashMsgType"] = "success";
+                Session["flashMsgText"] = "Posudek byl úspěšně uložen a odeslán autorovi.";
+            }
+            else
+            {
+                Session["flashMsgType"] = "success";
+                Session["flashMsgText"] = "Posudek byl úspěšně uložen. Pro odeslání autorovi zaškrtněte 'zpřístupněn' a odešlete znovu.";
+            }
+
+            komentar = TextBox1.Text;
+
+            SqlCommand update = new SqlCommand("update Posudek set zpristupnen=@zpristupnen,doplnujici_komentar=@doplnujici_komentar, namety_k_diskuzi=@namet, souhrnne_vyjadreni = @vyjadreni Where id_posudek=@id_posudek", conn);
+            update.Parameters.AddWithValue("@zpristupnen", zpristupnen);
+            update.Parameters.AddWithValue("@doplnujici_komentar", komentar);
+            update.Parameters.AddWithValue("@id_posudek", GridView13.SelectedValue);
+            update.Parameters.AddWithValue("@namet", TextBox2.Text);
+            update.Parameters.AddWithValue("@vyjadreni", DropDownList_souhrnne_vyjadreni.SelectedValue);
+            update.ExecuteNonQuery();
         }
-
-        komentar = TextBox1.Text;
-
-          SqlCommand update = new SqlCommand("update Posudek set zpristupnen=@zpristupnen,doplnujici_komentar=@doplnujici_komentar, namety_k_diskuzi=@namet, souhrnne_vyjadreni = @vyjadreni Where id_posudek=@id_posudek", conn);
-        update.Parameters.AddWithValue("@zpristupnen", zpristupnen);
-        update.Parameters.AddWithValue("@doplnujici_komentar", komentar);
-        update.Parameters.AddWithValue("@id_posudek", GridView13.SelectedValue);
-        update.Parameters.AddWithValue("@namet", TextBox2.Text);
-        update.Parameters.AddWithValue("@vyjadreni", DropDownList_souhrnne_vyjadreni.SelectedValue);
-        update.ExecuteNonQuery();
-
+        catch (Exception ex)
+        {
+            Session["flashMsgType"] = "danger";
+            Session["flashMsgText"] = "Nastala chyba! Kontaktujte programátory. Text chyby: " + ex.Message;
+        }
         Response.Redirect(Request.RawUrl);
-       
-
     }
 
     protected void GridView11_SelectedIndexChanged(object sender, EventArgs e)
